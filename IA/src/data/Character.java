@@ -3,7 +3,7 @@ package data;
 /**
  * This class is composed of the character's specifications
  *
- * @author gimardthibault
+ * @author gimardthibault,nathan,aymen
  *
  */
 
