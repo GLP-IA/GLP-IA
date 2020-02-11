@@ -29,8 +29,8 @@ public class Map {
 	 * @param map
 	 * @param dimension
 	 */
-	public Map(ArrayList<Element> map, int dimension) {
-		this.map = map;
+	public Map(int dimension) {
+		map = new ArrayList<Element>();
 		this.dimension = dimension;
 	}
 
