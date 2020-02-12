@@ -5,7 +5,7 @@ package data;
  * @author gimardthibault
  *
  */
-public abstract class Element {
+public class Element {
 	/**
 	 * The position in the x-axis 
 	 * 

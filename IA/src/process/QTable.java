@@ -1,14 +1,12 @@
 package process;
 
-import java.util.Arrays;
-
 /**
  *colonne 1: UP
  *colonne 2: DOWN
  *colonne 3: LEFT
  *colonne 4: RIGHT
  *
- *les lignes sont définit de la manière suivante:
+ *les lignes sont dï¿½finit de la maniï¿½re suivante:
  *ligne 0 <=> case 0 <=> (0,0); ligne 1 <=> case 1 <=> (0,1)...
  *
  */
@@ -18,7 +16,7 @@ public class QTable {
 
 	public QTable(int dimMap) {
 		this.dimMap = dimMap;
-		
+		qTable = new float [dimMap][4];
 		for(int i=0;i<dimMap;i++){
 			for(int j=0;j<4.;j++)
 				qTable[i][j]=0;
@@ -30,23 +28,21 @@ public class QTable {
 	}
 	/**
 	 * 
-	 * @param x,y correspondent au coord de la case où l'on v'a modifier l'espérance
-	 * @param esp espérance de la case
+	 * @param x,y correspondent au coord de la case oï¿½ l'on v'a modifier l'espï¿½rance
+	 * @param esp espï¿½rance de la case
 	 */
-	public void setQTable(int x, int y, float esp) { // on peut définir que (0,0) <=> case 1 comme ça on peut passer en parametre case*
+	public void setQTable(int x, int y, float esp) { // on peut dï¿½finir que (0,0) <=> case 1 comme ï¿½a on peut passer en parametre case*
 		qTable[x][y]=esp;
 	}
 
-	@Override
-	public String toString() {
+	public void afficher() {
 		System.out.println();
-		for (int i = 0; i < sqrt(dimMap); i++) {
-			for (int j = 0; j < sqrt(dimMap); j++) {
+		for (int i = 0; i < Math.sqrt(dimMap); i++) {
+			for (int j = 0; j < Math.sqrt(dimMap); j++) {
 				System.out.print("|" + qTable[i][j]);
 			}
 			System.out.println("|");
 		}
 		System.out.println();
-	}
 	}
 }

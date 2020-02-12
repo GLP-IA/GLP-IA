@@ -2,13 +2,17 @@ package process;
 import data.Character;
 import data.Element;
 /**
- * classe contenant les différentes actions possible par notre IA
+ * classe contenant les diffï¿½rentes actions possible par notre IA
  * 
  *
  */
 public class MoovCharacter {
 	private Character IA;
 	
+	public MoovCharacter(Character iA) {
+		super();
+		IA = iA;
+	}
 	public void moovUp(){
 		Element pos;
 		pos=IA.getPosition();

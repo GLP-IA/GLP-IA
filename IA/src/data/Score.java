@@ -19,8 +19,8 @@ public class Score {
 	 * 
 	 * @param evolution
 	 */
-	public Score(ArrayList<Integer> evolution) {
-		this.evolution = evolution;
+	public Score() {
+		evolution = new ArrayList<Integer>();
 	}
 	
 	/**
