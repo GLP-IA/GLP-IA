@@ -36,12 +36,11 @@ public class QTable {
 	}
 
 	public void afficher() {
-		System.out.println();
-		for (int i = 0; i < Math.sqrt(dimMap); i++) {
-			for (int j = 0; j < Math.sqrt(dimMap); j++) {
-				System.out.print("|" + qTable[i][j]);
+		for (int i = 0; i <dimMap; i++) {
+			for (int j = 0; j <4; j++) {
+				System.out.print(qTable[i][j]+" ");
 			}
-			System.out.println("|");
+			System.out.println();
 		}
 		System.out.println();
 	}

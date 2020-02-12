@@ -4,7 +4,7 @@ public class TestQtable {
 
 	public static void main(String[] args) {
 		QTable q = new QTable(9);
-		q.toString();
+		q.afficher();
 	}
 
 }

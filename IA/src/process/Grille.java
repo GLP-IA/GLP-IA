@@ -1,26 +1,27 @@
 package process;
 import data.Character;
+import data.Element;
 
 public class Grille {
 	private int nbLig;
 	private int nbCol;
-	private int [][]grille;
+	private Element [][]grille;
 	private Character c;
 	
 	public Grille(int n, int p,Character c) {
 		nbLig = n;
 		nbCol = p;
-		grille = new int [nbLig][nbCol];//rajouter perso en attribut
+		grille = new Element [nbLig][nbCol];//rajouter perso en attribut
 		this.c=c;
 		
 		for(int i = 0; i< nbLig; i ++) {
 			for(int j = 0; j< nbCol; j ++) {
-				grille [i][j] = 0;
+				grille [i][j] = null;
 			}
 		}
 	}
 	
-	public int getCase(int l, int c) {
+	public Element getCase(int l, int c) {
 		return grille[l][c];
 	}
 	
@@ -45,7 +46,7 @@ public class Grille {
 			for (int j = 0; j < nbCol; j++) {
 				if(i==c.getPosition().getCoordX() && j==c.getPosition().getCoordY())
 					System.out.print("X");
-				else if(grille[i][j]==0)
+				else if(grille[i][j]==null)
 					System.out.print("-");
 				System.out.print("|");
 			}

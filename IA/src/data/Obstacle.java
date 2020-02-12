@@ -14,7 +14,7 @@ public class Obstacle extends Element {
 	 * @see Obstacle#getType()
 	 * @see Obstacle#setType(String)
 	 */
-	private String type;
+	private String type; //mettre un  booléan "à heurté" plutot
 
 	/**
 	 * The constructor's class

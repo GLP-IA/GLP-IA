@@ -22,7 +22,7 @@ public class Hole extends Target {
 	 * @param coordX
 	 * @param coordY
 	 * @param achieved
-	 * @param holeType
+	 * @param holeType forme du trou (carré,triangle etc)
 	 * 
 	 * @see Hole#holeType
 	 */

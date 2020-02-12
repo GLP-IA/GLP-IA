@@ -23,7 +23,7 @@ public class Form extends Element{
 	 * 
 	 * @param coordX
 	 * @param coordY
-	 * @param formType
+	 * @param formType forme à placer (carré,triangle etc)
 	 * 
 	 * @see Form#formType
 	 */
