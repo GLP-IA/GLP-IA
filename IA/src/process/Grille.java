@@ -11,7 +11,7 @@ public class Grille {
 	public Grille(int n, int p,Character c) {
 		nbLig = n;
 		nbCol = p;
-		grille = new Element [nbLig][nbCol];//rajouter perso en attribut
+		grille = new Element [nbLig][nbCol];
 		this.c=c;
 		
 		for(int i = 0; i< nbLig; i ++) {

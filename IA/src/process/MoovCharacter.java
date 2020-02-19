@@ -9,9 +9,8 @@ import data.Element;
 public class MoovCharacter {
 	private Character IA;
 	
-	public MoovCharacter(Character iA) {
-		super();
-		IA = iA;
+	public MoovCharacter(Character IA) {
+		this.IA = IA;
 	}
 	public void moovUp(){
 		Element pos;

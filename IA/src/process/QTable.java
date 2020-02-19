@@ -8,7 +8,7 @@ package process;
  *
  *les lignes sont d�finit de la mani�re suivante:
  *ligne 0 <=> case 0 <=> (0,0); ligne 1 <=> case 1 <=> (0,1)...
- *
+ * 
  */
 public class QTable {
 	private float qTable[][];
