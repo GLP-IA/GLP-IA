@@ -11,28 +11,29 @@ package process;
  * 
  */
 public class QTable {
-	private float qTable[][];
+	private double qTable[][];
 	private int dimMap;
 
 	public QTable(int dimMap) {
 		this.dimMap = dimMap;
-		qTable = new float [dimMap][4];
+		qTable = new double [dimMap][4];
 		for(int i=0;i<dimMap;i++){
 			for(int j=0;j<4.;j++)
 				qTable[i][j]=0;
 		}
 	}
 
-	public float[][] getQTable() {
-		return qTable;
+	public double getEsp(int square,int moov) {
+		return qTable[square][moov];
 	}
 	/**
 	 * 
-	 * @param x,y correspondent au coord de la case oï¿½ l'on v'a modifier l'espï¿½rance
+	 * @param case on peut dï¿½finir que (0,0) <=> case 1 comme ï¿½a on peut passer en parametre case*
+	 * @param moov correspond au déplacement choisis (voir au dessus comment est définis chaque mouvement)
 	 * @param esp espï¿½rance de la case
 	 */
-	public void setQTable(int x, int y, float esp) { // on peut dï¿½finir que (0,0) <=> case 1 comme ï¿½a on peut passer en parametre case*
-		qTable[x][y]=esp;
+	public void setQTable(int square, int moov, double esp) {
+		qTable[square][moov]=esp;
 	}
 
 	public void afficher() {
