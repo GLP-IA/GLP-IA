@@ -24,7 +24,7 @@ public class QFonction {
 	 */
 	public void update(int x, int y,int oldX, int oldY,int reward) {
 		int moov;
-		States s=new States(25);
+		States s=new States(9);//la dimension de la carte est supposé statique donc elle peut etre codé en dur
 		int currentState=s.getState(x,y);
 		int oldState=s.getState(oldX,oldY);
 		//System.out.println(currentState+" "+oldState);
