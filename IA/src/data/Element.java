@@ -2,7 +2,7 @@ package data;
 /**
  * This class is composed of the element's specifications
  * 
- * @author gimardthibault
+ * @author gimardthibault, Nathan Virayie
  *
  */
 public class Element {
@@ -23,6 +23,7 @@ public class Element {
 	 */
 	private int coordY;
 	
+	private int reward;
 	/**
 	 * The constructor's class
 	 * 
@@ -32,9 +33,10 @@ public class Element {
 	 * @see Element#coordX
 	 * @see Element#coordY
 	 */
-	public Element(int coordX, int coordY) {
+	public Element(int coordX, int coordY, int reward) {
 		this.coordX = coordX;
 		this.coordY = coordY;
+		this.reward=reward;
 	}
 
 	/**
@@ -72,7 +74,12 @@ public class Element {
 	public void setCoordY(int coordY) {
 		this.coordY = coordY;
 	}
-	
-	
-	
+
+	public int getReward() {
+		return reward;
+	}
+
+	public void setReward(int reward) {
+		this.reward = reward;
+	}
 }

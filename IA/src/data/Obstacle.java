@@ -3,7 +3,7 @@ package data;
  * The class Obstacle extends Element.
  * The class Obstacle define the trap in the game
  * 
- * @author gimardthibault
+ * @author gimardthibault, Nathan Virayie
  *
  */
 public class Obstacle extends Element {
@@ -22,11 +22,12 @@ public class Obstacle extends Element {
 	 * @param coordX
 	 * @param coordY
 	 * @param type
+	 * @param malus
 	 * 
 	 * @see Obstacle#type
 	 */
-	public Obstacle(int coordX, int coordY, String type) {
-		super(coordX, coordY);
+	public Obstacle(int coordX, int coordY, int malus, String type) {
+		super(coordX, coordY, malus);
 		this.type = type;
 	}
 
