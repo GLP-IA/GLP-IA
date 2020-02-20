@@ -21,6 +21,22 @@ public class QTable {
 			for(int j=0;j<4.;j++)
 				qTable[i][j]=0;
 		}
+		/*definition des limites de la carte 5x5
+		 * qTable[0][0]=-900;
+		 * qTable[0][1]=-900;
+		 * qTable[4][0]=-900;
+		 * qTable[4][3]=-900;
+		 * qTable[5][2]=-900;
+		 * qTable[9][3]=-900;
+		 * qTable[10][2]=-900;
+		 * qTable[14][3]=-900;
+		 * qTable[15][2]=-900;
+		 * qTable[19][3]=-900;
+		 * qTable[20][2]=-900;
+		 * qTable[20][1]=-900;
+		 * qTable[24][3]=-900;
+		 * qTable[24][1]=-900;
+		 */
 	}
 
 	public double getEsp(int square,int moov) {
@@ -28,7 +44,7 @@ public class QTable {
 	}
 	/**
 	 * 
-	 * @param case on peut dï¿½finir que (0,0) <=> case 1 comme ï¿½a on peut passer en parametre case*
+	 * @param case on peut dï¿½finir que (0,0) <=> case 0 comme ï¿½a on peut passer en parametre case*
 	 * @param moov correspond au déplacement choisis (voir au dessus comment est définis chaque mouvement)
 	 * @param esp espï¿½rance de la case
 	 */

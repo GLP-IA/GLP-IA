@@ -44,7 +44,7 @@ public class Grille {
 		System.out.println();
 		for (int i = 0; i < nbLig; i++) {
 			for (int j = 0; j < nbCol; j++) {
-				if(i==c.getPosition().getCoordX() && j==c.getPosition().getCoordY())
+				if(i==c.getCoordX() && j==c.getCoordY())
 					System.out.print("X");
 				else if(grille[i][j]==null)
 					System.out.print("-");

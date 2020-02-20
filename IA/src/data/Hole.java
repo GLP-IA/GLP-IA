@@ -27,7 +27,7 @@ public class Hole extends Target {
 	 * @see Hole#holeType
 	 */
 	public Hole(int coordX, int coordY, boolean achieved, String holeType) {
-		super(coordX, coordY, achieved);
+		super(0,achieved);
 		this.holeType = holeType;
 	}
 	

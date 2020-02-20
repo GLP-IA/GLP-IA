@@ -1,6 +1,5 @@
 package process;
 import data.Character;
-import data.Element;
 /**
  * classe contenant les diff�rentes actions possible par notre IA
  * 
@@ -13,27 +12,15 @@ public class MoovCharacter {
 		this.IA = IA;
 	}
 	public void moovUp(){
-		Element pos;
-		pos=IA.getPosition();
-		pos.setCoordX(pos.getCoordX()-1);
-		IA.setPosition(pos);
+		IA.setCoordX(IA.getCoordX()-1);
 	}
 	public void moovDown(){
-		Element pos;
-		pos=IA.getPosition();
-		pos.setCoordX(pos.getCoordX()+1);
-		IA.setPosition(pos);
-	}
-	public void moovRight(){
-		Element pos;
-		pos=IA.getPosition();
-		pos.setCoordY(pos.getCoordY()+1);
-		IA.setPosition(pos);
+		IA.setCoordX(IA.getCoordX()+1);
 	}
 	public void moovLeft(){
-		Element pos;
-		pos=IA.getPosition();
-		pos.setCoordY(pos.getCoordY()-1);
-		IA.setPosition(pos);
+		IA.setCoordY(IA.getCoordY()-1);
+	}
+	public void moovRight(){
+		IA.setCoordY(IA.getCoordY()+1);
 	}
 }

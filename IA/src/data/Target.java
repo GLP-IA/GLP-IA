@@ -3,7 +3,7 @@ package data;
 /**
  * The class Target permits to define where the robots have to go.
  * 
- * @author gimardthibault, Nathan Virayie
+ * @author gimardthibault
  *
  */
 public class Target extends Element{
@@ -18,14 +18,13 @@ public class Target extends Element{
 	/**
 	 * The constructor's class
 	 * 
-	 * @param coordX
-	 * @param coordY
+	 * @param reward
 	 * @param achieved
 	 * 
 	 * @see Target#achieved
 	 */
-	public Target(int coordX, int coordY, int reward, boolean achieved) {
-		super(coordX, coordY, reward);
+	public Target(int reward, boolean achieved) {
+		super(reward);
 		this.achieved = achieved;
 	}
 
@@ -45,5 +44,5 @@ public class Target extends Element{
 	 */
 	public void setAchieved(boolean achieved) {
 		this.achieved = achieved;
-	}	
+	}
 }

@@ -8,7 +8,7 @@ package data;
  * @author gimardthibault
  *
  */
-public class Form extends Element{
+public class Form{
 	/**
 	 * The form's type
 	 * 
@@ -20,20 +20,16 @@ public class Form extends Element{
 	
 	/**
 	 * The constructor's class
-	 * 
-	 * @param coordX
-	 * @param coordY
 	 * @param formType forme à placer (carré,triangle etc)
 	 * 
 	 * @see Form#formType
 	 */
-	public Form(int coordX, int coordY, String formType) {
-		super(coordX, coordY);
+	public Form(String formType) {
 		this.formType = formType;
 	}
 
 	/**
-	 * Get the type of the actual forme
+	 * Get the type of the actual form
 	 * 
 	 * @return the formType of the class Form
 	 */

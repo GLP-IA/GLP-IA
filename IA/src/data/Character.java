@@ -14,7 +14,8 @@ public class Character {
 	 * @see getPosition()
 	 * @see setPosition(Element position)
 	 */
-	private Element position;
+	private int coordx;
+	private int coordY;
 	
 	/**
 	 * The character's score
@@ -33,21 +34,13 @@ public class Character {
 	 * @see Character#position
 	 * @see Character#scores
 	 */
-	public Character(Element position, Score scores) {
+	public Character(int coordx, int coordY, Score scores) {
 		super();
-		this.position = position;
+		this.coordx = coordx;
+		this.coordY = coordY;
 		this.scores = scores;
 	}
 	
-	/**
-	 * The character's position
-	 * 
-	 * @return the character's position
-	 */
-	public Element getPosition() {
-		return position;
-	}
-
 	/**
 	 * Get the character's scores
 	 * 
@@ -62,8 +55,19 @@ public class Character {
 	 * 
 	 * @param position
 	 */
-	public void setPosition(Element position) {
-		this.position = position;
+	public int getCoordX() {
+		return coordx;
 	}
 
+	public void setCoordX(int coordx) {
+		this.coordx = coordx;
+	}
+
+	public int getCoordY() {
+		return coordY;
+	}
+
+	public void setCoordY(int coordY) {
+		this.coordY = coordY;
+	}
 }
