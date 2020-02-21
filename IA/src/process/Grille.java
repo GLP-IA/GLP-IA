@@ -55,7 +55,7 @@ public class Grille {
 				else if(getCase(i,j).getReward()==100)
 					System.out.print("T");
 				else
-					System.out.print("0");
+					System.out.print("-");
 				System.out.print("|");
 			}
 			System.out.println();

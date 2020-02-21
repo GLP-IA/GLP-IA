@@ -7,20 +7,26 @@ import data.Character;
  */
 public class MoovCharacter {
 	private Character IA;
+	private int dimMap;
 	
-	public MoovCharacter(Character IA) {
+	public MoovCharacter(Character IA,int dimMap) {
 		this.IA = IA;
+		this.dimMap=dimMap;
 	}
 	public void moovUp(){
-		IA.setCoordX(IA.getCoordX()-1);
+		if(IA.getCoordX()>0)
+			IA.setCoordX(IA.getCoordX()-1);
 	}
 	public void moovDown(){
-		IA.setCoordX(IA.getCoordX()+1);
+		if(IA.getCoordX()<Math.sqrt(dimMap)-1)
+			IA.setCoordX(IA.getCoordX()+1);
 	}
 	public void moovLeft(){
-		IA.setCoordY(IA.getCoordY()-1);
+		if(IA.getCoordY()>0)
+			IA.setCoordY(IA.getCoordY()-1);
 	}
 	public void moovRight(){
-		IA.setCoordY(IA.getCoordY()+1);
+		if(IA.getCoordY()<Math.sqrt(dimMap)-1)
+			IA.setCoordY(IA.getCoordY()+1);
 	}
 }
