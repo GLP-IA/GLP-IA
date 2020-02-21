@@ -23,7 +23,7 @@ public class QFonction {
 	 * @param reward récompense reçu lors du déplacement
 	 */
 	public void update(int x, int y,int oldX, int oldY,int reward) {
-		int moov;
+		int moov =0;
 		States s=new States(9);//la dimension de la carte est supposé statique donc elle peut etre codé en dur
 		int currentState=s.getState(x,y);
 		int oldState=s.getState(oldX,oldY);
@@ -36,7 +36,7 @@ public class QFonction {
 			moov=1;//a bougé en bas
 		if(y<oldY)
 			moov=2;//a bougé à gauche
-		else
+		if(y>oldY)
 			moov=3;//a bougé à droite
 		
 		//calcul de la nouvelle espérance
