@@ -11,7 +11,7 @@ public class testMouvement {
 		Character c = new Character(0,0,s);
 		MoovCharacter mv =new MoovCharacter(c);
 		
-		Grille g1 = new Grille(15, 15, c);
+		Grille g1 = new Grille(15, 15,c.getCoordX(),c.getCoordY());
 		
 		g1.afficher();
 		mv.moovUp();
