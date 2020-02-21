@@ -51,7 +51,35 @@ public class QTable {
 	public void setQTable(int square, int moov, double esp) {
 		qTable[square][moov]=esp;
 	}
+	
+	/**
+	 * Donne l'espérance max à un état(case) donné
+	 * 
+	 * @param state case où l'on se trouve
+	 * @return l'espérance maximal à l'état donné
+	 */
+	public double max(int state) {
+		double m=qTable[state][0];
+			for(int j=1;j<4.;j++) {
+				if(m<qTable[state][j])
+					m=qTable[state][j];
+			}
+		return m;
+	}
 
+	/**
+	 * Permet de savoir dans quel direction il faut aller pour avoir la meilleur espérance
+	 * 
+	 * @param state case où l'on se trouve
+	 * @return la direction où l'espérance est la plus élevé
+	 */
+	public int maxDirection(int state) {
+		int j=0;
+		while(qTable[state][j]!=max(state))
+			j++;
+	return j;
+	}
+	
 	public void afficher() {
 		for (int i = 0; i <dimMap; i++) {
 			for (int j = 0; j <4; j++) {
