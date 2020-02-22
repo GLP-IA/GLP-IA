@@ -11,7 +11,7 @@ import java.awt.event.MouseMotionListener;
 public class GUI extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
-
+	
 	Image image;
 	
 	//Space between the cells
@@ -22,6 +22,7 @@ public class GUI extends JFrame{
 	
 	Random rand = new Random();
 	
+	//ftfyigft
 	int [][] obstacle = new int [5][5];
 	int [][] perso = new int[5][5];
 	int [][] objective = new int[5][5];
