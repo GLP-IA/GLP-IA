@@ -19,10 +19,14 @@ public class TestCore {
 		Target t=new Target(reward,false);
 		
 		//pacement des obstacles
-		g.placer(1,3,new Obstacle (-500,"wall"));
-		g.placer(4,3,new Obstacle (-500,"wall"));
-		g.placer(3,2,new Obstacle (-500,"wall"));
+		g.placer(0,1,new Obstacle (-500,"wall"));
 		g.placer(1,1,new Obstacle (-500,"wall"));
+		g.placer(1,3,new Obstacle (-500,"wall"));
+		g.placer(2,3,new Obstacle (-500,"wall"));
+		g.placer(2,3,new Obstacle (-500,"wall"));
+		g.placer(3,0,new Obstacle (-500,"wall"));
+		g.placer(3,2,new Obstacle (-500,"wall"));
+		g.placer(3,3,new Obstacle (-500,"wall"));
 		
 		g.placer(4,4,t);//placement de la case cible
 		
