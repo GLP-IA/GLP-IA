@@ -11,32 +11,32 @@ public class QLearningCore {
 	private Target t;
 	private Character character;
 	private QTable qTable;
-	private double explorationRate;
-	private double rewardMatter;
+	private double gamma = 0.9; // exploration rate , détermine l'importance des futures récompenses , facteur 0 l'agent ne considéra que les récompenses actuelles, un facteur approchant 1 il visera une récompense élevée à long terme 
+	private double alpha = 0.2; // learning rate : facteur 0 empêchera l'agent d'apprendre, facteur de 1 ne  considérerait que les informations les plus récentes
 		
-	public QLearningCore(Grille map, Target t, double explorationRate, double rewardMatter) {
+	public QLearningCore(Grille map, Target t){
 		this.map = map;
 		this.t=t;
-		character = new Character(0,0,new Score());
+		character = new Character(0,0,new Score());//positionne le personnage
 		qTable = new QTable(25);//la dimension de la carte est fixe donc peut etre codé en dur ici 5x5
-		this.explorationRate = explorationRate;
-		this.rewardMatter = rewardMatter;
 	}
 
 	public void run() {
-		QFonction f=new QFonction(qTable,explorationRate,rewardMatter);
+		QFonction f=new QFonction(qTable,gamma,alpha);
 		MoovCharacter mv =new MoovCharacter(character,25);
 		while(!t.isAchieved()) {
 			Random rand = new Random();
-			double exp=rand.nextDouble();
-			System.out.println("exp:"+exp+ "exploration Rate:"+explorationRate);
-			if(exp<explorationRate)
+			double exp=rand.nextDouble(); // exp : 
+			System.out.println("exp: "+exp+ " exploration Rate: "+ gamma);
+			if(exp<gamma)
 				learning(f,mv);
 			else
 				application(f,mv);
 			
-			if(map.getCase(character.getCoordX(),character.getCoordY()).getReward()==100) //on considere que l'objectif a pour recompense 100
-				t.setAchieved(true);
+			if(map.getCase(character.getCoordX(),character.getCoordY()).getReward()==100) { //on considere que l'objectif a pour recompense 100
+				t.setAchieved(true); //l'objectif est alors atteint
+				System.out.println("\n >> Bravo l'objectif est atteint ! <<");
+			}
 			
 			//explorationRate-=0.2;
 			map.hasMooved(character.getCoordX(),character.getCoordY());
@@ -52,21 +52,30 @@ public class QLearningCore {
 		//generation d'un nombre aléatoirement entre 0 et 4 pour choisir le deplacement a effectue
 		Random rand = new Random();	
 		int r=rand.nextInt(4);
-		System.out.println("deplacement:"+r);
-		if(r==0)
+		//System.out.println("deplacement:"+r);
+		System.out.println(">> EXPLORATION (deplacement aleatoire) <<");
+		
+		if(r==0) {
 			mv.moovUp();
-
-		if(r==1)
+			System.out.println("direction : UP ");
+		}
+		if(r==1) {
 			mv.moovDown();
+			System.out.println("direction : DOWN ");
+		}
 
-		if(r==2) 
+		if(r==2) {
 			mv.moovLeft();
+			System.out.println("direction : LEFT ");
+		}
 	
-		if(r==3) 
+		if(r==3) {
 			mv.moovRight();
+			System.out.println("direction : RIGHT ");
+		}
 		
 		Element pos=map.getCase(character.getCoordX(),character.getCoordY());
-		reward=pos.getReward();
+		reward = pos.getReward();
 		f.update(character.getCoordX(),character.getCoordY(),oldX,oldY,reward);
 		System.out.println("coord:"+character.getCoordX()+","+character.getCoordY());
 	}
@@ -76,21 +85,26 @@ public class QLearningCore {
 		int oldY=character.getCoordY();
 		int reward;
 		
-		//utilise la QTable pour bouger
+		//utilise la QTable pour se deplacer
 		int nextDir=qTable.maxDirection(new States(25).getState(oldX,oldY));
-		System.out.println("nextDir:"+nextDir);
-		if(nextDir==0)
+		//System.out.println("nextDir :"+nextDir);
+		System.out.println(">> EXPLOITATION (utilise la Qtable) <<");
+		if(nextDir==0) {
 			mv.moovUp();
-
-		if(nextDir==1)
+			System.out.println("direction : UP ");
+		}
+		if(nextDir==1) {
 			mv.moovDown();
-
-		if(nextDir==2) 
+			System.out.println("direction : DOWN ");
+		}
+		if(nextDir==2) { 
 			mv.moovLeft();
-
-		if(nextDir==3) 
+			System.out.println("direction : LEFT ");
+		}
+		if(nextDir==3) {
 			mv.moovRight();
-				
+			System.out.println("direction : RIGHT ");
+		}		
 		Element pos=map.getCase(character.getCoordX(),character.getCoordY());
 		reward=pos.getReward();
 		f.update(character.getCoordX(),character.getCoordY(),oldX,oldY,reward);
