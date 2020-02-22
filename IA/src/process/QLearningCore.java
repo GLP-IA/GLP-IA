@@ -116,6 +116,10 @@ public class QLearningCore {
 		t.setAchieved(false);
 	}
 	
+	public void dicreasedExploration() {
+		gamma-=gamma*0.2;
+	}
+	
 	public void result() {
 		qTable.afficher();
 	}
