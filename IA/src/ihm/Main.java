@@ -1,6 +1,5 @@
 package ihm;
 
-import java.util.*;
 
 public class Main implements Runnable {
 	
