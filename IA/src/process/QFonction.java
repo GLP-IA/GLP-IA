@@ -4,9 +4,7 @@ public class QFonction {
 	private QTable q;
 	private double gamma = 0.9; // exploration rate , détermine l'importance des futures récompenses , facteur 0 l'agent ne considéra que les récompenses actuelles, un facteur approchant 1 il visera une récompense élevée à long terme 
 	private double alpha = 0.2; // learning rate : facteur 0 empêchera l'agent d'apprendre, facteur de 1 ne  considérerait que les informations les plus récentes
-	private int mapWidth = 5;
-	private int mapHeight = 5;
-	private int mapCount = mapWidth * mapHeight;
+	private int mapCount = 25;
 
 	
 	public QFonction(QTable q, double gamma, double alpha) {
