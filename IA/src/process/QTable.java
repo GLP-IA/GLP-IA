@@ -79,8 +79,10 @@ public class QTable {
 	
 	public void afficher() {
 		for (int i = 0; i <dimMap; i++) {
+			System.out.print("From state " + i + ":  ");
 			for (int j = 0; j <4; j++) {
-				System.out.print(qTable[i][j]+" ");
+				//System.out.print(qTable[i][j]+" ");
+				System.out.printf("%6.2f ",(qTable[i][j]));
 			}
 			System.out.println();
 		}
