@@ -26,7 +26,7 @@ public class QLearningCore {
 		MoovCharacter mv =new MoovCharacter(character,25);
 		while(!t.isAchieved()) {
 			Random rand = new Random();
-			double exp=rand.nextDouble(); // exp : 
+			double exp=rand.nextDouble();
 			System.out.println("exp: "+exp+ " exploration Rate: "+ gamma);
 			if(exp<gamma)
 				learning(f,mv);
@@ -34,8 +34,8 @@ public class QLearningCore {
 				application(f,mv);
 			
 			if(map.getCase(character.getCoordX(),character.getCoordY()).getReward()==100) { //on considere que l'objectif a pour recompense 100
-				t.setAchieved(true); //l'objectif est alors atteint
-				System.out.println("\n >> Bravo l'objectif est atteint ! <<");
+				t.setAchieved(true);
+				//System.out.println("\n >> Bravo l'objectif est atteint ! <<");
 			}
 			
 			//explorationRate-=0.2;
@@ -115,5 +115,9 @@ public class QLearningCore {
 		character.setCoordY(0);
 		character.setCoordX(0);
 		t.setAchieved(false);
+	}
+	
+	public void result() {
+		qTable.afficher();
 	}
 }
