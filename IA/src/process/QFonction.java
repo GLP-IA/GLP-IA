@@ -2,13 +2,17 @@ package process;
 
 public class QFonction {
 	private QTable q;
-	private double explorationRate;
-	private double rewardMatter;
+	private double gamma = 0.9; // exploration rate , détermine l'importance des futures récompenses , facteur 0 l'agent ne considéra que les récompenses actuelles, un facteur approchant 1 il visera une récompense élevée à long terme 
+	private double alpha = 0.2; // learning rate : facteur 0 empêchera l'agent d'apprendre, facteur de 1 ne  considérerait que les informations les plus récentes
+	private int mapWidth = 5;
+	private int mapHeight = 5;
+	private int mapCount = mapWidth * mapHeight;
+
 	
-	public QFonction(QTable q, double explorationRate, double rewardMatter) {
+	public QFonction(QTable q, double gamma, double alpha) {
 		this.q = q;
-		this.explorationRate = explorationRate;
-		this.rewardMatter = rewardMatter;
+		this.gamma = gamma;
+		this.alpha = alpha;
 	}
 	
 	/**
@@ -24,9 +28,11 @@ public class QFonction {
 	 */
 	public void update(int x, int y,int oldX, int oldY,int reward) {
 		int moov =0;
-		States s=new States(9);//la dimension de la carte est supposé statique donc elle peut etre codé en dur
+		States s=new States(mapCount);//la dimension de la carte est supposé statique donc elle peut etre codé en dur
 		int currentState=s.getState(x,y);
 		int oldState=s.getState(oldX,oldY);
+        double maxQ = max(currentState);
+	
 		//System.out.println(currentState+" "+oldState);
 		double esp;
 		//on suppose que le surplace est impossible
@@ -40,8 +46,17 @@ public class QFonction {
 			moov=3;//a bougé à droite
 		
 		//calcul de la nouvelle espérance
-		esp=(1-explorationRate)*q.getEsp(oldState,moov)+explorationRate*(reward+rewardMatter*q.getEsp(currentState,moov));//vérifier si c'est la formule est complète
+		esp = q.getEsp(oldState,moov) + alpha *(reward + gamma * (maxQ - (q.getEsp(oldState,moov))));  //vérifier si c'est la formule est complète
 		q.setQTable(oldState,moov,esp);
+	}
+	
+	public double max(int state) {
+		double m=q.getEsp(state,0);
+			for(int j=1;j<4.;j++) {
+				if(m<q.getEsp(state,j))
+					m=q.getEsp(state,j);
+			}
+		return m;
 	}
 	
 }
