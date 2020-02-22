@@ -14,6 +14,8 @@ public class QTable {
 	private double qTable[][];
 	private int dimMap;
 
+	
+	//initialise la Qtable à 0
 	public QTable(int dimMap) {
 		this.dimMap = dimMap;
 		qTable = new double [dimMap][4];
@@ -39,8 +41,8 @@ public class QTable {
 		 */
 	}
 
-	public double getEsp(int square,int moov) {
-		return qTable[square][moov];
+	public double getEsp(int state,int moov) {
+		return qTable[state][moov];
 	}
 	/**
 	 * 
@@ -48,8 +50,8 @@ public class QTable {
 	 * @param moov correspond au déplacement choisis (voir au dessus comment est définis chaque mouvement)
 	 * @param esp espï¿½rance de la case
 	 */
-	public void setQTable(int square, int moov, double esp) {
-		qTable[square][moov]=esp;
+	public void setQTable(int state, int moov, double esp) {
+		qTable[state][moov]=esp;
 	}
 	
 	/**
@@ -81,12 +83,15 @@ public class QTable {
 	}
 	
 	public void afficher() {
+		System.out.print("--------------------------------");
+		System.out.println();
 		for (int i = 0; i <dimMap; i++) {
 			for (int j = 0; j <4; j++) {
-				System.out.print(qTable[i][j]+" ");
+				System.out.print(qTable[i][j]+"    ");
 			}
 			System.out.println();
 		}
+		System.out.print("--------------------------------");
 		System.out.println();
 	}
 }
