@@ -26,12 +26,12 @@ public class TestCore {
 		g.afficher();
 		
 		QLearningCore core= new QLearningCore(g,t);
-		for (int i = 1; i <= 5; i++) {
-			
-		System.out.print(">>>>>>>>>>>>>>>>>>>>>> DEBUT EPISODE " + i + " <<<<<<<<<<<<<<<<<<<<<<<<<<< \n");
-		core.run();
-		core.reset();
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>> FIN EPISODE " + i + " <<<<<<<<<<<<<<<<<<<<<<<<<<< \n");
+		for (int i = 1; i <= 20; i++) {
+			System.out.print(">>>>>>>>>>>>>>>>>>>>>> DEBUT EPISODE " + i + " <<<<<<<<<<<<<<<<<<<<<<<<<<< \n");
+			core.run();
+			core.reset();
+			core.dicreasedExploration();
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>> FIN EPISODE " + i + " <<<<<<<<<<<<<<<<<<<<<<<<<<< \n");
 		}
 		System.out.println("\t\tQTABLE FINAL");
 		core.result();

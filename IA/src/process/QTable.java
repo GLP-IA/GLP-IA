@@ -14,35 +14,30 @@ public class QTable {
 	private double qTable[][];
 	private int dimMap;
 
-	
-	//initialise la Qtable à 0
 	public QTable(int dimMap) {
 		this.dimMap = dimMap;
 		qTable = new double [dimMap][4];
 		for(int i=0;i<dimMap;i++){
-			for(int j=0;j<4.;j++)
-				qTable[i][j]=0;
+			for(int j=0;j<4.;j++) {
+				if(i==5%2 || i==0)
+					qTable[i][2]=-900;//moovLeft quand on est a gauche
+				if(i<5)
+					qTable[i][0]=-900; //moovUp quand on est en haut
+				if(i>=20)
+					qTable[i][1]=-900; //moovDown quand on est en bas
+				else
+					qTable[i][j]=0;
+			}
 		}
-		/*definition des limites de la carte 5x5
-		 * qTable[0][0]=-900;
-		 * qTable[0][1]=-900;
-		 * qTable[4][0]=-900;
-		 * qTable[4][3]=-900;
-		 * qTable[5][2]=-900;
-		 * qTable[9][3]=-900;
-		 * qTable[10][2]=-900;
-		 * qTable[14][3]=-900;
-		 * qTable[15][2]=-900;
-		 * qTable[19][3]=-900;
-		 * qTable[20][2]=-900;
-		 * qTable[20][1]=-900;
-		 * qTable[24][3]=-900;
-		 * qTable[24][1]=-900;
-		 */
+		//definition des limites de la carte 5x5
+		qTable[4][3]=-900;
+		qTable[9][3]=-900;
+		qTable[14][3]=-900;
+		qTable[24][3]=-900;
 	}
 
-	public double getEsp(int state,int moov) {
-		return qTable[state][moov];
+	public double getEsp(int square,int moov) {
+		return qTable[square][moov];
 	}
 	/**
 	 * 
@@ -50,8 +45,8 @@ public class QTable {
 	 * @param moov correspond au déplacement choisis (voir au dessus comment est définis chaque mouvement)
 	 * @param esp espï¿½rance de la case
 	 */
-	public void setQTable(int state, int moov, double esp) {
-		qTable[state][moov]=esp;
+	public void setQTable(int square, int moov, double esp) {
+		qTable[square][moov]=esp;
 	}
 	
 	/**
@@ -83,15 +78,12 @@ public class QTable {
 	}
 	
 	public void afficher() {
-		System.out.print("--------------------------------");
-		System.out.println();
 		for (int i = 0; i <dimMap; i++) {
 			for (int j = 0; j <4; j++) {
-				System.out.print(qTable[i][j]+"    ");
+				System.out.print(qTable[i][j]+" ");
 			}
 			System.out.println();
 		}
-		System.out.print("--------------------------------");
 		System.out.println();
 	}
 }
