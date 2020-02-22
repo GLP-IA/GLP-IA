@@ -17,24 +17,27 @@ public class TestCore {
 		
 		Grille g = new Grille(mapWidth, mapHeight, 0,0); 
 		Target t=new Target(reward,false);
-		Obstacle O = new Obstacle (-500,"MUR");
-		g.placer(1,3,O);//placement de la case cible
-
-		g.placer(4,4,t);//placement de la case cible
 		
+		//pacement des obstacles
+		g.placer(1,3,new Obstacle (-500,"wall"));
+		g.placer(4,3,new Obstacle (-500,"wall"));
+		g.placer(3,2,new Obstacle (-500,"wall"));
+		g.placer(1,1,new Obstacle (-500,"wall"));
+		
+		g.placer(4,4,t);//placement de la case cible
 		
 		g.afficher();
 		
 		QLearningCore core= new QLearningCore(g,t);
-		for (int i = 1; i <= 20; i++) {
+		for (int i = 1; i <= 100; i++) {
 			System.out.print(">>>>>>>>>>>>>>>>>>>>>> DEBUT EPISODE " + i + " <<<<<<<<<<<<<<<<<<<<<<<<<<< \n");
 			core.run();
-			core.reset();
-			core.dicreasedExploration();
+			core.reset();	
 			System.out.println(">>>>>>>>>>>>>>>>>>>>>> FIN EPISODE " + i + " <<<<<<<<<<<<<<<<<<<<<<<<<<< \n");
 		}
 		System.out.println("\t\tQTABLE FINAL");
 		core.result();
+		/*core.dicreasedExploration();
+		core.run();*/
 	}
-
 }

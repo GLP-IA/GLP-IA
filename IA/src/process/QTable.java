@@ -78,7 +78,7 @@ public class QTable {
 	}
 	
 	public void afficher() {
-		 System.out.printf("%10s", "States: ");
+		 System.out.printf("%10s", "NextMoov: ");
 	            System.out.printf("%10s", "UP");
 	            System.out.printf("%8s", "DOWN");
 	            System.out.printf("%8s", "LEFT");
@@ -95,7 +95,7 @@ public class QTable {
 			System.out.println();
 		}
 		
-		System.out.printf("%10s", "States: ");
+		System.out.printf("%10s", "NextMoov: ");
         System.out.printf("%10s", "UP");
         System.out.printf("%8s", "DOWN");
         System.out.printf("%8s", "LEFT");
