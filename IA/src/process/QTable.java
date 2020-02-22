@@ -78,6 +78,14 @@ public class QTable {
 	}
 	
 	public void afficher() {
+		 System.out.printf("%10s", "States: ");
+	            System.out.printf("%10s", "UP");
+	            System.out.printf("%8s", "DOWN");
+	            System.out.printf("%8s", "LEFT");
+	            System.out.printf("%8s", "RIGHT");
+
+	        
+	        System.out.println();
 		for (int i = 0; i <dimMap; i++) {
 			System.out.print("From state " + i + ":  ");
 			for (int j = 0; j <4; j++) {
@@ -86,6 +94,12 @@ public class QTable {
 			}
 			System.out.println();
 		}
-		System.out.println();
+		
+		System.out.printf("%10s", "States: ");
+        System.out.printf("%10s", "UP");
+        System.out.printf("%8s", "DOWN");
+        System.out.printf("%8s", "LEFT");
+        System.out.printf("%8s", "RIGHT");
+        System.out.println();
 	}
 }
