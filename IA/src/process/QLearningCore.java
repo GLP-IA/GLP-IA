@@ -42,7 +42,6 @@ public class QLearningCore {
 			map.hasMooved(character.getCoordX(),character.getCoordY());
 			map.afficher();
 		}
-		reset();
 	}
 	public void learning(QFonction f,MoovCharacter mv) {
 		int reward;	
