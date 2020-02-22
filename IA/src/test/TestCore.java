@@ -15,8 +15,8 @@ public class TestCore {
 	public static void main(String[] args) {
 		
 		
-		Grille g = new Grille(mapWidth, mapHeight, 0,0); //pourquoi 0,0 ?
-		Target t=new Target(reward,false); // on peut coder en dure le false
+		Grille g = new Grille(mapWidth, mapHeight, 0,0); 
+		Target t=new Target(reward,false);
 		Obstacle O = new Obstacle (-500,"MUR");
 		g.placer(1,3,O);//placement de la case cible
 
@@ -33,6 +33,8 @@ public class TestCore {
 		core.reset();
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>> FIN EPISODE " + i + " <<<<<<<<<<<<<<<<<<<<<<<<<<< \n");
 		}
+		System.out.println("\t\tQTABLE FINAL");
+		core.result();
 	}
 
 }
