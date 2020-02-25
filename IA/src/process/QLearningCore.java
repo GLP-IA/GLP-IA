@@ -40,7 +40,7 @@ public class QLearningCore {
 			
 			//explorationRate-=0.2;
 			map.hasMooved(character.getCoordX(),character.getCoordY());
-			map.afficher();
+			//map.afficher();
 		}
 	}
 	public void learning(QFonction f,MoovCharacter mv) {
@@ -114,7 +114,7 @@ public class QLearningCore {
 		character.setCoordX(rand.nextInt(5));
 		map.hasMooved(character.getCoordX(),character.getCoordY());
 		t.setAchieved(false);
-		map.afficher();
+		//map.afficher();
 	}
 	
 	public void dicreasedExploration() {

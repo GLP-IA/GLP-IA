@@ -1,11 +1,17 @@
 package ihm;
 
 import javax.swing.*;
+
+import data.Target;
+
 import java.util.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+
+import process.Grille;
+import process.QLearningCore;
 
 
 public class GUI extends JFrame{
@@ -22,6 +28,12 @@ public class GUI extends JFrame{
 	
 	Random rand = new Random();
 	
+	private static int reward = 100;
+	private static int mapWidth = 5;
+	private static int mapHeight = 5;
+	Grille map = new Grille(mapWidth, mapHeight,0,0); 
+	Target t=new Target(reward,false);
+
 	//ftfyigft
 	int [][] obstacle = new int [5][5];
 	int [][] perso = new int[5][5];
@@ -35,7 +47,7 @@ public class GUI extends JFrame{
 		this.setVisible(true);
 		this.setResizable(false);
 
-		/**
+		/*
 		int nbObstacle = rand.nextInt(6);
 		while(nbObstacle < 2) {
 			nbObstacle = rand.nextInt(6);
@@ -47,7 +59,7 @@ public class GUI extends JFrame{
 			System.out.println("The number of obstacles is " + nbObstacle);
 			
 		}
-		**/
+		
 		obstacle[1][0]=1;
 		obstacle[1][1]=1;
 		obstacle[3][1]=1;
@@ -58,17 +70,26 @@ public class GUI extends JFrame{
 
 		perso[0][0]=2;
 		
-		objective[4][4]=3;
+		objective[4][4]=3;*/
 		
+		map.initMap(4,4,t);//initialise la carte
+		QLearningCore core= new QLearningCore(map,t);
 
 		Board board = new Board();
 		this.setContentPane(board);
 		
-		Move move = new Move();
+		for (int i = 1; i <= 100; i++) {
+			core.run();	 //il faudrait ralentir l'exécution du programme pour voir le dépacement du personnage
+			core.reset();	
+		}
+		System.out.println("\t\tQTABLE FINAL");
+		core.result();
+		
+		/*Move move = new Move();
 		this.addMouseMotionListener(move);
 		
 		Click click = new Click();
-		this.addMouseListener(click);
+		this.addMouseListener(click);*/
 	}
 	public class Board extends JPanel{
 		
@@ -82,17 +103,16 @@ public class GUI extends JFrame{
 			g.fillRect(0, 0, 1286, 829);
 			//g.drawImage(image, 100, 100, 200, 200, 120, 0, 160, 60,Color.white);
 			//g.drawImage()
-			for(int i = 0; i < 5; i++) {
-				for(int j = 0; j < 5; j++) {
+			for(int i = 0; i < mapHeight; i++) {
+				for(int j = 0; j < mapWidth; j++) {
 					g.setColor(Color.gray);
-					if(obstacle[i][j] == 1) {
+					if(map.getCase(i,j).getReward() == -500) {
 						g.setColor(Color.red);
 					}
-					if(perso[i][j]==2) {
+					if(map.getX()==i && map.getY() == j) {
 						g.setColor(Color.yellow);
-						
 					}
-					if(objective[i][j]==3) {
+					if(map.getCase(i,j).getReward() == 100) {
 						g.setColor(Color.green);
 					}
 					if(mx >= spacing+i*80 && mx < i*80+80-2*spacing && my >= spacing+j*80+80+26 && my < spacing+j*80+26+80+80-2*spacing) {
@@ -104,7 +124,7 @@ public class GUI extends JFrame{
 			
 		}
 	}
-	public class Move implements MouseMotionListener{
+	/*public class Move implements MouseMotionListener{
 
 		public void mouseDragged(MouseEvent arg0) {
 			// TODO Auto-generated method stub
@@ -150,6 +170,6 @@ public class GUI extends JFrame{
 			
 		}
 		
-	}
+	}*/
 
 }

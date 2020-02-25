@@ -64,6 +64,22 @@ public class Grille {
 		this.y=y;
 	}
 	
+	/**
+	 * 
+	 * @return pos en x du perso
+	 */
+	public int getX() {
+		return x;
+	}
+
+	/**
+	 * 
+	 * @return pos en Y du perso
+	 */
+	public int getY() {
+		return y;
+	}
+
 	public void afficher() {
 		System.out.println();
 		for (int i = 0; i < nbLig; i++) {
