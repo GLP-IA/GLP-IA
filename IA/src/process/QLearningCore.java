@@ -24,8 +24,8 @@ public class QLearningCore {
 	public void run() {
 		QFonction f=new QFonction(qTable,gamma,alpha);
 		MoovCharacter mv =new MoovCharacter(character,25);
+		Random rand = new Random();
 		while(!t.isAchieved()) {
-			Random rand = new Random();
 			double exp=rand.nextDouble();
 			System.out.println("exp: "+exp+ " exploration Rate: "+ gamma);
 			if(exp<gamma)
@@ -111,9 +111,12 @@ public class QLearningCore {
 	}
 	
 	public void reset() {
-		character.setCoordY(0);
-		character.setCoordX(0);
+		Random rand = new Random();	
+		character.setCoordY(rand.nextInt(5));
+		character.setCoordX(rand.nextInt(5));
+		map.hasMooved(character.getCoordX(),character.getCoordY());
 		t.setAchieved(false);
+		map.afficher();
 	}
 	
 	public void dicreasedExploration() {
