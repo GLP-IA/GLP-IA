@@ -1,6 +1,8 @@
 package process;
 
 import data.Element;
+import data.Obstacle;
+import data.Target;
 
 public class Grille {
 	private int nbLig;
@@ -8,6 +10,7 @@ public class Grille {
 	private Element [][]grille;
 	private int x;
 	private int y;
+	private static int malus = -500;
 	
 	public Grille(int n, int p,int x, int y) {
 		nbLig=n;
@@ -27,8 +30,15 @@ public class Grille {
 		return grille[l][c];
 	}
 	
-	public void placer (int l, int c, Element e) {
-		if(l<0 || c<0 || l>nbLig || c>nbCol) {
+	/**
+	 * Génère la carte
+	 * 
+	 * @param x coord en X de l'objectif
+	 * @param y coord en Y de l'objectif
+	 * @param t objectif
+	 */
+	public void initMap (int x, int y,Target t) {
+		/*if(l<0 || c<0 || l>nbLig || c>nbCol) {
 			System.out.println("Erreur de placement");
 		}
 		if(getCase(l,c).getReward()== 0) {
@@ -36,7 +46,17 @@ public class Grille {
 		}
 		else {
 			System.out.println("Erreur, cette zone n'est pas vide");
-		}
+		}*/
+		
+		//pacement des obstacles
+		grille[0][1]=new Obstacle (malus,"wall");
+		grille[1][1]=new Obstacle (malus,"wall");
+		grille[1][3]=new Obstacle (malus,"wall");
+		grille[2][3]=new Obstacle (malus,"wall");
+		grille[3][0]=new Obstacle (malus,"wall");
+		grille[3][2]=new Obstacle (malus,"wall");
+		grille[3][3]=new Obstacle (malus,"wall");
+		grille[x][y]=t;
 	}
 	
 	public void hasMooved(int x, int y) {
@@ -56,7 +76,7 @@ public class Grille {
 					System.out.print("T");
 				else
 					System.out.print("-");
-				//System.out.print("|");
+				System.out.print("|");
 			}
 			System.out.println();
 		}

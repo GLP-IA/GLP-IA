@@ -9,7 +9,6 @@ import process.QLearningCore;
 
 public class TestCore {
 	private static int reward = 100;
-	private static int malus = -500;
 	private static int mapWidth = 5;
 	private static int mapHeight = 5;
 	
@@ -18,17 +17,7 @@ public class TestCore {
 		Grille g = new Grille(mapWidth, mapHeight,0,0); 
 		Target t=new Target(reward,false);
 		
-		//pacement des obstacles
-		g.placer(0,1,new Obstacle (malus,"wall"));
-		g.placer(1,1,new Obstacle (malus,"wall"));
-		g.placer(1,3,new Obstacle (malus,"wall"));
-		g.placer(2,3,new Obstacle (malus,"wall"));
-		g.placer(2,3,new Obstacle (malus,"wall"));
-		g.placer(3,0,new Obstacle (malus,"wall"));
-		g.placer(3,2,new Obstacle (malus,"wall"));
-		g.placer(3,3,new Obstacle (malus,"wall"));
-		
-		g.placer(4,4,t);//placement de la case cible
+		g.initMap(4,4,t);//placement de la case cible
 		
 		g.afficher();
 		QLearningCore core= new QLearningCore(g,t);
