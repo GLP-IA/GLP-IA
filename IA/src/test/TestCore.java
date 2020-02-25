@@ -2,8 +2,6 @@ package test;
 
 import data.Target;
 
-import data.Obstacle;
-
 import process.Grille;
 import process.QLearningCore;
 

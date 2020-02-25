@@ -13,7 +13,8 @@ public class QLearningCore {
 	private QTable qTable;
 	private double gamma = 0.9; // exploration rate , détermine l'importance des futures récompenses , facteur 0 l'agent ne considéra que les récompenses actuelles, un facteur approchant 1 il visera une récompense élevée à long terme 
 	private double alpha = 0.2; // learning rate : facteur 0 empêchera l'agent d'apprendre, facteur de 1 ne  considérerait que les informations les plus récentes
-		
+	Random rand = new Random();	
+	
 	public QLearningCore(Grille map, Target t){
 		this.map = map;
 		this.t=t;
@@ -24,7 +25,6 @@ public class QLearningCore {
 	public void run() {
 		QFonction f=new QFonction(qTable,gamma,alpha);
 		MoovCharacter mv =new MoovCharacter(character,25);
-		Random rand = new Random();
 		while(!t.isAchieved()) {
 			double exp=rand.nextDouble();
 			System.out.println("exp: "+exp+ " exploration Rate: "+ gamma);
@@ -49,9 +49,8 @@ public class QLearningCore {
 		int oldY=character.getCoordY();
 		
 		//generation d'un nombre aléatoirement entre 0 et 4 pour choisir le deplacement a effectue
-		Random rand = new Random();	
 		int r=rand.nextInt(4);
-		//System.out.println("deplacement:"+r);
+		
 		System.out.println(">> EXPLORATION (deplacement aleatoire) <<");
 		
 		if(r==0) {
@@ -111,7 +110,6 @@ public class QLearningCore {
 	}
 	
 	public void reset() {
-		Random rand = new Random();	
 		character.setCoordY(rand.nextInt(5));
 		character.setCoordX(rand.nextInt(5));
 		map.hasMooved(character.getCoordX(),character.getCoordY());
