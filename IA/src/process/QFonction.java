@@ -29,7 +29,7 @@ public class QFonction {
 		States s=new States(mapCount);//la dimension de la carte est supposé statique donc elle peut etre codé en dur
 		int currentState=s.getState(x,y);
 		int oldState=s.getState(oldX,oldY);
-        double maxQ = max(currentState);
+        double maxQ = q.max(currentState);
 	
 		//System.out.println(currentState+" "+oldState);
 		double esp;
@@ -43,18 +43,17 @@ public class QFonction {
 		if(y>oldY)
 			moov=3;//a bougé à droite
 		
-		//calcul de la nouvelle espérance
-		esp = q.getEsp(oldState,moov) + alpha *(reward + gamma * (maxQ - (q.getEsp(oldState,moov))));  //vérifier si c'est la formule est complète
+		/*
+		 * calcul de la nouvelle espérance :
+		 * Esp = Q (ancien état, action réalisée) + alpha * (R + gamma * Max ( état actuel , toutes les actions) - Q (ancien état, action réalisée))
+		 * R : récompense immediate (stoqué dans la grille elle meme)
+		 * Esp : c’est la valeur de l’état dans la Qtable
+		 */
+		
+		esp = q.getEsp(oldState,moov) + alpha *(reward + gamma * (maxQ - (q.getEsp(oldState,moov))));  
 		q.setQTable(oldState,moov,esp);
 	}
 	
-	public double max(int state) {
-		double m=q.getEsp(state,0);
-			for(int j=1;j<4.;j++) {
-				if(m<q.getEsp(state,j))
-					m=q.getEsp(state,j);
-			}
-		return m;
-	}
+	
 	
 }
