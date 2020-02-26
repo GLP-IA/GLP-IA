@@ -114,11 +114,11 @@ public class QLearningCore {
 		character.setCoordX(rand.nextInt(5));
 		map.hasMooved(character.getCoordX(),character.getCoordY());
 		t.setAchieved(false);
-		//map.afficher();
+		map.afficher();
 	}
 	
 	public void dicreasedExploration() {
-		gamma-=gamma*0.2;
+		gamma-=0.8;
 	}
 	
 	public void result() {
