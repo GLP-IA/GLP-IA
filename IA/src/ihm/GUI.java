@@ -33,12 +33,6 @@ public class GUI extends JFrame{
 	private static int mapHeight = 5;
 	Grille map = new Grille(mapWidth, mapHeight,0,0); 
 	Target t=new Target(reward,false);
-
-	/*
-	int [][] obstacle = new int [5][5];
-	int [][] perso = new int[5][5];
-	int [][] objective = new int[5][5];
-	*/
 	
 	public GUI() {
 		this.setTitle("Map");
@@ -46,31 +40,6 @@ public class GUI extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setResizable(false);
-
-		/*
-		int nbObstacle = rand.nextInt(6);
-		while(nbObstacle < 2) {
-			nbObstacle = rand.nextInt(6);
-		}
-		for(int o = 1; o <= nbObstacle; o++) {
-			int x = rand.nextInt(5);
-			int y = rand.nextInt(5);
-			obstacle[x][y] = 1;
-			System.out.println("The number of obstacles is " + nbObstacle);
-			
-		}
-		
-		obstacle[1][0]=1;
-		obstacle[1][1]=1;
-		obstacle[3][1]=1;
-		obstacle[3][2]=1;
-		obstacle[0][3]=1;
-		obstacle[2][3]=1;
-		obstacle[3][3]=1;
-
-		perso[0][0]=2;
-		
-		objective[4][4]=3;*/
 		
 		map.initMap(4,4,t);//initialise la carte
 		QLearningCore core= new QLearningCore(map,t);
