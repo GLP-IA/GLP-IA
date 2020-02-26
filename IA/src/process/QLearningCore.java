@@ -35,12 +35,12 @@ public class QLearningCore {
 			
 			if(map.getCase(character.getCoordX(),character.getCoordY()).getReward()==100) { //on considere que l'objectif a pour recompense 100
 				t.setAchieved(true);
-				//System.out.println("\n >> Bravo l'objectif est atteint ! <<");
+				System.out.println("\n >> Bravo l'objectif est atteint ! <<");
 			}
 			
 			//explorationRate-=0.2;
 			map.hasMooved(character.getCoordX(),character.getCoordY());
-			//map.afficher();
+			map.afficher();
 		}
 	}
 	public void learning(QFonction f,MoovCharacter mv) {
