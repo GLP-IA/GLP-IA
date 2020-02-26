@@ -107,13 +107,13 @@ public class GUI extends JFrame{
 				for(int j = 0; j < mapWidth; j++) {
 					g.setColor(Color.gray);
 					if(map.getCase(i,j).getReward() == -500) {
-						g.setColor(Color.red);
+						g.setColor(Color.red);//obstacle en rouge
 					}
 					if(map.getX()==i && map.getY() == j) {
-						g.setColor(Color.yellow);
+						g.setColor(Color.yellow); //perso en jaune
 					}
 					if(map.getCase(i,j).getReward() == 100) {
-						g.setColor(Color.green);
+						g.setColor(Color.green);// objectif en vert
 					}
 					if(mx >= spacing+i*80 && mx < i*80+80-2*spacing && my >= spacing+j*80+80+26 && my < spacing+j*80+26+80+80-2*spacing) {
 						g.setColor(Color.white);
