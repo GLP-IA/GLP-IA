@@ -34,11 +34,11 @@ public class GUI extends JFrame{
 	Grille map = new Grille(mapWidth, mapHeight,0,0); 
 	Target t=new Target(reward,false);
 
-	//ftfyigft
+	/*
 	int [][] obstacle = new int [5][5];
 	int [][] perso = new int[5][5];
 	int [][] objective = new int[5][5];
-	
+	*/
 	
 	public GUI() {
 		this.setTitle("Map");
@@ -80,7 +80,8 @@ public class GUI extends JFrame{
 		
 		for (int i = 1; i <= 100; i++) {
 			core.run();	 //il faudrait ralentir l'exécution du programme pour voir le dépacement du personnage
-			core.reset();	
+			core.reset();
+			board.paintComponent(getGraphics());
 		}
 		System.out.println("\t\tQTABLE FINAL");
 		core.result();
