@@ -34,11 +34,11 @@ public class GUI extends JFrame{
 	Grille map = new Grille(mapWidth, mapHeight,0,0); 
 	Target t=new Target(reward,false);
 
-	//ftfyigft
+	/*
 	int [][] obstacle = new int [5][5];
 	int [][] perso = new int[5][5];
 	int [][] objective = new int[5][5];
-	
+	*/
 	
 	public GUI() {
 		this.setTitle("Map");
