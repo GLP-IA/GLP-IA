@@ -25,6 +25,7 @@ public class Character {
 	 */
 	private Score scores;
 	
+	
 	/**
 	 * The constructor's class
 	 * 
