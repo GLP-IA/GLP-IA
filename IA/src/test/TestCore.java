@@ -27,7 +27,7 @@ public class TestCore {
 		}
 		System.out.println("\t\tQTABLE FINAL");
 		core.result();
-		/*core.dicreasedExploration();
-		core.run();*/
+		core.dicreasedExploration();
+		core.run();
 	}
 }

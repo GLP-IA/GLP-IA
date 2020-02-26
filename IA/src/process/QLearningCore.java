@@ -25,22 +25,28 @@ public class QLearningCore {
 	public void run() {
 		QFonction f=new QFonction(qTable,gamma,alpha);
 		MoovCharacter mv =new MoovCharacter(character,25);
-		while(!t.isAchieved()) {
-			double exp=rand.nextDouble();
-			System.out.println("exp: "+exp+ " exploration Rate: "+ gamma);
-			if(exp<gamma)
-				learning(f,mv);
-			else
-				application(f,mv);
-			
-			if(map.getCase(character.getCoordX(),character.getCoordY()).getReward()==100) { //on considere que l'objectif a pour recompense 100
-				t.setAchieved(true);
-				System.out.println("\n >> Bravo l'objectif est atteint ! <<");
+		try{
+			while(!t.isAchieved()) {
+				double exp=rand.nextDouble();
+				System.out.println("exp: "+exp+ " exploration Rate: "+ gamma);
+				if(exp<gamma)
+					learning(f,mv);
+				else
+					application(f,mv);
+				
+				if(map.getCase(character.getCoordX(),character.getCoordY()).getReward()==100) { //on considere que l'objectif a pour recompense 100
+					t.setAchieved(true);
+					System.out.println("\n >> Bravo l'objectif est atteint ! <<");
+				}
+				
+				//explorationRate-=0.2;
+				map.hasMooved(character.getCoordX(),character.getCoordY());
+				map.afficher();
+				Thread.sleep(5);
 			}
-			
-			//explorationRate-=0.2;
-			map.hasMooved(character.getCoordX(),character.getCoordY());
-			map.afficher();
+		}
+		catch(InterruptedException e) {
+			//
 		}
 	}
 	public void learning(QFonction f,MoovCharacter mv) {

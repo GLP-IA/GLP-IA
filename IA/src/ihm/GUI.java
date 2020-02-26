@@ -80,7 +80,8 @@ public class GUI extends JFrame{
 		
 		for (int i = 1; i <= 100; i++) {
 			core.run();	 //il faudrait ralentir l'exécution du programme pour voir le dépacement du personnage
-			core.reset();	
+			core.reset();
+			board.paintComponent(getGraphics());
 		}
 		System.out.println("\t\tQTABLE FINAL");
 		core.result();
