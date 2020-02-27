@@ -22,12 +22,11 @@ public class TestCore {
 		for (int i = 1; i <= 100; i++) {
 			System.out.print(">>>>>>>>>>>>>>>>>>>>>> DEBUT EPISODE " + i + " <<<<<<<<<<<<<<<<<<<<<<<<<<< \n");
 			core.run();
-			core.reset();	
+			core.reset();
+			core.dicreasedExploration();
 			System.out.println(">>>>>>>>>>>>>>>>>>>>>> FIN EPISODE " + i + " <<<<<<<<<<<<<<<<<<<<<<<<<<< \n");
 		}
 		System.out.println("\t\tQTABLE FINAL");
 		core.result();
-		core.dicreasedExploration();
-		core.run();
 	}
 }

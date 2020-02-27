@@ -124,7 +124,7 @@ public class QLearningCore {
 	}
 	
 	public void dicreasedExploration() {
-		gamma-=0.8;
+		gamma-=gamma*0.01;
 	}
 	
 	public void result() {
