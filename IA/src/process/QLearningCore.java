@@ -13,6 +13,8 @@ public class QLearningCore {
 	private QTable qTable;
 	private double gamma = 0.9; // exploration rate , détermine l'importance des futures récompenses , facteur 0 l'agent ne considéra que les récompenses actuelles, un facteur approchant 1 il visera une récompense élevée à long terme 
 	private double alpha = 0.2; // learning rate : facteur 0 empêchera l'agent d'apprendre, facteur de 1 ne  considérerait que les informations les plus récentes
+	private MoovCharacter mv;
+	private QFonction f;
 	Random rand = new Random();	
 	
 	public QLearningCore(Grille map, Target t){
@@ -20,13 +22,11 @@ public class QLearningCore {
 		this.t=t;
 		character = new Character(0,0,new Score());//positionne le personnage
 		qTable = new QTable(25);//la dimension de la carte est fixe donc peut etre codé en dur ici 5x5
+		f=new QFonction(qTable,gamma,alpha);
+		mv =new MoovCharacter(character,25);
 	}
 
 	public void run() {
-		QFonction f=new QFonction(qTable,gamma,alpha);
-		MoovCharacter mv =new MoovCharacter(character,25);
-		try{
-			while(!t.isAchieved()) {
 				double exp=rand.nextDouble();
 				System.out.println("exp: "+exp+ " exploration Rate: "+ gamma);
 				if(exp<gamma)
@@ -38,16 +38,8 @@ public class QLearningCore {
 					t.setAchieved(true);
 					System.out.println("\n >> Bravo l'objectif est atteint ! <<");
 				}
-				
-				//explorationRate-=0.2;
 				map.hasMooved(character.getCoordX(),character.getCoordY());
 				map.afficher();
-				Thread.sleep(5);
-			}
-		}
-		catch(InterruptedException e) {
-			//
-		}
 	}
 	public void learning(QFonction f,MoovCharacter mv) {
 		int reward;	

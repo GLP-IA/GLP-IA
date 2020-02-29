@@ -31,8 +31,8 @@ public class GUI extends JFrame{
 	private static int reward = 100;
 	private static int mapWidth = 5;
 	private static int mapHeight = 5;
-	Grille map = new Grille(mapWidth, mapHeight,0,0); 
-	Target t=new Target(reward,false);
+	private Grille map = new Grille(mapWidth, mapHeight,0,0); 
+	private Target t=new Target(reward,false);
 	
 	public GUI() {
 		this.setTitle("Map");
@@ -48,9 +48,17 @@ public class GUI extends JFrame{
 		this.setContentPane(board);
 		
 		for (int i = 1; i <= 100; i++) {
-			core.run();	 //il faudrait ralentir l'exécution du programme pour voir le dépacement du personnage
-			core.reset();
-			board.paintComponent(getGraphics());
+			try {
+				while(!t.isAchieved()) {
+					core.run();
+					this.repaint();
+					Thread.sleep(50);
+				}
+				core.reset();
+			}
+			catch(InterruptedException e) {
+				System.err.println(e.getMessage());
+			}
 		}
 		System.out.println("\t\tQTABLE FINAL");
 		core.result();
@@ -76,13 +84,13 @@ public class GUI extends JFrame{
 			for(int i = 0; i < mapHeight; i++) {
 				for(int j = 0; j < mapWidth; j++) {
 					g.setColor(Color.gray);
-					if(map.getCase(i,j).getReward() == -500) {
-						g.setColor(Color.red);//obstacle en rouge
-					}
 					if(map.getX()==i && map.getY() == j) {
 						g.setColor(Color.yellow); //perso en jaune
 					}
-					if(map.getCase(i,j).getReward() == 100) {
+					else if(map.getCase(i,j).getReward() == -500) {
+						g.setColor(Color.red);//obstacle en rouge
+					}
+					else if(map.getCase(i,j).getReward() == 100) {
 						g.setColor(Color.green);// objectif en vert
 					}
 					if(mx >= spacing+i*80 && mx < i*80+80-2*spacing && my >= spacing+j*80+80+26 && my < spacing+j*80+26+80+80-2*spacing) {
@@ -91,7 +99,6 @@ public class GUI extends JFrame{
 					g.fillRect(spacing+i*80, spacing+j*80+80, 80-2*spacing, 80-2*spacing);
 				}
 			}
-			
 		}
 	}
 	/*public class Move implements MouseMotionListener{
