@@ -15,41 +15,43 @@ public class QLearningCore {
 	private double alpha = 0.2; // learning rate : facteur 0 empêchera l'agent d'apprendre, facteur de 1 ne  considérerait que les informations les plus récentes
 	private MoovCharacter mv;
 	private QFonction f;
-	Random rand = new Random();	
+	Random rand = new Random();
+	private static final int dimMap =25;
 	
 	public QLearningCore(Grille map, Target t){
 		this.map = map;
 		this.t=t;
 		character = new Character(0,0,new Score());//positionne le personnage
-		qTable = new QTable(25);//la dimension de la carte est fixe donc peut etre codé en dur ici 5x5
+		qTable = new QTable(dimMap);//la dimension de la carte est fixe donc peut etre codé en dur ici 5x5
 		f=new QFonction(qTable,gamma,alpha);
-		mv =new MoovCharacter(character,25);
+		mv =new MoovCharacter(character,dimMap);
 	}
 
 	public void run() {
 				double exp=rand.nextDouble();
-				System.out.println("exp: "+exp+ " exploration Rate: "+ gamma);
 				if(exp<gamma)
-					learning(f,mv);
+					learning();
 				else
-					application(f,mv);
+					application();
 				
 				if(map.getCase(character.getCoordX(),character.getCoordY()).getReward()==100) { //on considere que l'objectif a pour recompense 100
 					t.setAchieved(true);
 					System.out.println("\n >> Bravo l'objectif est atteint ! <<");
 				}
 				map.hasMooved(character.getCoordX(),character.getCoordY());
-				map.afficher();
+				//debug(exp);
 	}
-	public void learning(QFonction f,MoovCharacter mv) {
+	
+	/**
+	 * explore aléatoirement la carte
+	 */
+	public void learning() {
 		int reward;	
 		int oldX=character.getCoordX();
 		int oldY=character.getCoordY();
 		
 		//generation d'un nombre aléatoirement entre 0 et 4 pour choisir le deplacement a effectue
 		int r=rand.nextInt(4);
-		
-		System.out.println(">> EXPLORATION (deplacement aleatoire) <<");
 		
 		if(r==0) {
 			mv.moovUp();
@@ -73,18 +75,19 @@ public class QLearningCore {
 		Element pos=map.getCase(character.getCoordX(),character.getCoordY());
 		reward = pos.getReward();
 		f.update(character.getCoordX(),character.getCoordY(),oldX,oldY,reward);
-		System.out.println("coord:"+character.getCoordX()+","+character.getCoordY());
 	}
 	
-	public void application(QFonction f,MoovCharacter mv) {
+	/**
+	 * utilisation de la QTable pour se deplacer
+	 */
+	public void application() {
 		int oldX=character.getCoordX();
 		int oldY=character.getCoordY();
 		int reward;
 		
-		//utilise la QTable pour se deplacer
-		int nextDir=qTable.maxDirection(new States(25).getState(oldX,oldY));
-		//System.out.println("nextDir :"+nextDir);
-		System.out.println(">> EXPLOITATION (utilise la Qtable) <<");
+		//recupère l'état qui à la plus grande espérance de récompense
+		int nextDir=qTable.maxDirection(new States(dimMap).getState(oldX,oldY));
+
 		if(nextDir==0) {
 			mv.moovUp();
 			System.out.println("direction : UP ");
@@ -100,26 +103,50 @@ public class QLearningCore {
 		if(nextDir==3) {
 			mv.moovRight();
 			System.out.println("direction : RIGHT ");
-		}		
+		}
+		
 		Element pos=map.getCase(character.getCoordX(),character.getCoordY());
 		reward=pos.getReward();
 		f.update(character.getCoordX(),character.getCoordY(),oldX,oldY,reward);
-		System.out.println("coord:"+character.getCoordX()+","+character.getCoordY());
 	}
 	
+	/**
+	 * permet de remettre les valeurs "par défaut" pour ainsi relancer le programme 
+	 */
 	public void reset() {
 		character.setCoordY(rand.nextInt(5));
 		character.setCoordX(rand.nextInt(5));
 		map.hasMooved(character.getCoordX(),character.getCoordY());
 		t.setAchieved(false);
-		map.afficher();
 	}
 	
+	/**
+	 * réduit progressivement le taux d'exploration pour ainsi favoriser l'exploitation
+	 */
 	public void dicreasedExploration() {
 		gamma-=gamma*0.01;
 	}
 	
+	/**
+	 * affiche la qtable une fois remplis
+	 */
 	public void result() {
 		qTable.afficher();
+	}
+	
+	/**
+	 * permet de tester en mode console le programme
+	 * 
+	 * @param exp nombre généré aléatoirement pour définir le choix entre l'exploitation et l'exploration
+	 */
+	public void debug(double exp) {
+		map.afficher();
+		System.out.println("exp: "+exp+ " exploration Rate: "+ gamma);
+		if(exp<gamma)
+			System.out.println(">> EXPLORATION (deplacement aleatoire) <<");
+		else
+			System.out.println(">> EXPLOITATION (utilise la Qtable) <<");
+		System.out.println("coord:"+character.getCoordX()+","+character.getCoordY());
+		map.afficher();
 	}
 }

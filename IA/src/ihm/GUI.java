@@ -81,16 +81,16 @@ public class GUI extends JFrame{
 			g.fillRect(0, 0, 1286, 829);
 			//g.drawImage(image, 100, 100, 200, 200, 120, 0, 160, 60,Color.white);
 			//g.drawImage()
-			for(int i = 0; i < mapHeight; i++) {
-				for(int j = 0; j < mapWidth; j++) {
+			for(int i = 0; i < mapWidth; i++) {
+				for(int j = 0; j < mapHeight ; j++) {
 					g.setColor(Color.gray);
-					if(map.getX()==i && map.getY() == j) {
+					if(map.getX()==j && map.getY() == i) {
 						g.setColor(Color.yellow); //perso en jaune
 					}
-					else if(map.getCase(i,j).getReward() == -500) {
+					else if(map.getCase(j,i).getReward() == -500) {
 						g.setColor(Color.red);//obstacle en rouge
 					}
-					else if(map.getCase(i,j).getReward() == 100) {
+					else if(map.getCase(j,i).getReward() == 100) {
 						g.setColor(Color.green);// objectif en vert
 					}
 					if(mx >= spacing+i*80 && mx < i*80+80-2*spacing && my >= spacing+j*80+80+26 && my < spacing+j*80+26+80+80-2*spacing) {

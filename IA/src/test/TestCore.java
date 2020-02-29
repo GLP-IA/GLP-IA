@@ -21,7 +21,8 @@ public class TestCore {
 		QLearningCore core= new QLearningCore(g,t);
 		for (int i = 1; i <= 100; i++) {
 			System.out.print(">>>>>>>>>>>>>>>>>>>>>> DEBUT EPISODE " + i + " <<<<<<<<<<<<<<<<<<<<<<<<<<< \n");
-			core.run();
+			while(!t.isAchieved())
+				core.run();
 			core.reset();
 			core.dicreasedExploration();
 			System.out.println(">>>>>>>>>>>>>>>>>>>>>> FIN EPISODE " + i + " <<<<<<<<<<<<<<<<<<<<<<<<<<< \n");
