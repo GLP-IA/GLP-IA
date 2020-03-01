@@ -1,6 +1,7 @@
 package process;
 
 import data.Element;
+import data.Hole;
 import data.Obstacle;
 import data.Target;
 
@@ -37,7 +38,7 @@ public class Grille {
 	 * @param y coord en Y de l'objectif
 	 * @param t objectif
 	 */
-	public void initMap (int x, int y,Target t) {
+	public void initMapQLearning (Target t) {
 		grille[0][1]=new Obstacle (malus,"wall");
 		grille[1][1]=new Obstacle (malus,"wall");
 		grille[1][3]=new Obstacle (malus,"wall");
@@ -46,6 +47,12 @@ public class Grille {
 		grille[3][2]=new Obstacle (malus,"wall");
 		grille[3][3]=new Obstacle (malus,"wall");
 		grille[x][y]=t;
+	}
+	
+	public void initMapA_Star() {
+		grille[6][5]=new Hole(6,5,"Triangle");
+		grille[2][4]=new Hole(2,4,"Triangle");
+		grille[5][3]=new Hole(5,3,"Triangle");
 	}
 	
 	public void hasMooved(int x, int y) {
@@ -69,7 +76,7 @@ public class Grille {
 		return y;
 	}
 
-	public void afficher() {
+	public void printMapQLearning() {
 		System.out.println();
 		for (int i = 0; i < nbLig; i++) {
 			for (int j = 0; j < nbCol; j++) {
@@ -88,4 +95,24 @@ public class Grille {
 		System.out.println();
 	}
 
+	public void printMapA_Star() {
+		System.out.println();
+		for (int i = 0; i < nbLig; i++) {
+			for (int j = 0; j < nbCol; j++) {
+				if(i==x && j==y)
+					System.out.print("X");
+				else if(((Hole) getCase(i,j)).getHoleType().equals("Triangle"))
+					System.out.print("^");
+				else if(((Hole) getCase(i,j)).getHoleType().equals("Square"))
+					System.out.print("[]");
+				else if(((Hole) getCase(i,j)).getHoleType().equals("Circle"))
+					System.out.print("O");
+				else
+					System.out.print("-");
+				System.out.print("|");
+			}
+			System.out.println();
+		}
+		System.out.println();
+	}
 }

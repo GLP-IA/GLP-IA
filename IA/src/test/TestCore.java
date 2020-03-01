@@ -15,9 +15,9 @@ public class TestCore {
 		Grille g = new Grille(mapWidth, mapHeight,0,0); 
 		Target t=new Target(reward,false);
 		
-		g.initMap(4,4,t);//placement de la case cible
+		g.initMapQLearning(t);//initalise la carte
 		
-		g.afficher();
+		g.printMapQLearning();
 		QLearningCore core= new QLearningCore(g,t);
 		for (int i = 1; i <= 100; i++) {
 			System.out.print(">>>>>>>>>>>>>>>>>>>>>> DEBUT EPISODE " + i + " <<<<<<<<<<<<<<<<<<<<<<<<<<< \n");

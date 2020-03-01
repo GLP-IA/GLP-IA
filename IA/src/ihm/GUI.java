@@ -41,7 +41,7 @@ public class GUI extends JFrame{
 		this.setVisible(true);
 		this.setResizable(false);
 		
-		map.initMap(4,4,t);//initialise la carte
+		map.initMapQLearning(t);//initialise la carte
 		QLearningCore core= new QLearningCore(map,t);
 
 		Board board = new Board();

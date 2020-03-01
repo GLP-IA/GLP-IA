@@ -13,11 +13,11 @@ public class testMouvement {
 		
 		Grille g1 = new Grille(5, 5,c.getCoordX(),c.getCoordY());
 		
-		g1.afficher();
+		g1.printMapQLearning();
 		mv.moovRight();
 		g1.hasMooved(c.getCoordX(),c.getCoordY());
 		System.out.print("(" + c.getCoordX() + ";" + c.getCoordY() + ")");
-		g1.afficher();
+		g1.printMapQLearning();
 	}
 
 }

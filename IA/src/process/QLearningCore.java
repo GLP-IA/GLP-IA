@@ -140,13 +140,13 @@ public class QLearningCore {
 	 * @param exp nombre généré aléatoirement pour définir le choix entre l'exploitation et l'exploration
 	 */
 	public void debug(double exp) {
-		map.afficher();
+		map.printMapQLearning();
 		System.out.println("exp: "+exp+ " exploration Rate: "+ gamma);
 		if(exp<gamma)
 			System.out.println(">> EXPLORATION (deplacement aleatoire) <<");
 		else
 			System.out.println(">> EXPLOITATION (utilise la Qtable) <<");
 		System.out.println("coord:"+character.getCoordX()+","+character.getCoordY());
-		map.afficher();
+		map.printMapQLearning();
 	}
 }
