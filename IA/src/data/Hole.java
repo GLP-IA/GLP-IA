@@ -15,6 +15,8 @@ public class Hole extends Target {
 	 * @see Hole#getHoleType()
 	 */
 	private String holeType;
+	private int coordX;
+	private int coordY;
 
 	/**
 	 * The constructor's class
@@ -26,8 +28,10 @@ public class Hole extends Target {
 	 * 
 	 * @see Hole#holeType
 	 */
-	public Hole(int coordX, int coordY, boolean achieved, String holeType) {
-		super(0,achieved);
+	public Hole(int coordX, int coordY, String holeType) {
+		super(0,false);
+		this.coordX=coordX;
+		this.coordY=coordY;
 		this.holeType = holeType;
 	}
 	
@@ -40,5 +44,11 @@ public class Hole extends Target {
 		return holeType;
 	}
 
+	public int getCoordX() {
+		return coordX;
+	}
 
+	public int getCoordY() {
+		return coordY;
+	}
 }

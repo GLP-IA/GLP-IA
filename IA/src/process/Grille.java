@@ -38,17 +38,6 @@ public class Grille {
 	 * @param t objectif
 	 */
 	public void initMap (int x, int y,Target t) {
-		/*if(l<0 || c<0 || l>nbLig || c>nbCol) {
-			System.out.println("Erreur de placement");
-		}
-		if(getCase(l,c).getReward()== 0) {
-			grille [l][c] = e;
-		}
-		else {
-			System.out.println("Erreur, cette zone n'est pas vide");
-		}*/
-		
-		//pacement des obstacles
 		grille[0][1]=new Obstacle (malus,"wall");
 		grille[1][1]=new Obstacle (malus,"wall");
 		grille[1][3]=new Obstacle (malus,"wall");
