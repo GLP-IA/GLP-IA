@@ -32,7 +32,7 @@ public class Grille {
 	}
 	
 	/**
-	 * Génère la carte
+	 * Génère la carte pour le qLearning
 	 * 
 	 * @param x coord en X de l'objectif
 	 * @param y coord en Y de l'objectif
@@ -51,8 +51,8 @@ public class Grille {
 	
 	public void initMapA_Star() {
 		grille[6][5]=new Hole(6,5,"Triangle");
-		grille[2][4]=new Hole(2,4,"Triangle");
-		grille[5][3]=new Hole(5,3,"Triangle");
+		grille[5][3]=new Hole(5,3,"Square");
+		grille[2][4]=new Hole(2,4,"Circle");
 	}
 	
 	public void hasMooved(int x, int y) {
@@ -82,12 +82,16 @@ public class Grille {
 			for (int j = 0; j < nbCol; j++) {
 				if(i==x && j==y)
 					System.out.print("X");
+				
 				else if(getCase(i,j).getReward()==-500)
 					System.out.print("M");
+				
 				else if(getCase(i,j).getReward()==100)
 					System.out.print("T");
+				
 				else
 					System.out.print("-");
+				
 				System.out.print("|");
 			}
 			System.out.println();
@@ -101,15 +105,20 @@ public class Grille {
 			for (int j = 0; j < nbCol; j++) {
 				if(i==x && j==y)
 					System.out.print("X");
-				else if(((Hole) getCase(i,j)).getHoleType().equals("Triangle"))
-					System.out.print("^");
-				else if(((Hole) getCase(i,j)).getHoleType().equals("Square"))
-					System.out.print("[]");
-				else if(((Hole) getCase(i,j)).getHoleType().equals("Circle"))
-					System.out.print("O");
+				
+				else if(i==6 && j==5)
+					System.out.print("^"); //on considere que c'est un triangle
+				
+				else if(i==5 && j==3)
+					System.out.print("[]"); // on considere que c'est un carré
+				
+				else if(i==2 && j==4)
+					System.out.print("O"); // on considere que c'est un rond
+				
 				else
 					System.out.print("-");
-				System.out.print("|");
+				
+				System.out.print(" ");
 			}
 			System.out.println();
 		}
