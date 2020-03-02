@@ -32,7 +32,7 @@ public class Grille {
 	}
 	
 	/**
-	 * Génère la carte pour le qLearning
+	 * Gï¿½nï¿½re la carte pour le qLearning
 	 * 
 	 * @param x coord en X de l'objectif
 	 * @param y coord en Y de l'objectif
@@ -110,7 +110,7 @@ public class Grille {
 					System.out.print("^"); //on considere que c'est un triangle
 				
 				else if(i==5 && j==3)
-					System.out.print("[]"); // on considere que c'est un carré
+					System.out.print("[]"); // on considere que c'est un carrï¿½
 				
 				else if(i==2 && j==4)
 					System.out.print("O"); // on considere que c'est un rond

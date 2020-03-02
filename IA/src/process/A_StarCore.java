@@ -3,10 +3,8 @@ package process;
 import java.util.ArrayList;
 
 import data.Character;
-import data.Element;
 import data.Hole;
 import data.Score;
-import data.Target;
 
 public class A_StarCore {
 	private Character character;
@@ -18,6 +16,8 @@ public class A_StarCore {
 	private int g; //cout du déplacement
 	private int h; // h est la fonction heuristique. h (n) estime le coût pour atteindre l'objectif à partir du nœud n.
 	private int f; //f=g+h
+	
+	//on pourrais mettre  une fil de priorite (voir Queue)
 	private ArrayList<Integer> openSet; // L'ensemble des nœuds découverts qui peuvent avoir besoin d'être (re) développés. 
 	
 	public A_StarCore(int g, int h, int f, Grille map) {
