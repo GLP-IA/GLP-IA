@@ -124,7 +124,7 @@ public class QLearningCore {
 	 * réduit progressivement le taux d'exploration pour ainsi favoriser l'exploitation
 	 */
 	public void dicreasedExploration() {
-		gamma-=gamma*0.01;
+		gamma-=0.8;
 	}
 	
 	/**
