@@ -52,7 +52,7 @@ public class GUI extends JFrame{
 				while(!t.isAchieved()) {
 					core.run();
 					this.repaint();
-					Thread.sleep(50);
+					Thread.sleep(5);
 				}
 				core.reset();
 			}
@@ -60,9 +60,20 @@ public class GUI extends JFrame{
 				System.err.println(e.getMessage());
 			}
 		}
+		
 		System.out.println("\t\tQTABLE FINAL");
 		core.result();
-		
+		core.dicreasedExploration();
+		try {
+			while(!t.isAchieved()) {
+				core.run();
+				this.repaint();
+				Thread.sleep(2000);
+			}
+		}
+		catch(InterruptedException e) {
+			System.err.println(e.getMessage());
+		}
 		/*Move move = new Move();
 		this.addMouseMotionListener(move);
 		

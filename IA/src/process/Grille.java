@@ -46,7 +46,7 @@ public class Grille {
 		grille[3][0]=new Obstacle (malus,"wall");
 		grille[3][2]=new Obstacle (malus,"wall");
 		grille[3][3]=new Obstacle (malus,"wall");
-		grille[x][y]=t;
+		grille[4][4]=t;
 	}
 	
 	public void initMapA_Star() {
