@@ -32,10 +32,8 @@ public class Grille {
 	}
 	
 	/**
-	 * G�n�re la carte pour le qLearning
+	 * Genere la carte pour le qLearning
 	 * 
-	 * @param x coord en X de l'objectif
-	 * @param y coord en Y de l'objectif
 	 * @param t objectif
 	 */
 	public void initMapQLearning (Target t) {
@@ -49,6 +47,9 @@ public class Grille {
 		grille[4][4]=t;
 	}
 	
+	/**
+	 * genere la carte pour A*
+	 */
 	public void initMapA_Star() {
 		grille[6][5]=new Hole(6,5,"Triangle");
 		grille[5][3]=new Hole(5,3,"Square");
@@ -76,6 +77,9 @@ public class Grille {
 		return y;
 	}
 
+	/**
+	 * Affiche la carte selon l'environnement du QLearning
+	 */
 	public void printMapQLearning() {
 		System.out.println();
 		for (int i = 0; i < nbLig; i++) {
@@ -99,6 +103,9 @@ public class Grille {
 		System.out.println();
 	}
 
+	/**
+	 * afficher la carte selon les parametre de l'environnement de A*
+	 */
 	public void printMapA_Star() {
 		System.out.println();
 		for (int i = 0; i < nbLig; i++) {
@@ -110,7 +117,7 @@ public class Grille {
 					System.out.print("^"); //on considere que c'est un triangle
 				
 				else if(i==5 && j==3)
-					System.out.print("[]"); // on considere que c'est un carr�
+					System.out.print("[]"); // on considere que c'est un carre
 				
 				else if(i==2 && j==4)
 					System.out.print("O"); // on considere que c'est un rond

@@ -13,7 +13,6 @@ public class QLearningCore {
 	private QTable qTable;
 	private double gamma = 0.9; // exploration rate , détermine l'importance des futures récompenses , facteur 0 l'agent ne considéra que les récompenses actuelles, un facteur approchant 1 il visera une récompense élevée à long terme 
 	private double alpha = 0.2; // learning rate : facteur 0 empêchera l'agent d'apprendre, facteur de 1 ne  considérerait que les informations les plus récentes
-	private MoovCharacter mv;
 	private QFonction f;
 	Random rand = new Random();
 	private static final int dimMap =25;
@@ -24,7 +23,6 @@ public class QLearningCore {
 		character = new Character(0,0,new Score());//positionne le personnage
 		qTable = new QTable(dimMap);//la dimension de la carte est fixe donc peut etre codé en dur ici 5x5
 		f=new QFonction(qTable,gamma,alpha);
-		mv =new MoovCharacter(character,dimMap);
 	}
 
 	public void run() {
@@ -47,28 +45,28 @@ public class QLearningCore {
 	 */
 	public void learning() {
 		int reward;	
-		int oldX=character.getCoordX();
-		int oldY=character.getCoordY();
+		int oldX=getOldX();
+		int oldY=getOldY();
 		
 		//generation d'un nombre aléatoirement entre 0 et 4 pour choisir le deplacement a effectue
 		int r=rand.nextInt(4);
 		
 		if(r==0) {
-			mv.moovUp();
+			MoovCharacter.moovUp(character,dimMap);
 			System.out.println("direction : UP ");
 		}
 		if(r==1) {
-			mv.moovDown();
+			MoovCharacter.moovDown(character,dimMap);
 			System.out.println("direction : DOWN ");
 		}
 
 		if(r==2) {
-			mv.moovLeft();
+			MoovCharacter.moovLeft(character,dimMap);
 			System.out.println("direction : LEFT ");
 		}
 	
 		if(r==3) {
-			mv.moovRight();
+			MoovCharacter.moovRight(character,dimMap);
 			System.out.println("direction : RIGHT ");
 		}
 		
@@ -81,33 +79,41 @@ public class QLearningCore {
 	 * utilisation de la QTable pour se deplacer
 	 */
 	public void application() {
-		int oldX=character.getCoordX();
-		int oldY=character.getCoordY();
+		int oldX=getOldX();
+		int oldY=getOldY();
 		int reward;
 		
 		//recupère l'état qui à la plus grande espérance de récompense
 		int nextDir=qTable.maxDirection(new States(dimMap).getState(oldX,oldY));
 
 		if(nextDir==0) {
-			mv.moovUp();
+			MoovCharacter.moovUp(character,dimMap);
 			System.out.println("direction : UP ");
 		}
 		if(nextDir==1) {
-			mv.moovDown();
+			MoovCharacter.moovDown(character,dimMap);
 			System.out.println("direction : DOWN ");
 		}
 		if(nextDir==2) { 
-			mv.moovLeft();
+			MoovCharacter.moovLeft(character,dimMap);
 			System.out.println("direction : LEFT ");
 		}
 		if(nextDir==3) {
-			mv.moovRight();
+			MoovCharacter.moovRight(character,dimMap);
 			System.out.println("direction : RIGHT ");
 		}
 		
 		Element pos=map.getCase(character.getCoordX(),character.getCoordY());
 		reward=pos.getReward();
 		f.update(character.getCoordX(),character.getCoordY(),oldX,oldY,reward);
+	}
+	
+	public int getOldX(){
+		return character.getCoordX();
+	}
+	
+	public int getOldY() {
+		return character.getCoordY();
 	}
 	
 	/**

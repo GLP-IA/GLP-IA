@@ -8,7 +8,6 @@ import data.Score;
 
 public class A_StarCore {
 	private Character character;
-	private MoovCharacter mv;
 	private Grille map;
 	private static final int dimMap =100;
 	
@@ -28,7 +27,6 @@ public class A_StarCore {
 		
 		//initialisation du personnage
 		character = new Character(0,0,new Score());
-		mv =new MoovCharacter(character,dimMap);
 		
 		holes = new Hole [3]; //il y aura min. 3 trou avec différentes formes
 		openSet.add(0);	// Initialement, seul le nœud de départ est connu. (on utilisera la meme notation que les etat du qlearning)
