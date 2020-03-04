@@ -1,20 +1,25 @@
 package ihm;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import data.Target;
 
 import java.util.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
+import java.io.IOException;
 
 import process.Grille;
 import process.QLearningCore;
 
 
-public class GUI extends JFrame{
+public class GUI extends JFrame implements Runnable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -23,141 +28,130 @@ public class GUI extends JFrame{
 	//Space between the cells
 	int spacing = 2;
 	
-	public int mx = -100;
-	public int my = -100;
+	//Jpanel
+	private Board board = new Board();
+	JButton qlearningLaunch= new JButton("QLEARNING");
 	
-	Random rand = new Random();
+	private Runnable instance = this;
 	
+	//Variable
 	private static int reward = 100;
 	private static int mapWidth = 5;
 	private static int mapHeight = 5;
+	
+	/**
+	 * define which option should be run in the run() method
+	 * 
+	 * @see StartQlearningAction
+	 */
+	private boolean runQlearning=false;
+	private boolean runAStar=false;
+	
 	private Grille map = new Grille(mapWidth, mapHeight,0,0); 
+	
+	//Qlearning spec
 	private Target t=new Target(reward,false);
+	private QLearningCore coreQ= new QLearningCore(map,t);
+	
 	
 	public GUI() {
-		this.setTitle("Map");
+		init();
+	}
+	
+	public void init() {
+		this.setTitle("KURIOS");
 		this.setSize(1286, 829);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setResizable(false);
 		
-		map.initMapQLearning(t);//initialise la carte
-		QLearningCore core= new QLearningCore(map,t);
-
-		Board board = new Board();
+		qlearningLaunch.addActionListener(new StartQlearningAction());
+		
 		this.setContentPane(board);
+		this.add(qlearningLaunch);
 		
-		for (int i = 1; i <= 100; i++) {
-			try {
-				while(!t.isAchieved()) {
-					core.run();
-					this.repaint();
-					Thread.sleep(5);
-				}
-				core.reset();
-			}
-			catch(InterruptedException e) {
-				System.err.println(e.getMessage());
-			}
-		}
-		
-		System.out.println("\t\tQTABLE FINAL");
-		core.result();
-		core.dicreasedExploration();
-		try {
-			while(!t.isAchieved()) {
-				core.run();
-				this.repaint();
-				Thread.sleep(2000);
-			}
-		}
-		catch(InterruptedException e) {
-			System.err.println(e.getMessage());
-		}
-		/*Move move = new Move();
-		this.addMouseMotionListener(move);
-		
-		Click click = new Click();
-		this.addMouseListener(click);*/
 	}
+	
 	public class Board extends JPanel{
 		
 		private static final long serialVersionUID = 1L;
 
 		public void paintComponent(Graphics g) {
-			//ImageIcon ic = new ImageIcon("/grille/src/images/Naruto.jpg");
-			//image = ic.getImage();
-			
+			//Fond de couleur
 			g.setColor(Color.DARK_GRAY);
 			g.fillRect(0, 0, 1286, 829);
-			//g.drawImage(image, 100, 100, 200, 200, 120, 0, 160, 60,Color.white);
-			//g.drawImage()
+			
 			for(int i = 0; i < mapWidth; i++) {
 				for(int j = 0; j < mapHeight ; j++) {
-					g.setColor(Color.gray);
-					if(map.getX()==j && map.getY() == i) {
-						g.setColor(Color.yellow); //perso en jaune
+					try {
+						//case Vide
+						if((map.getCase(j,i).getReward() == 0))
+								g.drawImage(ImageIO.read(new File("src/images/emptyCase.png")), i*100+spacing, j*100+spacing, 100,100,null);
+						
+						//Obstacle
+						if(map.getCase(j,i).getReward() == -500) 
+							g.drawImage(ImageIO.read(new File("src/images/obstacle_v2.png")), i*100+spacing, j*100+spacing, 100,100,null);
+						
+						//Objectif
+						if(map.getCase(j,i).getReward() == 100) 
+							g.setColor(Color.green);// objectif en vert
+						
+						//Perso
+						if(map.getX()==j && map.getY() == i) 
+							g.drawImage(ImageIO.read(new File("src/images/Kurios.png")), i*100+spacing, j*100+spacing, 100,100,null);		
 					}
-					else if(map.getCase(j,i).getReward() == -500) {
-						g.setColor(Color.red);//obstacle en rouge
+					catch (IOException e) {
+						System.err.println("-- Can not read the image file ! --");
 					}
-					else if(map.getCase(j,i).getReward() == 100) {
-						g.setColor(Color.green);// objectif en vert
-					}
-					if(mx >= spacing+i*80 && mx < i*80+80-2*spacing && my >= spacing+j*80+80+26 && my < spacing+j*80+26+80+80-2*spacing) {
-						g.setColor(Color.white);
-					}
-					g.fillRect(spacing+i*80, spacing+j*80+80, 80-2*spacing, 80-2*spacing);
 				}
 			}
 		}
 	}
-	/*public class Move implements MouseMotionListener{
-
-		public void mouseDragged(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void mouseMoved(MouseEvent e) {
-			// TODO Auto-generated method stub
-			System.out.println("The mouse was moved");
-			mx = e.getX();
-			my = e.getY();
-			System.out.println("X:" + mx + ", Y :" + my);
-			
-			
-		}
+	
+	public void qLearning(QLearningCore coreQQ) {
+		map.initMapQLearning(t);//initialise la carte
 		
+		for (int i = 0; i <= 100; i++) {
+			try {
+				while(!t.isAchieved()) {
+					coreQQ.run();
+					this.repaint();
+					Thread.sleep(5);
+				}
+				coreQQ.reset();
+			}
+			catch(InterruptedException e) {
+				System.err.println(e.getMessage());
+			}
+		}
+		System.out.println("\t\tQTABLE FINAL");
+		coreQQ.result();
+		coreQQ.dicreasedExploration();
+		try {
+			while(!t.isAchieved()) {
+				coreQQ.run();
+				this.repaint();
+				Thread.sleep(2000);
+			}
+			runQlearning=false;
+		}
+		catch(InterruptedException e) {
+			System.err.println(e.getMessage());
+		}
 	}
-	public class Click implements MouseListener{
-
-		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-			System.out.println("The mouse was clicked");
-			
-		}
-
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	}*/
-
+	
+	public void run() {
+		if(runQlearning)
+			qLearning(coreQ);
+		if(runAStar)
+			return;
+	}
+	
+	private class StartQlearningAction implements ActionListener{
+		 public void actionPerformed(ActionEvent e) {
+			 runQlearning=true;
+			Thread qLearningThread = new Thread(instance);
+			qLearningThread.start();
+		 }
+	}
 }
