@@ -53,21 +53,21 @@ public class QLearningCore {
 		
 		if(r==0) {
 			MoovCharacter.moovUp(character,dimMap);
-			System.out.println("direction : UP ");
+			//System.out.println("direction : UP ");
 		}
 		if(r==1) {
 			MoovCharacter.moovDown(character,dimMap);
-			System.out.println("direction : DOWN ");
+			//System.out.println("direction : DOWN ");
 		}
 
 		if(r==2) {
 			MoovCharacter.moovLeft(character,dimMap);
-			System.out.println("direction : LEFT ");
+			//System.out.println("direction : LEFT ");
 		}
 	
 		if(r==3) {
 			MoovCharacter.moovRight(character,dimMap);
-			System.out.println("direction : RIGHT ");
+			//System.out.println("direction : RIGHT ");
 		}
 		
 		Element pos=map.getCase(character.getCoordX(),character.getCoordY());
@@ -88,19 +88,19 @@ public class QLearningCore {
 
 		if(nextDir==0) {
 			MoovCharacter.moovUp(character,dimMap);
-			System.out.println("direction : UP ");
+			//System.out.println("direction : UP ");
 		}
 		if(nextDir==1) {
 			MoovCharacter.moovDown(character,dimMap);
-			System.out.println("direction : DOWN ");
+			//System.out.println("direction : DOWN ");
 		}
 		if(nextDir==2) { 
 			MoovCharacter.moovLeft(character,dimMap);
-			System.out.println("direction : LEFT ");
+			//System.out.println("direction : LEFT ");
 		}
 		if(nextDir==3) {
 			MoovCharacter.moovRight(character,dimMap);
-			System.out.println("direction : RIGHT ");
+			//System.out.println("direction : RIGHT ");
 		}
 		
 		Element pos=map.getCase(character.getCoordX(),character.getCoordY());
