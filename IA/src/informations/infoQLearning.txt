@@ -1,0 +1,4 @@
+L'IA parcours l'environnement et repere l'objectif ,
+ainsi que les obstacle grace a un systeme de recompense.
+Puis elle exploite ses connaissances,
+pour determiner le chemin pour aller a l'objectif sans emcombre.

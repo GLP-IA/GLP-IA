@@ -187,7 +187,7 @@ public class GUI extends JFrame implements Runnable{
 	private class StartQlearningAction implements ActionListener{
 		 public void actionPerformed(ActionEvent e) {
 			runQlearning=true;
-			infos.setText(InfosReader.ReadInfos("infoQLearning.txt"));
+			infos.setText(InfosReader.ReadInfos("src/informations/infoQLearning.txt"));
 			Thread qLearningThread = new Thread(instance);
 			qLearningThread.start();
 		 }
