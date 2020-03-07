@@ -1,19 +1,17 @@
 package test;
 
+import data.QLearningPara;
 import data.Target;
 
-import process.Grille;
+import process.Map;
 import process.QLearningCore;
 
 public class TestCore {
-	private static int reward = 100;
-	private static int mapWidth = 5;
-	private static int mapHeight = 5;
 	
 	
 	public static void main(String[] args) {
-		Grille g = new Grille(mapWidth, mapHeight,0,0); 
-		Target t=new Target(reward,false);
+		Map g = new Map(0,0); 
+		Target t=new Target(QLearningPara.REWARD,false);
 		
 		g.initMapQLearning(t);//initalise la carte
 		

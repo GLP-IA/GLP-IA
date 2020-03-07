@@ -3,6 +3,7 @@ package ihm;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import data.QLearningPara;
 import data.Target;
 
 import java.awt.*;
@@ -11,7 +12,9 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-import process.Grille;
+import process.A_StarCore;
+import process.Map;
+import process.InfosReader;
 import process.QLearningCore;
 
 
@@ -26,14 +29,10 @@ public class GUI extends JFrame implements Runnable{
 	
 	//Jpanel
 	private Board board = new Board();
-	JButton qlearningLaunch= new JButton("QLEARNING");
+	JTextPane infos = new JTextPane();
+	
 	
 	private Runnable instance = this;
-	
-	//Variable
-	private static int reward = 100;
-	private static int mapWidth = 5;
-	private static int mapHeight = 5;
 	
 	/**
 	 * define which option should be run in the run() method
@@ -43,11 +42,15 @@ public class GUI extends JFrame implements Runnable{
 	private boolean runQlearning=false;
 	private boolean runAStar=false;
 	
-	private Grille map = new Grille(mapWidth, mapHeight,0,0); 
+	
+	private Map map = new Map(0,0); 
 	
 	//Qlearning spec
-	private Target t=new Target(reward,false);
+	private Target t=new Target(QLearningPara.REWARD,false);
 	private QLearningCore coreQ= new QLearningCore(map,t);
+	
+	//ASTar spec
+	//private A_StarCore coreA= new A_StarCore(1, 0, 0, map);
 	
 	
 	public GUI() {
@@ -55,17 +58,53 @@ public class GUI extends JFrame implements Runnable{
 	}
 	
 	public void init() {
+		//definition des bases de la fenetre
 		this.setTitle("KURIOS");
 		this.setSize(1286, 829);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setResizable(false);
+		this.getContentPane().setLayout(null);
+		this.getContentPane().setBackground(Color.DARK_GRAY);
 		
-		qlearningLaunch.addActionListener(new StartQlearningAction());
+		//ajout de la Map
+		board.setBounds(50, 50, 550, 550);
+		this.getContentPane().add(board);
 		
-		this.setContentPane(board);
-		this.add(qlearningLaunch);
+		//ajout du logo
+		JLabel label_logo = new JLabel("");
+		label_logo.setBounds(650, 50, 450, 170);
+		this.getContentPane().add(label_logo);
+		label_logo.setIcon(new ImageIcon("src/images/logo_v2.png"));
 		
+		//////////////PANEL BOUTON///////////////
+		JPanel panel_button = new JPanel();
+		panel_button.setBackground(Color.DARK_GRAY);
+		panel_button.setBounds(740, 250, 300, 300);
+		this.getContentPane().add(panel_button);
+		panel_button.setLayout(new GridLayout(0, 1, 0, 20));
+		
+				//Ajout des boutons
+				JButton button_qlearning= new JButton("QLEARNING");
+				button_qlearning.addActionListener(new StartQlearningAction());
+				panel_button.add(button_qlearning);
+				
+				JButton button_astar = new JButton("A*");
+				panel_button.add(button_astar);
+				
+				JButton button_minmax = new JButton("MinMax");
+				panel_button.add(button_minmax);
+				
+		//////////////PANEL INFO////////////////
+		JPanel panel_info = new JPanel();
+		panel_info.setBackground(Color.GRAY);
+		panel_info.setBounds(50, 580, 500, 175);
+		this.getContentPane().add(panel_info);
+				
+		infos.setBackground(Color.GRAY);
+		infos.setEditable(false);
+		infos.setText("Infos sur l'algorithme");
+		panel_info.add(infos);
 	}
 	
 	public class Board extends JPanel{
@@ -73,12 +112,8 @@ public class GUI extends JFrame implements Runnable{
 		private static final long serialVersionUID = 1L;
 
 		public void paintComponent(Graphics g) {
-			//Fond de couleur
-			g.setColor(Color.DARK_GRAY);
-			g.fillRect(0, 0, 1286, 829);
-			
-			for(int i = 0; i < mapWidth; i++) {
-				for(int j = 0; j < mapHeight ; j++) {
+			for(int i = 0; i < map.getWidth(); i++) {
+				for(int j = 0; j < map.getHeight() ; j++) {
 					try {
 						//case Vide
 						if((map.getCase(j,i).getReward() == 0))
@@ -104,28 +139,28 @@ public class GUI extends JFrame implements Runnable{
 		}
 	}
 	
-	public void qLearning(QLearningCore coreQQ) {
+	public void qLearning(QLearningCore coreQ) {
 		map.initMapQLearning(t);//initialise la carte
 		
 		for (int i = 0; i <= 100; i++) {
 			try {
 				while(!t.isAchieved()) {
-					coreQQ.run();
+					coreQ.run();
 					this.repaint();
 					Thread.sleep(5);
 				}
-				coreQQ.reset();
+				coreQ.reset();
 			}
 			catch(InterruptedException e) {
 				System.err.println(e.getMessage());
 			}
 		}
 		System.out.println("\t\tQTABLE FINAL");
-		coreQQ.result();
-		coreQQ.dicreasedExploration();
+		coreQ.result();
+		coreQ.dicreasedExploration();
 		try {
 			while(!t.isAchieved()) {
-				coreQQ.run();
+				coreQ.run();
 				this.repaint();
 				Thread.sleep(2000);
 			}
@@ -136,16 +171,23 @@ public class GUI extends JFrame implements Runnable{
 		}
 	}
 	
+	public void aStar(A_StarCore coreA) {
+		map.initMapA_Star();
+		runAStar=false;
+	}
+	
 	public void run() {
 		if(runQlearning)
 			qLearning(coreQ);
 		if(runAStar)
+		//	aStar(coreA);
 			return;
 	}
 	
 	private class StartQlearningAction implements ActionListener{
 		 public void actionPerformed(ActionEvent e) {
-			 runQlearning=true;
+			runQlearning=true;
+			infos.setText(InfosReader.ReadInfos("infoQLearning.txt"));
 			Thread qLearningThread = new Thread(instance);
 			qLearningThread.start();
 		 }

@@ -5,29 +5,29 @@ import data.Character;
 import data.Element;
 import data.Score;
 import data.Target;
+import data.QLearningPara;
 
 public class QLearningCore {
-	private Grille map;
+	private Map map;
 	private Target t;
 	private Character character;
 	private QTable qTable;
-	private double gamma = 0.9; // exploration rate , détermine l'importance des futures récompenses , facteur 0 l'agent ne considéra que les récompenses actuelles, un facteur approchant 1 il visera une récompense élevée à long terme 
-	private double alpha = 0.2; // learning rate : facteur 0 empêchera l'agent d'apprendre, facteur de 1 ne  considérerait que les informations les plus récentes
+	
 	private QFonction f;
 	Random rand = new Random();
-	private static final int dimMap =25;
 	
-	public QLearningCore(Grille map, Target t){
+	
+	public QLearningCore(Map map, Target t){
 		this.map = map;
 		this.t=t;
 		character = new Character(0,0,new Score());//positionne le personnage
-		qTable = new QTable(dimMap);//la dimension de la carte est fixe donc peut etre codé en dur ici 5x5
-		f=new QFonction(qTable,gamma,alpha);
+		qTable = new QTable(QLearningPara.DIM_MAP);//la dimension de la carte est fixe donc peut etre codé en dur ici 5x5
+		f=new QFonction(qTable,QLearningPara.GAMMA,QLearningPara.ALPHA);
 	}
 
 	public void run() {
 				double exp=rand.nextDouble();
-				if(exp<gamma)
+				if(exp<QLearningPara.GAMMA)
 					learning();
 				else
 					application();
@@ -52,21 +52,21 @@ public class QLearningCore {
 		int r=rand.nextInt(4);
 		
 		if(r==0) {
-			MoovCharacter.moovUp(character,dimMap);
+			MoovCharacter.moovUp(character,QLearningPara.DIM_MAP);
 			//System.out.println("direction : UP ");
 		}
 		if(r==1) {
-			MoovCharacter.moovDown(character,dimMap);
+			MoovCharacter.moovDown(character,QLearningPara.DIM_MAP);
 			//System.out.println("direction : DOWN ");
 		}
 
 		if(r==2) {
-			MoovCharacter.moovLeft(character,dimMap);
+			MoovCharacter.moovLeft(character,QLearningPara.DIM_MAP);
 			//System.out.println("direction : LEFT ");
 		}
 	
 		if(r==3) {
-			MoovCharacter.moovRight(character,dimMap);
+			MoovCharacter.moovRight(character,QLearningPara.DIM_MAP);
 			//System.out.println("direction : RIGHT ");
 		}
 		
@@ -84,22 +84,22 @@ public class QLearningCore {
 		int reward;
 		
 		//recupère l'état qui à la plus grande espérance de récompense
-		int nextDir=qTable.maxDirection(new States(dimMap).getState(oldX,oldY));
+		int nextDir=qTable.maxDirection(new States(QLearningPara.DIM_MAP).getState(oldX,oldY));
 
 		if(nextDir==0) {
-			MoovCharacter.moovUp(character,dimMap);
+			MoovCharacter.moovUp(character,QLearningPara.DIM_MAP);
 			//System.out.println("direction : UP ");
 		}
 		if(nextDir==1) {
-			MoovCharacter.moovDown(character,dimMap);
+			MoovCharacter.moovDown(character,QLearningPara.DIM_MAP);
 			//System.out.println("direction : DOWN ");
 		}
 		if(nextDir==2) { 
-			MoovCharacter.moovLeft(character,dimMap);
+			MoovCharacter.moovLeft(character,QLearningPara.DIM_MAP);
 			//System.out.println("direction : LEFT ");
 		}
 		if(nextDir==3) {
-			MoovCharacter.moovRight(character,dimMap);
+			MoovCharacter.moovRight(character, QLearningPara.DIM_MAP);
 			//System.out.println("direction : RIGHT ");
 		}
 		
@@ -130,7 +130,7 @@ public class QLearningCore {
 	 * réduit progressivement le taux d'exploration pour ainsi favoriser l'exploitation
 	 */
 	public void dicreasedExploration() {
-		gamma-=0.8;
+		QLearningPara.GAMMA-=0.8;
 	}
 	
 	/**
@@ -147,8 +147,8 @@ public class QLearningCore {
 	 */
 	public void debug(double exp) {
 		map.printMapQLearning();
-		System.out.println("exp: "+exp+ " exploration Rate: "+ gamma);
-		if(exp<gamma)
+		System.out.println("exp: "+exp+ " exploration Rate: "+ QLearningPara.GAMMA);
+		if(exp<QLearningPara.GAMMA)
 			System.out.println(">> EXPLORATION (deplacement aleatoire) <<");
 		else
 			System.out.println(">> EXPLOITATION (utilise la Qtable) <<");

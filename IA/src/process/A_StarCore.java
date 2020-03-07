@@ -8,7 +8,7 @@ import data.Score;
 
 public class A_StarCore {
 	private Character character;
-	private Grille map;
+	private Map map;
 	private static final int dimMap =100;
 	
 	private Hole[] holes; //contiendra les références des trous(objectif) placer sur la carte
@@ -19,7 +19,7 @@ public class A_StarCore {
 	//on pourrais mettre  une fil de priorite (voir Queue)
 	private ArrayList<Integer> openSet; // L'ensemble des nœuds découverts qui peuvent avoir besoin d'être (re) développés. 
 	
-	public A_StarCore(int g, int h, int f, Grille map) {
+	public A_StarCore(int g, int h, int f, Map map) {
 		this.g = g;
 		this.h = h;
 		this.f = f;
