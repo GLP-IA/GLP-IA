@@ -3,20 +3,21 @@ package process;
 import data.Element;
 import data.Hole;
 import data.Obstacle;
+import data.QLearningPara;
 import data.Target;
 
-public class Grille {
+public class Map {
 	private int nbLig;
 	private int nbCol;
 	private Element [][]grille;
 	private int x;
 	private int y;
-	private static int malus = -500;
 	
-	public Grille(int n, int p,int x, int y) {
-		nbLig=n;
-		nbCol=p;
-		grille = new Element [n][p];
+	
+	public Map(int x, int y) {
+		nbLig=(int) Math.sqrt(QLearningPara.DIM_MAP);
+		nbCol=nbLig;
+		grille = new Element [nbCol][nbLig];
 		this.x=x;
 		this.y=y;
 		
@@ -37,13 +38,13 @@ public class Grille {
 	 * @param t objectif
 	 */
 	public void initMapQLearning (Target t) {
-		grille[0][1]=new Obstacle (malus,"wall");
-		grille[1][1]=new Obstacle (malus,"wall");
-		grille[1][3]=new Obstacle (malus,"wall");
-		grille[2][3]=new Obstacle (malus,"wall");
-		grille[3][0]=new Obstacle (malus,"wall");
-		grille[3][2]=new Obstacle (malus,"wall");
-		grille[3][3]=new Obstacle (malus,"wall");
+		grille[0][1]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[1][1]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[1][3]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[2][3]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[3][0]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[3][2]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[3][3]=new Obstacle (QLearningPara.MALUS,"wall");
 		grille[4][4]=t;
 	}
 	
@@ -61,20 +62,20 @@ public class Grille {
 		this.y=y;
 	}
 	
-	/**
-	 * 
-	 * @return pos en x du perso
-	 */
 	public int getX() {
 		return x;
 	}
 
-	/**
-	 * 
-	 * @return pos en Y du perso
-	 */
 	public int getY() {
 		return y;
+	}
+
+	public int getWidth() {
+		return nbCol;
+	}
+	
+	public int getHeight() {
+		return nbLig;
 	}
 
 	/**
