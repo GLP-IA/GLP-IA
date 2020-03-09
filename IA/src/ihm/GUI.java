@@ -31,6 +31,9 @@ public class GUI extends JFrame implements Runnable{
 	private Board board = new Board();
 	JTextPane infos = new JTextPane();
 	
+	JButton button_astar = new JButton("A*");
+	JButton button_qlearning= new JButton("QLEARNING");
+	
 	
 	private Runnable instance = this;
 	
@@ -85,11 +88,11 @@ public class GUI extends JFrame implements Runnable{
 		panel_button.setLayout(new GridLayout(0, 1, 0, 20));
 		
 				//Ajout des boutons
-				JButton button_qlearning= new JButton("QLEARNING");
+				
 				button_qlearning.addActionListener(new StartQlearningAction());
 				panel_button.add(button_qlearning);
 				
-				JButton button_astar = new JButton("A*");
+				button_astar.addActionListener(new StartAstarAction());
 				panel_button.add(button_astar);
 				
 				JButton button_minmax = new JButton("MinMax");
@@ -176,6 +179,7 @@ public class GUI extends JFrame implements Runnable{
 		runAStar=false;
 	}
 	
+	
 	public void run() {
 		if(runQlearning)
 			qLearning(coreQ);
@@ -190,6 +194,14 @@ public class GUI extends JFrame implements Runnable{
 			infos.setText(InfosReader.ReadInfos("src/informations/infoQLearning.txt"));
 			Thread qLearningThread = new Thread(instance);
 			qLearningThread.start();
+		 }
+	}
+	private class StartAstarAction implements ActionListener{
+		 public void actionPerformed(ActionEvent e) {
+			runAStar=true;
+			infos.setText(InfosReader.ReadInfos("src/informations/infoAStar.txt"));
+			Thread aStarThread = new Thread(instance);
+			aStarThread.start();
 		 }
 	}
 }
