@@ -21,7 +21,7 @@ public class QLearningCore {
 		this.map = map;
 		this.t=t;
 		character = new Character(0,0,new Score());//positionne le personnage
-		qTable = new QTable(QLearningPara.DIM_MAP);//la dimension de la carte est fixe donc peut etre codé en dur ici 5x5
+		qTable = new QTable();
 		f=new QFonction(qTable,QLearningPara.GAMMA,QLearningPara.ALPHA);
 	}
 
@@ -34,7 +34,7 @@ public class QLearningCore {
 				
 				if(map.getCase(character.getCoordX(),character.getCoordY()).getReward()==100) { //on considere que l'objectif a pour recompense 100
 					t.setAchieved(true);
-					System.out.println("\n >> Bravo l'objectif est atteint ! <<");
+					//System.out.println("\n >> Bravo l'objectif est atteint ! <<");
 				}
 				map.hasMooved(character.getCoordX(),character.getCoordY());
 				//debug(exp);

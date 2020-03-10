@@ -63,7 +63,7 @@ public class GUI extends JFrame implements Runnable{
 	public void init() {
 		//definition des bases de la fenetre
 		this.setTitle("KURIOS");
-		this.setSize(1286, 829);
+		this.setSize(1600, 1000);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setResizable(false);
@@ -71,19 +71,19 @@ public class GUI extends JFrame implements Runnable{
 		this.getContentPane().setBackground(Color.DARK_GRAY);
 		
 		//ajout de la Map
-		board.setBounds(50, 50, 550, 550);
+		board.setBounds(50, 50, 850, 850);
 		this.getContentPane().add(board);
 		
 		//ajout du logo
 		JLabel label_logo = new JLabel("");
-		label_logo.setBounds(650, 50, 450, 170);
+		label_logo.setBounds(900, 50, 450, 170);
 		this.getContentPane().add(label_logo);
 		label_logo.setIcon(new ImageIcon("src/images/logo_v2.png"));
 		
 		//////////////PANEL BOUTON///////////////
 		JPanel panel_button = new JPanel();
 		panel_button.setBackground(Color.DARK_GRAY);
-		panel_button.setBounds(740, 250, 300, 300);
+		panel_button.setBounds(1030, 250, 250, 250);
 		this.getContentPane().add(panel_button);
 		panel_button.setLayout(new GridLayout(0, 1, 0, 20));
 		
@@ -101,7 +101,7 @@ public class GUI extends JFrame implements Runnable{
 		//////////////PANEL INFO////////////////
 		JPanel panel_info = new JPanel();
 		panel_info.setBackground(Color.GRAY);
-		panel_info.setBounds(50, 580, 500, 175);
+		panel_info.setBounds(800, 550, 700, 200);
 		this.getContentPane().add(panel_info);
 				
 		infos.setBackground(Color.GRAY);
@@ -120,11 +120,11 @@ public class GUI extends JFrame implements Runnable{
 					try {
 						//case Vide
 						if((map.getCase(j,i).getReward() == 0))
-								g.drawImage(ImageIO.read(new File("src/images/emptyCase.png")), i*100+spacing, j*100+spacing, 100,100,null);
+								g.drawImage(ImageIO.read(new File("src/images/emptyCase.png")), i*70+spacing, j*70+spacing, 70,70,null);
 						
 						//Obstacle
 						if(map.getCase(j,i).getReward() == -500) 
-							g.drawImage(ImageIO.read(new File("src/images/obstacle_v2.png")), i*100+spacing, j*100+spacing, 100,100,null);
+							g.drawImage(ImageIO.read(new File("src/images/obstacle_v2.png")), i*70+spacing, j*70+spacing, 70,70,null);
 						
 						//Objectif
 						if(map.getCase(j,i).getReward() == 100) 
@@ -132,7 +132,7 @@ public class GUI extends JFrame implements Runnable{
 						
 						//Perso
 						if(map.getX()==j && map.getY() == i) 
-							g.drawImage(ImageIO.read(new File("src/images/Kurios.png")), i*100+spacing, j*100+spacing, 100,100,null);		
+							g.drawImage(ImageIO.read(new File("src/images/Kurios.png")), i*70+spacing, j*70+spacing, 70,70,null);		
 					}
 					catch (IOException e) {
 						System.err.println("-- Can not read the image file ! --");

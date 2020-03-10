@@ -1,10 +1,12 @@
 package process;
 
+import data.QLearningPara;
+
 /**
- *colonne 1: UP
- *colonne 2: DOWN
- *colonne 3: LEFT
- *colonne 4: RIGHT
+ *colonne 0: UP
+ *colonne 1: DOWN
+ *colonne 2: LEFT
+ *colonne 3: RIGHT
  *
  *les lignes sont d�finit de la mani�re suivante:
  *ligne 0 <=> case 0 <=> (0,0); ligne 1 <=> case 1 <=> (0,1)...
@@ -12,28 +14,30 @@ package process;
  */
 public class QTable {
 	private double qTable[][];
-	private int dimMap;
 
-	public QTable(int dimMap) {
-		this.dimMap = dimMap;
-		qTable = new double [dimMap][4];
-		for(int i=0;i<dimMap;i++){
+	public QTable() {
+		qTable = new double [QLearningPara.DIM_MAP][4];
+		String test = "";
+		for(int i=0;i<QLearningPara.DIM_MAP;i++){
 			for(int j=0;j<4.;j++) {
-				if(i==5%2 || i==0)
+				test = String.valueOf(i);
+				if(i%10 == 0 || i==0)
 					qTable[i][2]=-900;//moovLeft quand on est a gauche
-				if(i<5)
+				if(i<10)
 					qTable[i][0]=-900; //moovUp quand on est en haut
-				if(i>=20)
-					qTable[i][1]=-900; //moovDown quand on est en bas
+				if(i>=90) 
+					qTable[i][1]=-900; //moovDown quand on est en bas	
+				if (i == 9)
+					qTable[i][3]=-900; //moovRight quand on est a droite
+				 if (i>10) { 
+					if(test.substring(2).equals("9"))
+						qTable[i][3]=-900; //moovRight quand on est a droite	
+				}
 				else
 					qTable[i][j]=0;
 			}
 		}
-		//definition des limites de la carte 5x5
-		qTable[4][3]=-900;
-		qTable[9][3]=-900;
-		qTable[14][3]=-900;
-		qTable[24][3]=-900;
+		
 	}
 
 	public double getEsp(int square,int moov) {
@@ -86,7 +90,7 @@ public class QTable {
 
 	        
 	        System.out.println();
-		for (int i = 0; i <dimMap; i++) {
+		for (int i = 0; i <QLearningPara.DIM_MAP; i++) {
 			System.out.print("From state " + i + ":  ");
 			for (int j = 0; j <4; j++) {
 				//System.out.print(qTable[i][j]+" ");

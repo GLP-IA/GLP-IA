@@ -45,7 +45,15 @@ public class Map {
 		grille[3][0]=new Obstacle (QLearningPara.MALUS,"wall");
 		grille[3][2]=new Obstacle (QLearningPara.MALUS,"wall");
 		grille[3][3]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[4][4]=t;
+		
+		grille[0][1]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[1][1]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[1][3]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[2][3]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[3][0]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[3][2]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[3][3]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[9][9]=t;
 	}
 	
 	/**
