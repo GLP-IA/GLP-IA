@@ -38,21 +38,39 @@ public class Map {
 	 * @param t objectif
 	 */
 	public void initMapQLearning (Target t) {
-		grille[0][1]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[1][1]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[1][3]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[2][3]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[3][0]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[3][2]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[3][3]=new Obstacle (QLearningPara.MALUS,"wall");
+	
 		
-		grille[0][1]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[1][1]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[1][3]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[2][3]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[3][0]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[0][2]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[0][3]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[0][7]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[0][8]=new Obstacle (QLearningPara.MALUS,"wall");
+		
+		grille[1][0]=new Obstacle (QLearningPara.MALUS,"wall");
+
+		
+		grille[3][1]=new Obstacle (QLearningPara.MALUS,"wall");
 		grille[3][2]=new Obstacle (QLearningPara.MALUS,"wall");
 		grille[3][3]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[3][6]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[3][7]=new Obstacle (QLearningPara.MALUS,"wall");
+
+		grille[4][2]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[4][6]=new Obstacle (QLearningPara.MALUS,"wall");
+		
+		grille[5][6]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[5][5]=new Obstacle (QLearningPara.MALUS,"wall");
+		
+		grille[6][1]=new Obstacle (QLearningPara.MALUS,"wall");
+		
+		grille[7][1]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[7][2]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[7][9]=new Obstacle (QLearningPara.MALUS,"wall");
+		
+		grille[8][3]=new Obstacle (QLearningPara.MALUS,"wall");
+		
+		grille[9][0]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[9][7]=new Obstacle (QLearningPara.MALUS,"wall");
+		
 		grille[9][9]=t;
 	}
 	
