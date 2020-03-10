@@ -1,7 +1,7 @@
 package data;
 
 public class QLearningPara {
-	public static final int DIM_MAP =25;
+	public static final int DIM_MAP =100;
 	
 	public static double GAMMA = 0.9; // exploration rate , détermine l'importance des futures récompenses , facteur 0 l'agent ne considéra que les récompenses actuelles, un facteur approchant 1 il visera une récompense élevée à long terme 
 	
