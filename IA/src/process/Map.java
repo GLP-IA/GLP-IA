@@ -68,7 +68,7 @@ public class Map {
 		
 		grille[8][3]=new Obstacle (QLearningPara.MALUS,"wall");
 		
-		grille[9][0]=new Obstacle (QLearningPara.MALUS,"wall");
+		grille[9][1]=new Obstacle (QLearningPara.MALUS,"wall");
 		grille[9][7]=new Obstacle (QLearningPara.MALUS,"wall");
 		
 		grille[9][9]=t;
