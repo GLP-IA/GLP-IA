@@ -38,7 +38,11 @@ public class Map {
 	 * @param t objectif
 	 */
 	public void initMapQLearning (Target t) {
-	
+		for(int i = 0; i< nbLig; i ++) {
+			for(int j = 0; j< nbCol; j ++) {
+				grille [i][j] = new Element(0);
+			}
+		}
 		
 		grille[0][2]=new Obstacle (QLearningPara.MALUS,"wall");
 		grille[0][3]=new Obstacle (QLearningPara.MALUS,"wall");
@@ -78,6 +82,11 @@ public class Map {
 	 * genere la carte pour A*
 	 */
 	public void initMapA_Star() {
+		for(int i = 0; i< nbLig; i ++) {
+			for(int j = 0; j< nbCol; j ++) {
+				grille [i][j] = new Element(0);
+			}
+		}
 		grille[6][5]=new Hole(6,5,"Triangle");
 		grille[5][3]=new Hole(5,3,"Square");
 		grille[2][4]=new Hole(2,4,"Circle");

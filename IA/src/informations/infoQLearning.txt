@@ -1,3 +1,3 @@
-L'IA parcourt l'environnement et repère l'objectif, ainsi que les obstacles 
-grâce à un système de récompense. Puis elle exploite ses connaissances,
-pour déterminer le chemin pour aller à l'objectif sans emcombre.
+L'IA parcourt l'environnement et repere l'objectif, ainsi que les obstacles 
+grace a un systeme de recompense. Puis elle exploite ses connaissances,
+pour determiner le chemin pour aller a� l'objectif sans emcombre.
