@@ -1,6 +1,7 @@
 package process;
 
 import java.util.ArrayList;
+import java.util.Queue;
 
 import data.Character;
 import data.Hole;
@@ -11,13 +12,12 @@ public class A_StarCore {
 	private Map map;
 	private static final int dimMap =100;
 	
-	private Hole[] holes; //contiendra les références des trous(objectif) placer sur la carte
-	private int g; //cout du déplacement
-	private int h; // h est la fonction heuristique. h (n) estime le coût pour atteindre l'objectif à partir du nœud n.
+	private Hole[] holes; //contiendra les rï¿½fï¿½rences des trous(objectif) placer sur la carte
+	private int g; //cout du dï¿½placement
+	private int h; // h est la fonction heuristique. h (n) estime le coï¿½t pour atteindre l'objectif ï¿½ partir du nï¿½ud n.
 	private int f; //f=g+h
 	
-	//on pourrais mettre  une fil de priorite (voir Queue)
-	private ArrayList<Integer> openSet; // L'ensemble des nœuds découverts qui peuvent avoir besoin d'être (re) développés. 
+	private Queue<Integer> openSet; // L'ensemble des nï¿½uds dï¿½couverts qui peuvent avoir besoin d'ï¿½tre (re) dï¿½veloppï¿½s. 
 	
 	public A_StarCore(int g, int h, int f, Map map) {
 		this.g = g;
@@ -28,8 +28,8 @@ public class A_StarCore {
 		//initialisation du personnage
 		character = new Character(0,0,new Score());
 		
-		holes = new Hole [3]; //il y aura min. 3 trou avec différentes formes
-		openSet.add(0);	// Initialement, seul le nœud de départ est connu. (on utilisera la meme notation que les etat du qlearning)
+		holes = new Hole [3]; //il y aura min. 3 trou avec diffï¿½rentes formes
+		openSet.add(0);	// Initialement, seul le nï¿½ud de dï¿½part est connu. (on utilisera la meme notation que les etat du qlearning)
 	}
 
 	/**
@@ -50,9 +50,10 @@ public class A_StarCore {
 	 *
 	 */
 	public void calcH() {
-		//calcul
+		//calcul de h heuristique selon la disatnce Manhattan
+		h = Math.abs(character.getCoordX() - holes[0].getCoordX()) + Math.abs(character.getCoordY() - holes[0].getCoordY());
 		
-		calcF();// une fois le calcul de H mis à jour il faudrai mettre à jour celui de F aussi (normalement)
+		calcF();// une fois le calcul de H mis ï¿½ jour il faudrai mettre ï¿½ jour celui de F aussi (normalement)
 	}
 
 	/**

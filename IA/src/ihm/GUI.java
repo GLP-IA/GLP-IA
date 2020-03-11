@@ -76,14 +76,14 @@ public class GUI extends JFrame implements Runnable{
 		
 		//ajout du logo
 		JLabel label_logo = new JLabel("");
-		label_logo.setBounds(900, 50, 450, 170);
+		label_logo.setBounds(870, 50, 450, 170);
 		this.getContentPane().add(label_logo);
 		label_logo.setIcon(new ImageIcon("src/images/logo_v2.png"));
 		
 		//////////////PANEL BOUTON///////////////
 		JPanel panel_button = new JPanel();
 		panel_button.setBackground(Color.DARK_GRAY);
-		panel_button.setBounds(1030, 250, 250, 250);
+		panel_button.setBounds(1030, 250, 190, 250);
 		this.getContentPane().add(panel_button);
 		panel_button.setLayout(new GridLayout(0, 1, 0, 20));
 		
@@ -101,7 +101,7 @@ public class GUI extends JFrame implements Runnable{
 		//////////////PANEL INFO////////////////
 		JPanel panel_info = new JPanel();
 		panel_info.setBackground(Color.GRAY);
-		panel_info.setBounds(800, 550, 700, 200);
+		panel_info.setBounds(850, 550, 550, 200);
 		this.getContentPane().add(panel_info);
 				
 		infos.setBackground(Color.GRAY);
@@ -115,27 +115,47 @@ public class GUI extends JFrame implements Runnable{
 		private static final long serialVersionUID = 1L;
 
 		public void paintComponent(Graphics g) {
-			for(int i = 0; i < map.getWidth(); i++) {
-				for(int j = 0; j < map.getHeight() ; j++) {
-					try {
-						//case Vide
-						if((map.getCase(j,i).getReward() == 0))
-								g.drawImage(ImageIO.read(new File("src/images/emptyCase.png")), i*70+spacing, j*70+spacing, 70,70,null);
-						
-						//Obstacle
-						if(map.getCase(j,i).getReward() == -500) 
-							g.drawImage(ImageIO.read(new File("src/images/obstacle_v2.png")), i*70+spacing, j*70+spacing, 70,70,null);
-						
-						//Objectif
-						if(map.getCase(j,i).getReward() == 100) 
-							g.setColor(Color.green);// objectif en vert
-						
-						//Perso
-						if(map.getX()==j && map.getY() == i) 
-							g.drawImage(ImageIO.read(new File("src/images/Kurios.png")), i*70+spacing, j*70+spacing, 70,70,null);		
+			if(runQlearning) {
+				for(int i = 0; i < map.getWidth(); i++) {
+					for(int j = 0; j < map.getHeight() ; j++) {
+						try {
+							//case Vide
+							if((map.getCase(j,i).getReward() == 0))
+									g.drawImage(ImageIO.read(new File("src/images/emptyCase.png")), i*70+spacing, j*70+spacing, 70,70,null);
+							
+							//Obstacle
+							if(map.getCase(j,i).getReward() == -500) 
+								g.drawImage(ImageIO.read(new File("src/images/obstacle_v2.png")), i*70+spacing, j*70+spacing, 70,70,null);
+							
+							//Objectif
+							if(map.getCase(j,i).getReward() == 100) 
+								g.setColor(Color.green);// objectif en vert
+							
+							//Perso
+							if(map.getX()==j && map.getY() == i) 
+								g.drawImage(ImageIO.read(new File("src/images/Kurios.png")), i*70+spacing, j*70+spacing, 70,70,null);		
+						}
+						catch (IOException e) {
+							System.err.println("-- Can not read the image file ! --");
+						}
 					}
-					catch (IOException e) {
-						System.err.println("-- Can not read the image file ! --");
+				}
+			}
+			else {
+				for(int i = 0; i < map.getWidth(); i++) {
+					for(int j = 0; j < map.getHeight() ; j++) {
+						try {
+							//case Vide
+							if((map.getCase(j,i).getReward() == 0))
+									g.drawImage(ImageIO.read(new File("src/images/emptyCase.png")), i*70+spacing, j*70+spacing, 70,70,null);
+							
+							//Perso
+							if(map.getX()==j && map.getY() == i) 
+								g.drawImage(ImageIO.read(new File("src/images/Kurios.png")), i*70+spacing, j*70+spacing, 70,70,null);		
+						}
+						catch (IOException e) {
+							System.err.println("-- Can not read the image file ! --");
+						}
 					}
 				}
 			}
@@ -150,7 +170,7 @@ public class GUI extends JFrame implements Runnable{
 				while(!t.isAchieved()) {
 					coreQ.run();
 					this.repaint();
-					Thread.sleep(5);
+					Thread.sleep(1);
 				}
 				coreQ.reset();
 			}
@@ -165,7 +185,7 @@ public class GUI extends JFrame implements Runnable{
 			while(!t.isAchieved()) {
 				coreQ.run();
 				this.repaint();
-				Thread.sleep(2000);
+				Thread.sleep(1000);
 			}
 			runQlearning=false;
 		}
