@@ -1,35 +1,37 @@
 package process;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 
 import data.Character;
 import data.Hole;
 import data.Score;
+import data.AStarPara;
 
 public class A_StarCore {
 	private Character character;
 	private Map map;
-	private static final int dimMap =100;
 	
 	private Hole[] holes; //contiendra les r�f�rences des trous(objectif) placer sur la carte
-	private int g; //cout du d�placement
-	private int h; // h est la fonction heuristique. h (n) estime le co�t pour atteindre l'objectif � partir du n�ud n.
-	private int f; //f=g+h
+	/*private final List<Node> closed;//l'ensemble des noeud correcte
+	private final List<Node> path;//chemin
+	private Node now; //current position
+	private final int xstart;
+	private final int ystart;
+	private int xend, yend;
+	private final boolean diag;*/
 	
-	private Queue<Integer> openSet; // L'ensemble des n�uds d�couverts qui peuvent avoir besoin d'�tre (re) d�velopp�s. 
+	private Queue<Node> openSet; // L'ensemble des n�uds d�couverts qui peuvent avoir besoin d'�tre (re) d�velopp�s. 
 	
-	public A_StarCore(int g, int h, int f, Map map) {
-		this.g = g;
-		this.h = h;
-		this.f = f;
+	public A_StarCore(Map map) {
 		this.map = map;
 		
 		//initialisation du personnage
 		character = new Character(0,0,new Score());
 		
 		holes = new Hole [3]; //il y aura min. 3 trou avec diff�rentes formes
-		openSet.add(0);	// Initialement, seul le n�ud de d�part est connu. (on utilisera la meme notation que les etat du qlearning)
+		openSet.add(new Node(null,character.getCoordX(),character.getCoordY(),AStarPara.g,calcH()));	// Initialement, seul le n�ud de d�part est connu. (on utilisera la meme notation que les etat du qlearning)
 	}
 
 	/**
@@ -46,21 +48,19 @@ public class A_StarCore {
 	}
 	
 	/**
-	 *fonction qui calculera la distance selon 1 vol d'oiseau ou ligne droite
+	 *fonction qui calcul h de maniere heuristique selon le principe de la distance Manhattan
 	 *
 	 */
-	public void calcH() {
-		//calcul de h heuristique selon la disatnce Manhattan
-		h = Math.abs(character.getCoordX() - holes[0].getCoordX()) + Math.abs(character.getCoordY() - holes[0].getCoordY());
-		
-		calcF();// une fois le calcul de H mis � jour il faudrai mettre � jour celui de F aussi (normalement)
+	public double calcH() {
+		//
+		return Math.abs(character.getCoordX() - holes[0].getCoordX()) + Math.abs(character.getCoordY() - holes[0].getCoordY());
 	}
 
 	/**
 	 * calcul f selon g et h
 	 */
-	public void calcF() {
-		f=g+h;
+	public double calcF() {
+		return(1+calcH());
 	}
 	
 	

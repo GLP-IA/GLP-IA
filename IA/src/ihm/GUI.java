@@ -62,7 +62,7 @@ public class GUI extends JFrame implements Runnable{
 	public void init() {
 		//definition des bases de la fenetre
 		this.setTitle("KURIOS");
-		this.setSize(1600, 1000);
+		this.setSize(1500, 1000);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setResizable(false);
