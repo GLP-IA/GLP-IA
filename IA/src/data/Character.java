@@ -17,40 +17,20 @@ public class Character {
 	private int coordx;
 	private int coordY;
 	
-	/**
-	 * The character's score
-	 * 
-	 * @see Character(Element position, Score scores)
-	 * @see getScores
-	 */
-	private Score scores;
-	
 	
 	/**
 	 * The constructor's class
 	 * 
 	 * @param position
-	 * @param scores
 	 * 
 	 * @see Character#position
-	 * @see Character#scores
 	 */
-	public Character(int coordx, int coordY, Score scores) {
+	public Character(int coordx, int coordY) {
 		super();
 		this.coordx = coordx;
 		this.coordY = coordY;
-		this.scores = scores;
 	}
 	
-	/**
-	 * Get the character's scores
-	 * 
-	 * @return the character's scores
-	 */
-	public Score getScores() {
-		return scores;
-	}
-
 	/**
 	 * Update the character's position
 	 * 

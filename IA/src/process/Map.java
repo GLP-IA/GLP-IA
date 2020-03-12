@@ -7,29 +7,30 @@ import data.QLearningPara;
 import data.Target;
 
 public class Map {
-	private int nbLig;
-	private int nbCol;
-	private Element [][]grille;
+	private int height=(int) Math.sqrt(QLearningPara.DIM_MAP);
+	private int width=(int) Math.sqrt(QLearningPara.DIM_MAP);
+	private Element [][]map;
 	private int x;
 	private int y;
 	
 	
 	public Map(int x, int y) {
-		nbLig=(int) Math.sqrt(QLearningPara.DIM_MAP);
-		nbCol=nbLig;
-		grille = new Element [nbCol][nbLig];
+		map = new Element [width][height];
 		this.x=x;
 		this.y=y;
-		
-		for(int i = 0; i< nbLig; i ++) {
-			for(int j = 0; j< nbCol; j ++) {
-				grille [i][j] = new Element(0);
+		initEmptyMap();
+	}
+	
+	private void initEmptyMap() {
+		for(int i = 0; i< height; i ++) {
+			for(int j = 0; j< width; j ++) {
+				map [i][j] = new Element(0);
 			}
 		}
 	}
-	
+
 	public Element getCase(int l, int c) {
-		return grille[l][c];
+		return map[l][c];
 	}
 	
 	/**
@@ -38,58 +39,51 @@ public class Map {
 	 * @param t objectif
 	 */
 	public void initMapQLearning (Target t) {
-		for(int i = 0; i< nbLig; i ++) {
-			for(int j = 0; j< nbCol; j ++) {
-				grille [i][j] = new Element(0);
-			}
-		}
+		initEmptyMap();
 		
-		grille[0][2]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[0][3]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[0][7]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[0][8]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[0][2]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[0][3]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[0][7]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[0][8]=new Obstacle (QLearningPara.MALUS,"wall");
 		
-		grille[1][0]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[1][0]=new Obstacle (QLearningPara.MALUS,"wall");
 
 		
-		grille[3][1]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[3][2]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[3][3]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[3][6]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[3][7]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[3][1]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[3][2]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[3][3]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[3][6]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[3][7]=new Obstacle (QLearningPara.MALUS,"wall");
 
-		grille[4][2]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[4][6]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[4][2]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[4][6]=new Obstacle (QLearningPara.MALUS,"wall");
 		
-		grille[5][6]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[5][5]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[5][6]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[5][5]=new Obstacle (QLearningPara.MALUS,"wall");
 		
-		grille[6][1]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[6][1]=new Obstacle (QLearningPara.MALUS,"wall");
 		
-		grille[7][1]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[7][2]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[7][9]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[7][1]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[7][2]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[7][9]=new Obstacle (QLearningPara.MALUS,"wall");
 		
-		grille[8][3]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[8][3]=new Obstacle (QLearningPara.MALUS,"wall");
 		
-		grille[9][0]=new Obstacle (QLearningPara.MALUS,"wall");
-		grille[9][7]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[9][0]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[9][7]=new Obstacle (QLearningPara.MALUS,"wall");
 		
-		grille[9][9]=t;
+		map[9][9]=t;
 	}
 	
 	/**
 	 * genere la carte pour A*
 	 */
 	public void initMapA_Star() {
-		for(int i = 0; i< nbLig; i ++) {
-			for(int j = 0; j< nbCol; j ++) {
-				grille [i][j] = new Element(0);
-			}
-		}
-		grille[6][5]=new Hole(6,5,"Triangle");
-		grille[5][3]=new Hole(5,3,"Square");
-		grille[2][4]=new Hole(2,4,"Circle");
+		initEmptyMap();
+		
+		map[6][5]=new Hole(6,5,"Triangle");
+		map[5][3]=new Hole(5,3,"Square");
+		map[2][4]=new Hole(2,4,"Circle");
 	}
 	
 	public void hasMooved(int x, int y) {
@@ -106,11 +100,11 @@ public class Map {
 	}
 
 	public int getWidth() {
-		return nbCol;
+		return width;
 	}
 	
 	public int getHeight() {
-		return nbLig;
+		return height;
 	}
 
 	/**
@@ -118,8 +112,8 @@ public class Map {
 	 */
 	public void printMapQLearning() {
 		System.out.println();
-		for (int i = 0; i < nbLig; i++) {
-			for (int j = 0; j < nbCol; j++) {
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
 				if(i==x && j==y)
 					System.out.print("X");
 				
@@ -144,8 +138,8 @@ public class Map {
 	 */
 	public void printMapA_Star() {
 		System.out.println();
-		for (int i = 0; i < nbLig; i++) {
-			for (int j = 0; j < nbCol; j++) {
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
 				if(i==x && j==y)
 					System.out.print("X");
 				
@@ -158,6 +152,8 @@ public class Map {
 				else if(i==2 && j==4)
 					System.out.print("O"); // on considere que c'est un rond
 				
+				else if(getCase(i,j).getReward()==250)
+					System.out.print("#"); //trainé
 				else
 					System.out.print("-");
 				
@@ -166,5 +162,10 @@ public class Map {
 			System.out.println();
 		}
 		System.out.println();
+	}
+
+	
+	public void setCase(int x2, int y2, Element element) {
+		map[x2][y2]=element;
 	}
 }

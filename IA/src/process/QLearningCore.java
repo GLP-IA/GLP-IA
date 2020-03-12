@@ -20,7 +20,7 @@ public class QLearningCore {
 	public QLearningCore(Map map, Target t){
 		this.map = map;
 		this.t=t;
-		character = new Character(0,0,new Score());//positionne le personnage
+		character = new Character(0,0);//positionne le personnage
 		qTable = new QTable();
 		f=new QFonction(qTable,QLearningPara.GAMMA,QLearningPara.ALPHA);
 	}
@@ -84,7 +84,7 @@ public class QLearningCore {
 		int reward;
 		
 		//recupère l'état qui à la plus grande espérance de récompense
-		int nextDir=qTable.maxDirection(new States(QLearningPara.DIM_MAP).getState(oldX,oldY));
+		int nextDir=qTable.maxDirection(States.getState(oldX,oldY));
 
 		if(nextDir==0) {
 			MoovCharacter.moovUp(character,QLearningPara.DIM_MAP);

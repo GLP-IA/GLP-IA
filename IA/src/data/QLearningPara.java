@@ -1,5 +1,6 @@
 package data;
 
+
 public class QLearningPara {
 	public static final int DIM_MAP =100;
 	
@@ -10,4 +11,10 @@ public class QLearningPara {
 	public static final int MALUS = -500;
 	
 	public static final int REWARD = 100;
+	
+	/**
+	 * define which option should be run in the run() method
+	 * 
+	 */
+	public static boolean runQlearning=false;
 }
