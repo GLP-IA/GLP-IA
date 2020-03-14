@@ -1,19 +1,15 @@
-package ihm;
+package gui.elements;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import data.AStarPara;
-import data.Element;
-import data.Hole;
+import data.Character;
 import data.QLearningPara;
 import data.Target;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
 import process.A_StarCore;
 import process.Map;
@@ -25,7 +21,8 @@ public class GUI extends JFrame implements Runnable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private Map map= new Map(0,0);
+	private Character character = new Character(0,0);//positionne le personnage
+	private Map map= new Map(character);
 	
 	//Qlearning spec
 		private Target t=new Target(QLearningPara.REWARD,false);
@@ -97,7 +94,7 @@ public class GUI extends JFrame implements Runnable{
 	
 	public void qLearning(QLearningCore coreQ) {
 		map.initMapQLearning(t);//initialise la carte
-		coreQ= new QLearningCore(map,t);
+		coreQ= new QLearningCore(map,t,character);
 		
 		for (int i = 0; i <= 100; i++) {
 			try {
@@ -131,7 +128,7 @@ public class GUI extends JFrame implements Runnable{
 	public void aStar() {
 		map.initMapA_Star();
 		this.repaint();
-		//AStarPara.runAStar=false;
+		AStarPara.runAStar=false;
 	}
 	
 	public void run() {

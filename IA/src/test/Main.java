@@ -1,5 +1,6 @@
-package ihm;
+package test;
 
+import gui.elements.GUI;
 
 public class Main implements Runnable {
 	

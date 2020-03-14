@@ -47,5 +47,9 @@ public class Obstacle extends Element {
 	public void setType(String type) {
 		this.type = type;
 	}
-
+	
+	@Override
+	public <E> E accept(ElementVisitor<E> elem) {
+		return elem.visit(this);
+	}
 }

@@ -45,4 +45,9 @@ public class Target extends Element{
 	public void setAchieved(boolean achieved) {
 		this.achieved = achieved;
 	}
+	
+	@Override
+	public <E> E accept(ElementVisitor<E> elem) {
+		return elem.visit(this);
+	}
 }

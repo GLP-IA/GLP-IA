@@ -27,11 +27,10 @@ public class A_StarCore {
 	private final boolean diag;*/
 	
 	
-	public A_StarCore(Map map) {
+	public A_StarCore(Map map, Character character) {
 		this.map = map;
+		this.character=character;
 		
-		//initialisation du personnage
-		character = new Character(0,0);	
 		holes = new Hole [3]; //il y aura min. 3 trou avec diff�rentes formes
 		
 		current=new Node(null,character.getCoordX(),character.getCoordY(),AStarPara.g,5);

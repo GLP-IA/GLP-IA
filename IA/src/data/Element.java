@@ -1,11 +1,14 @@
 package data;
+
+import data.ElementVisitor;
+
 /**
  * This class is composed of the element's specifications
  * 
  * @author gimardthibault, Nathan Virayie
  *
  */
-public class Element {
+public abstract class Element {
 	private int reward;
 	
 	/**
@@ -23,4 +26,15 @@ public class Element {
 	public void setReward(int reward) {
 		this.reward = reward;
 	}
+	
+	/**
+	 * A element can accept the visit of any {@link ElementVisitor}.
+	 * 
+	 * @param visitor
+	 *            the element visitor of generic type
+	 * @return the generic return type that depends on the concret return type
+	 *         of the element visitor
+	 * 
+	 */
+	 public abstract <E> E accept(ElementVisitor<E> elem);
 }

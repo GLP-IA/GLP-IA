@@ -1,30 +1,31 @@
 package process;
 
 import data.Element;
+import data.ElementVisitor;
+import data.EmptyCase;
 import data.Hole;
 import data.Obstacle;
 import data.QLearningPara;
 import data.Target;
+import data.Character;
 
-public class Map {
+public class Map{
 	private int height=(int) Math.sqrt(QLearningPara.DIM_MAP);
 	private int width=(int) Math.sqrt(QLearningPara.DIM_MAP);
 	private Element [][]map;
-	private int x;
-	private int y;
+	private Character character;
 	
 	
-	public Map(int x, int y) {
+	public Map(Character character) {
 		map = new Element [width][height];
-		this.x=x;
-		this.y=y;
+		this.character=character;
 		initEmptyMap();
 	}
 	
 	private void initEmptyMap() {
 		for(int i = 0; i< height; i ++) {
 			for(int j = 0; j< width; j ++) {
-				map [i][j] = new Element(0);
+				map [i][j] = new EmptyCase(0);
 			}
 		}
 	}
@@ -86,17 +87,12 @@ public class Map {
 		map[2][4]=new Hole(2,4,"Circle");
 	}
 	
-	public void hasMooved(int x, int y) {
-		this.x=x;
-		this.y=y;
-	}
-	
 	public int getX() {
-		return x;
+		return character.getCoordX();
 	}
 
 	public int getY() {
-		return y;
+		return character.getCoordY();
 	}
 
 	public int getWidth() {
@@ -106,6 +102,10 @@ public class Map {
 	public int getHeight() {
 		return height;
 	}
+	
+	public Character getCharacter() {
+		return character;
+	}
 
 	/**
 	 * Affiche la carte selon l'environnement du QLearning
@@ -114,7 +114,7 @@ public class Map {
 		System.out.println();
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
-				if(i==x && j==y)
+				if(i==getX() && j==getY())
 					System.out.print("X");
 				
 				else if(getCase(i,j).getReward()==-500)
@@ -140,7 +140,7 @@ public class Map {
 		System.out.println();
 		for (int i = 0; i < height; i++) {
 			for (int j = 0; j < width; j++) {
-				if(i==x && j==y)
+				if(i==getX() && j==getY())
 					System.out.print("X");
 				
 				else if(i==6 && j==5)
@@ -165,7 +165,11 @@ public class Map {
 	}
 
 	
-	public void setCase(int x2, int y2, Element element) {
-		map[x2][y2]=element;
+	public void setCase(int x, int y, Element element) {
+		map[x][y]=element;
+	}
+
+	public <E> E accept(ElementVisitor<E> elem) {
+		return elem.visit(this);
 	}
 }

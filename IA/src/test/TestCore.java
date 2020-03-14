@@ -1,5 +1,6 @@
 package test;
 
+import data.Character;
 import data.QLearningPara;
 import data.Target;
 
@@ -10,13 +11,14 @@ public class TestCore {
 	
 	
 	public static void main(String[] args) {
-		Map g = new Map(0,0); 
+		Character character = new Character(0,0);
+		Map g = new Map(character); 
 		Target t=new Target(QLearningPara.REWARD,false);
 		
 		g.initMapQLearning(t);//initalise la carte
 		
 		g.printMapQLearning();
-		QLearningCore core= new QLearningCore(g,t);
+		QLearningCore core= new QLearningCore(g,t,character);
 		for (int i = 1; i <= 100; i++) {
 			System.out.print(">>>>>>>>>>>>>>>>>>>>>> DEBUT EPISODE " + i + " <<<<<<<<<<<<<<<<<<<<<<<<<<< \n");
 			while(!t.isAchieved())

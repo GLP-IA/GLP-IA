@@ -51,4 +51,8 @@ public class Character {
 	public void setCoordY(int coordY) {
 		this.coordY = coordY;
 	}
+	
+	public <E> E accept(ElementVisitor<E> elem) {
+		return elem.visit(this);
+	}
 }

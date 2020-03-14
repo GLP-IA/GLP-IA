@@ -3,7 +3,6 @@ import java.util.Random;
 
 import data.Character;
 import data.Element;
-import data.Score;
 import data.Target;
 import data.QLearningPara;
 
@@ -17,10 +16,10 @@ public class QLearningCore {
 	Random rand = new Random();
 	
 	
-	public QLearningCore(Map map, Target t){
+	public QLearningCore(Map map, Target t,Character character){
 		this.map = map;
 		this.t=t;
-		character = new Character(0,0);//positionne le personnage
+		this.character =character;
 		qTable = new QTable();
 		f=new QFonction(qTable,QLearningPara.GAMMA,QLearningPara.ALPHA);
 	}
@@ -36,7 +35,6 @@ public class QLearningCore {
 					t.setAchieved(true);
 					//System.out.println("\n >> Bravo l'objectif est atteint ! <<");
 				}
-				map.hasMooved(character.getCoordX(),character.getCoordY());
 				//debug(exp);
 	}
 	
@@ -122,7 +120,6 @@ public class QLearningCore {
 	public void reset() {
 		character.setCoordY(rand.nextInt(5));
 		character.setCoordX(rand.nextInt(5));
-		map.hasMooved(character.getCoordX(),character.getCoordY());
 		t.setAchieved(false);
 	}
 	

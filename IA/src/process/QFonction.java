@@ -1,7 +1,5 @@
 package process;
 
-import data.QLearningPara;
-
 public class QFonction {
 	private QTable q;
 	private double gamma; // exploration rate , détermine l'importance des futures récompenses , facteur 0 l'agent ne considéra que les récompenses actuelles, un facteur approchant 1 il visera une récompense élevée à long terme 

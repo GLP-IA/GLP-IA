@@ -51,4 +51,9 @@ public class Hole extends Target {
 	public int getCoordY() {
 		return coordY;
 	}
+	
+	@Override
+	public <E> E accept(ElementVisitor<E> elem) {
+		return elem.visit(this);
+	}
 }

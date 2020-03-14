@@ -1,5 +1,6 @@
 package data;
 
+
 /**
  * This class Form extends the class Element
  * 
@@ -45,6 +46,5 @@ public class Form{
 	public void setFormType(String formType) {
 		this.formType = formType;
 	}
-	
 
 }
