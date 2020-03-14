@@ -1,6 +1,11 @@
 package data;
 
-
+/**
+ * Contains all the parameters for QLearning
+ * 
+ * 
+ * @author Nathan VIRAYIE
+ */
 public class QLearningPara {
 	public static final int DIM_MAP =100;
 	

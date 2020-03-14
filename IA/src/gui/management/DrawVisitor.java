@@ -12,12 +12,17 @@ import process.Map;
 import data.Character;
 import data.Element;
 
-
+/**
+ * This visitor print the squares of the map.
+ * 
+ * 
+ * @author Nathan VIRAYIE
+ */
 public class DrawVisitor implements ElementVisitor<Void> {
 
 	/**
-	 * The color strategy used to define the colors of nodes and lines of the
-	 * tree.
+	 * The image strategy used to define the images of squares and IA
+	 * 
 	 */
 	private ImageStrategy imageStrategy = new ImageStrategy();
 	

@@ -3,7 +3,7 @@ package data;
 /**
  * This class Player is the character's specifications.
  * 
- * @author gimardthibault
+ * @author gimardthibault, Nathan VIRAYIE
  *
  */
 public class Player {

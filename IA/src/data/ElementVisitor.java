@@ -2,6 +2,12 @@ package data;
 
 import process.Map;
 
+/**
+ * Generic elements visitor supporting all type type.
+ * 
+ * 
+ * @author Nathan VIRAYIE
+ */
 public interface ElementVisitor<E> {
 
 	E visit(Target elem);

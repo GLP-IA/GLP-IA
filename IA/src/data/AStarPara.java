@@ -1,5 +1,10 @@
 package data;
-
+ /**
+  * all the parameters for Astar
+  * 
+  * @author Nathan VIRAYIE
+  *
+  */
 public class AStarPara {
 	public static final int DIM_MAP =100;
 	

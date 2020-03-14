@@ -16,6 +16,12 @@ import process.Map;
 import process.InfosReader;
 import process.QLearningCore;
 
+/**
+ * The Jframe of the GUI
+ * 
+ * @author Nathan VIRAYIE
+ *
+ */
 
 public class GUI extends JFrame implements Runnable{
 	
@@ -42,6 +48,9 @@ public class GUI extends JFrame implements Runnable{
 		init();
 	}
 	
+	/**
+	 * set the parameters for creating the frame
+	 */
 	public void init() {
 		//definition des bases de la fenetre
 		this.setTitle("KURIOS");
@@ -92,6 +101,11 @@ public class GUI extends JFrame implements Runnable{
 		panel_info.add(infos);
 	}
 	
+	/**
+	 * Contains what is supposed to do when we are launching the qlearning algorithm
+	 * 
+	 * @param coreQ (@see {@link QLearningCore}
+	 */
 	public void qLearning(QLearningCore coreQ) {
 		map.initMapQLearning(t);//initialise la carte
 		coreQ= new QLearningCore(map,t,character);
@@ -124,7 +138,10 @@ public class GUI extends JFrame implements Runnable{
 			System.err.println(e.getMessage());
 		}
 	}
-	
+	/**
+	 * Contains what is supposed to do when we are launching the A* algorithm
+	 * 
+	 */
 	public void aStar() {
 		map.initMapA_Star();
 		this.repaint();

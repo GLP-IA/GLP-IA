@@ -2,12 +2,10 @@ package data;
 
 
 /**
- * This class Form extends the class Element
- * 
  * The class Form is composed of any figure
  * 
- * @author gimardthibault
- *
+ * 
+ * @author gimardthibault, Nathan VIRAYIE
  */
 public class Form{
 	/**

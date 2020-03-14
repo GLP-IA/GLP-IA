@@ -2,9 +2,9 @@ package data;
 
 /**
  * This class Hole extends the class Target. 
- * The holes are a trap in the game.
+ * The holes are supposed to be the target of the AI in A* algorithm
  * 
- * @author gimardthibault
+ * @author gimardthibault, Nathan VIRAYIE
  *
  */
 public class Hole extends Target {

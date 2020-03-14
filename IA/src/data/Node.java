@@ -1,5 +1,10 @@
 package data;
 
+/**
+ * Represents the case on the map with some parameters
+ * 
+ * @author Nathan VIRAYIE
+ */
 public class Node {
     public Node parent;
     public int x, y;

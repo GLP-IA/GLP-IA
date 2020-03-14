@@ -12,6 +12,11 @@ import data.Obstacle;
 import data.Target;
 import data.Character;
 
+/**
+ * The generic strategy to manage the printing images of graphical map.
+ * 
+ * @author Nathan VIRAYIE
+ */
 public class ImageStrategy {
 
 	private int spacing =2;

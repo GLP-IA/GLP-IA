@@ -3,7 +3,7 @@ package data;
 /**
  * The class Target permits to define where the robots have to go.
  * 
- * @author gimardthibault
+ * @author gimardthibault, Nathan VIRAYIE
  *
  */
 public class Target extends Element{

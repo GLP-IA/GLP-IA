@@ -3,7 +3,7 @@ package data;
 /**
  * This class is composed of the character's specifications
  *
- * @author gimardthibault,nathan,aymen
+ * @author gimardthibault,Nathan Virayie,aymen
  *
  */
 
@@ -11,8 +11,8 @@ public class Character {
 	/**
 	 * The character's position
 	 * 
-	 * @see getPosition()
-	 * @see setPosition(Element position)
+	 * @see getCoordX()
+	 * @see getCoordY()
 	 */
 	private int coordx;
 	private int coordY;

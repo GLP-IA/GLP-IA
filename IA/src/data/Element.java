@@ -5,7 +5,7 @@ import data.ElementVisitor;
 /**
  * This class is composed of the element's specifications
  * 
- * @author gimardthibault, Nathan Virayie
+ * @author gimardthibault, Nathan VIRAYIE
  *
  */
 public abstract class Element {
@@ -13,7 +13,7 @@ public abstract class Element {
 	
 	/**
 	 * The constructor's class
-	 * @param reward recompense obtenu en passant par l'element
+	 * @param reward obtain when the character is on the case
 	 */
 	public Element(int reward) {
 		this.reward=reward;

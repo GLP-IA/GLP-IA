@@ -1,9 +1,9 @@
 package data;
 /**
  * The class Obstacle extends Element.
- * The class Obstacle define the trap in the game
+ * Obstacles should not be touched by the AI
  * 
- * @author gimardthibault
+ * @author gimardthibault, Nathan VIRAYIE
  *
  */
 public class Obstacle extends Element {
