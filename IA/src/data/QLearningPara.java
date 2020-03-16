@@ -16,6 +16,8 @@ public class QLearningPara {
 	public static final int MALUS = -500;
 	
 	public static final int REWARD = 100;
+
+	public static final int EMPTY_REWARD = 0;
 	
 	/**
 	 * define which option should be run in the run() method

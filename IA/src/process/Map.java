@@ -7,11 +7,14 @@ import data.Hole;
 import data.Obstacle;
 import data.QLearningPara;
 import data.Target;
+import data.AStarPara;
 import data.Character;
 
 public class Map{
+	//the map is supposed to be a square
 	private int height=(int) Math.sqrt(QLearningPara.DIM_MAP);
 	private int width=(int) Math.sqrt(QLearningPara.DIM_MAP);
+	
 	private Element [][]map;
 	private Character character;
 	
@@ -19,13 +22,13 @@ public class Map{
 	public Map(Character character) {
 		map = new Element [width][height];
 		this.character=character;
-		initEmptyMap();
+		initEmptyMap(0);
 	}
 	
-	private void initEmptyMap() {
+	private void initEmptyMap(int emptyReward) {
 		for(int i = 0; i< height; i ++) {
 			for(int j = 0; j< width; j ++) {
-				map [i][j] = new EmptyCase(0);
+				map [i][j] = new EmptyCase(emptyReward);
 			}
 		}
 	}
@@ -40,38 +43,38 @@ public class Map{
 	 * @param t objectif
 	 */
 	public void initMapQLearning (Target t) {
-		initEmptyMap();
+		initEmptyMap(QLearningPara.EMPTY_REWARD);
 		
-		map[0][2]=new Obstacle (QLearningPara.MALUS,"wall");
-		map[0][3]=new Obstacle (QLearningPara.MALUS,"wall");
-		map[0][7]=new Obstacle (QLearningPara.MALUS,"wall");
-		map[0][8]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[0][2]=new Obstacle (QLearningPara.MALUS);
+		map[0][3]=new Obstacle (QLearningPara.MALUS);
+		map[0][7]=new Obstacle (QLearningPara.MALUS);
+		map[0][8]=new Obstacle (QLearningPara.MALUS);
 		
-		map[1][0]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[1][0]=new Obstacle (QLearningPara.MALUS);
 
 		
-		map[3][1]=new Obstacle (QLearningPara.MALUS,"wall");
-		map[3][2]=new Obstacle (QLearningPara.MALUS,"wall");
-		map[3][3]=new Obstacle (QLearningPara.MALUS,"wall");
-		map[3][6]=new Obstacle (QLearningPara.MALUS,"wall");
-		map[3][7]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[3][1]=new Obstacle (QLearningPara.MALUS);
+		map[3][2]=new Obstacle (QLearningPara.MALUS);
+		map[3][3]=new Obstacle (QLearningPara.MALUS);
+		map[3][6]=new Obstacle (QLearningPara.MALUS);
+		map[3][7]=new Obstacle (QLearningPara.MALUS);
 
-		map[4][2]=new Obstacle (QLearningPara.MALUS,"wall");
-		map[4][6]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[4][2]=new Obstacle (QLearningPara.MALUS);
+		map[4][6]=new Obstacle (QLearningPara.MALUS);
 		
-		map[5][6]=new Obstacle (QLearningPara.MALUS,"wall");
-		map[5][5]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[5][6]=new Obstacle (QLearningPara.MALUS);
+		map[5][5]=new Obstacle (QLearningPara.MALUS);
 		
-		map[6][1]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[6][1]=new Obstacle (QLearningPara.MALUS);
 		
-		map[7][1]=new Obstacle (QLearningPara.MALUS,"wall");
-		map[7][2]=new Obstacle (QLearningPara.MALUS,"wall");
-		map[7][9]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[7][1]=new Obstacle (QLearningPara.MALUS);
+		map[7][2]=new Obstacle (QLearningPara.MALUS);
+		map[7][9]=new Obstacle (QLearningPara.MALUS);
 		
-		map[8][3]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[8][3]=new Obstacle (QLearningPara.MALUS);
 		
-		map[9][0]=new Obstacle (QLearningPara.MALUS,"wall");
-		map[9][7]=new Obstacle (QLearningPara.MALUS,"wall");
+		map[9][0]=new Obstacle (QLearningPara.MALUS);
+		map[9][7]=new Obstacle (QLearningPara.MALUS);
 		
 		map[9][9]=t;
 	}
@@ -79,12 +82,15 @@ public class Map{
 	/**
 	 * genere la carte pour A*
 	 */
-	public void initMapA_Star() {
-		initEmptyMap();
+	public void initMapA_Star(Hole hole1, Hole hole2, Hole hole3) {
+		initEmptyMap(AStarPara.EMPTY_REWARD);
 		
-		map[6][5]=new Hole(6,5,"Triangle");
-		map[5][3]=new Hole(5,3,"Square");
-		map[2][4]=new Hole(2,4,"Circle");
+		//set the holes
+		map[hole1.getCoordY()][hole1.getCoordX()]=hole1;
+		map[hole2.getCoordY()][hole2.getCoordX()]=hole2;
+		map[hole3.getCoordY()][hole3.getCoordX()]=hole3;
+		
+		//we can add some obstacles
 	}
 	
 	public int getX() {
@@ -143,14 +149,14 @@ public class Map{
 				if(i==getX() && j==getY())
 					System.out.print("X");
 				
-				else if(i==6 && j==5)
-					System.out.print("^"); //on considere que c'est un triangle
-				
-				else if(i==5 && j==3)
-					System.out.print("[]"); // on considere que c'est un carre
-				
-				else if(i==2 && j==4)
-					System.out.print("O"); // on considere que c'est un rond
+				else if(getCase(i,j).getClass().getName().equals("data.Hole")) {
+					if(((Hole) getCase(i,j)).getHoleType().equals("Triangle"))
+						System.out.print("^"); //on considere que c'est un triangle
+					if( ((Hole) getCase(i,j)).getHoleType().equals("Square"))
+						System.out.print("[]"); // on considere que c'est un carre
+					if( ((Hole) getCase(i,j)).getHoleType().equals("Circle"))
+						System.out.print("O"); // on considere que c'est un rond
+				}
 				
 				else if(getCase(i,j).getReward()==250)
 					System.out.print("#"); //trainé
