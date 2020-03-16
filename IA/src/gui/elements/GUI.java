@@ -139,15 +139,11 @@ public class GUI extends JFrame implements Runnable{
 		map.initMapA_Star(triangle,square,circle);
 		coreA=new A_StarCore(map, character);
 		ArrayList<Node> pathTriangle = null, pathSquare =null , pathCircle= null;
-				
-		if(!triangle.isAchieved() || !square.isAchieved() || !circle.isAchieved()) {
-			pathTriangle = coreA.findPath(triangle);
-			pathSquare = coreA.findPath(square);
-			pathCircle = coreA.findPath(circle);
-		}
-		
-		///using the path to moov the character
+
 		try {
+			pathTriangle = coreA.findPath(triangle);
+			
+			///using the path to moov the character
 			if(triangle.isAchieved()) {
 				Iterator<Node> it;
 				Node node;
@@ -155,27 +151,36 @@ public class GUI extends JFrame implements Runnable{
 					node=it.next();
 					coreA.usePath(node);
 					this.repaint();
-					Thread.sleep(2000);
+					Thread.sleep(200);
 				}
 			}
-			if(square.isAchieved()) {
-				Iterator<Node> it;
-				Node node;
-				for(it=pathSquare.iterator();it.hasNext();) {
-					node=it.next();
-					coreA.usePath(node);
-					this.repaint();
-					Thread.sleep(2000);
+			else {
+				pathSquare = coreA.findPath(square);
+				
+				if(square.isAchieved()) {
+					Iterator<Node> it;
+					Node node;
+					for(it=pathSquare.iterator();it.hasNext();) {
+						node=it.next();
+						coreA.usePath(node);
+						this.repaint();
+						Thread.sleep(200);
+					}
 				}
-			}
-			if(circle.isAchieved()) {
-				Iterator<Node> it;
-				Node node;
-				for(it=pathCircle.iterator();it.hasNext();) {
-					node=it.next();
-					coreA.usePath(node);
-					this.repaint();
-					Thread.sleep(2000);
+				
+				else {
+					pathCircle = coreA.findPath(circle);
+					
+					if(circle.isAchieved()) {
+						Iterator<Node> it;
+						Node node;
+						for(it=pathCircle.iterator();it.hasNext();) {
+							node=it.next();
+							coreA.usePath(node);
+							this.repaint();
+							Thread.sleep(200);
+						}
+					}
 				}
 			}
 		}

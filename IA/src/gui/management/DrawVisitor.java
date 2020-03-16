@@ -74,14 +74,14 @@ public class DrawVisitor implements ElementVisitor<Void> {
 	
 	public void printMap(Map map,Character character) {
 		Element element;
-		for(int i = 0; i < map.getWidth(); i++) {
-			for(int j = 0; j < map.getHeight() ; j++) {
+		for(int i = 0; i < map.getHeight(); i++) {
+			for(int j = 0; j < map.getWidth() ; j++) {
 				setI(i);
 				setJ(j);
 				element = map.getCase(j,i);
 				element.accept(this);
 				
-				if(j==character.getCoordX() && i==character.getCoordY())
+				if(i==character.getCoordX() && j==character.getCoordY())
 					character.accept(this);	
 			}
 		}

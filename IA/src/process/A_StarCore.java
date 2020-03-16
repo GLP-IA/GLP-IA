@@ -16,7 +16,6 @@ public class A_StarCore {
 	
 	private ArrayList<Node> openSet; // L'ensemble des noeuds decouverts qui peuvent avoir besoin d'etre (re)developpe
 	private ArrayList<Node> closedSet;//l'ensemble des noeud correcte
-	private ArrayList<Node> path;//chemin
 	private Node current; //current position
 	
 	
@@ -33,7 +32,6 @@ public class A_StarCore {
 		
 		openSet= new ArrayList<Node>();
 		closedSet= new ArrayList<Node>();
-		path= new ArrayList<Node>();
 		openSet.add(current);	// Initialement, seul le noeud de depart est connu.
 	}
 	
@@ -44,13 +42,17 @@ public class A_StarCore {
 	 * @return (List<Node> | null) the path
 	 */
 	public ArrayList<Node> findPath(Hole target) {
+		ArrayList<Node> path= new ArrayList<Node>();
 		closedSet.add(current);
 		NodeOperation.addNeigborsToOpenList(current, map, openSet, closedSet, target);
-		while (current.getX() != target.getCoordX() || current.getY() != target.getCoordY()) {
+		while (current.getX() != target.getCoordX() && current.getY() != target.getCoordY()) {
 			if (openSet.isEmpty()) { // Nothing to examine
 				return null;
-				}
-			current = openSet.remove(0); // get first node (lowest f score) and remove it
+			}
+			
+			// get first node (lowest f score) and remove it
+			current = openSet.get(0);
+			openSet.remove(0); 
 			
 			closedSet.add(current); // then add to the closedSet
 	        NodeOperation.addNeigborsToOpenList(current, map, openSet, closedSet, target);
@@ -58,12 +60,11 @@ public class A_StarCore {
 		}
 		
 		//check if the form is corresponding to the hole
-		if(target.getHoleType().equals(form.getFormType()))
-			target.setAchieved(true);
+		check(target);
 		
 		path.add(0,current);
 	        
-		while (current.getX() != AStarPara.xStart || current.getY() !=AStarPara.yStart) {
+		while (current.getX() != AStarPara.xStart && current.getY() !=AStarPara.yStart) {
 			current = current.getParent();
 			path.add(0, current);
 		}
@@ -81,6 +82,17 @@ public class A_StarCore {
 		character.setCoordY(node.getY());
 	}
 
+	public void check(Hole target) {
+		if(current.getX() != target.getCoordX() || current.getY() != target.getCoordY()) {
+			System.out.println("U have find the goal");
+			if(target.getHoleType().equals(form.getFormType())) {
+				target.setAchieved(true);
+				System.out.println("the form match with the hole");
+			}
+			else
+				System.out.println("the form don't match with the hole, try another one");
+		}
+	}
 	/**
 	 * permet de tester en mode console le programme
 	 * 
@@ -90,6 +102,6 @@ public class A_StarCore {
 		//System.out.println("coord:"+character.getCoordX()+","+character.getCoordY());
 		System.out.println("current node: g="+current.getG()+" h="+current.getH());
 		System.out.println("x="+current.getX()+" y="+current.getY());
-		map.printMapA_Star();
+		//map.printMapA_Star();
 	}
 }
