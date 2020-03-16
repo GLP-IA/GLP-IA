@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import data.AStarPara;
 import data.Character;
+import data.Hole;
 import data.QLearningPara;
 import data.Target;
 
@@ -16,12 +17,6 @@ import process.Map;
 import process.InfosReader;
 import process.QLearningCore;
 
-/**
- * The Jframe of the GUI
- * 
- * @author Nathan VIRAYIE
- *
- */
 
 public class GUI extends JFrame implements Runnable{
 	
@@ -36,6 +31,9 @@ public class GUI extends JFrame implements Runnable{
 		
 	//ASTar spec
 	private A_StarCore coreA;
+	private Hole triangle= new Hole(3,6,"Triangle");
+	private Hole square= new Hole(4,2,"Square");
+	private Hole circle= new Hole(8,7,"Circle");
 	
 	//Jpanel
 	private Dashboard dashboard = new Dashboard(map);
@@ -48,9 +46,6 @@ public class GUI extends JFrame implements Runnable{
 		init();
 	}
 	
-	/**
-	 * set the parameters for creating the frame
-	 */
 	public void init() {
 		//definition des bases de la fenetre
 		this.setTitle("KURIOS");
@@ -101,15 +96,11 @@ public class GUI extends JFrame implements Runnable{
 		panel_info.add(infos);
 	}
 	
-	/**
-	 * Contains what is supposed to do when we are launching the qlearning algorithm
-	 * 
-	 * @param coreQ (@see {@link QLearningCore}
-	 */
-	public void qLearning(QLearningCore coreQ) {
+	public void qLearning() {
 		map.initMapQLearning(t);//initialise la carte
 		coreQ= new QLearningCore(map,t,character);
 		
+		//exploration
 		for (int i = 0; i <= 100; i++) {
 			try {
 				while(!t.isAchieved()) {
@@ -126,6 +117,8 @@ public class GUI extends JFrame implements Runnable{
 		System.out.println("\t\tQTABLE FINAL");
 		coreQ.result();
 		coreQ.dicreasedExploration();
+		
+		//exploitation
 		try {
 			while(!t.isAchieved()) {
 				coreQ.run();
@@ -138,19 +131,33 @@ public class GUI extends JFrame implements Runnable{
 			System.err.println(e.getMessage());
 		}
 	}
-	/**
-	 * Contains what is supposed to do when we are launching the A* algorithm
-	 * 
-	 */
+	
 	public void aStar() {
-		map.initMapA_Star();
-		this.repaint();
+		map.initMapA_Star(triangle,square,circle);
+		coreA=new A_StarCore(map, character);
+		
+		try {
+			while(!triangle.isAchieved() || !square.isAchieved() || !circle.isAchieved()) {
+				coreA.findPath(triangle);
+				this.repaint();
+				Thread.sleep(2000);
+				coreA.findPath(square);
+				this.repaint();
+				Thread.sleep(2000);
+				coreA.findPath(circle);
+				this.repaint();
+				Thread.sleep(2000);
+			}
+		}catch(InterruptedException e) {
+			System.err.println(e.getMessage());
+		}
+		
 		AStarPara.runAStar=false;
 	}
 	
 	public void run() {
 		if(QLearningPara.runQlearning)
-			qLearning(coreQ);
+			qLearning();
 		else if(AStarPara.runAStar)
 			aStar();
 	}

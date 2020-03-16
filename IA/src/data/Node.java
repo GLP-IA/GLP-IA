@@ -1,11 +1,13 @@
 package data;
 
+import process.NodeOperation;
+
 /**
  * Represents the case on the map with some parameters
  * 
  * @author Nathan VIRAYIE
  */
-public class Node {
+public class Node implements Comparable<Node>{
     public Node parent;
     public int x, y;
     public double g;
@@ -49,6 +51,10 @@ public class Node {
 
 	public void setH(double h) {
 		this.h = h;
+	}
+
+	public int compareTo(Node b) {
+		 return (int)(NodeOperation.calcF(this) - NodeOperation.calcF(b));
 	}
     
    
