@@ -5,10 +5,13 @@ import javax.swing.*;
 import data.AStarPara;
 import data.Character;
 import data.Hole;
+import data.Node;
 import data.QLearningPara;
 import data.Target;
 
 import java.awt.*;
+import java.util.Iterator;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -135,20 +138,48 @@ public class GUI extends JFrame implements Runnable{
 	public void aStar() {
 		map.initMapA_Star(triangle,square,circle);
 		coreA=new A_StarCore(map, character);
+		List<Node> pathTriangle = null, pathSquare =null , pathCircle= null;
+				
+		while(!triangle.isAchieved() || !square.isAchieved() || !circle.isAchieved()) {
+			pathTriangle = coreA.findPath(triangle);
+			pathSquare = coreA.findPath(square);
+			pathCircle = coreA.findPath(circle);
+		}
 		
+		///using the path to moov the character
 		try {
-			while(!triangle.isAchieved() || !square.isAchieved() || !circle.isAchieved()) {
-				coreA.findPath(triangle);
-				this.repaint();
-				Thread.sleep(2000);
-				coreA.findPath(square);
-				this.repaint();
-				Thread.sleep(2000);
-				coreA.findPath(circle);
-				this.repaint();
-				Thread.sleep(2000);
+			if(triangle.isAchieved()) {
+				Iterator<Node> it;
+				Node node;
+				for(it=pathTriangle.iterator();it.hasNext();) {
+					node=it.next();
+					coreA.usePath(node);
+					this.repaint();
+					Thread.sleep(2000);
+				}
 			}
-		}catch(InterruptedException e) {
+			if(square.isAchieved()) {
+				Iterator<Node> it;
+				Node node;
+				for(it=pathSquare.iterator();it.hasNext();) {
+					node=it.next();
+					coreA.usePath(node);
+					this.repaint();
+					Thread.sleep(2000);
+				}
+			}
+			if(circle.isAchieved()) {
+				Iterator<Node> it;
+				Node node;
+				for(it=pathCircle.iterator();it.hasNext();) {
+					node=it.next();
+					coreA.usePath(node);
+					this.repaint();
+					Thread.sleep(2000);
+				}
+			}
+		}
+		catch(InterruptedException e) {
 			System.err.println(e.getMessage());
 		}
 		

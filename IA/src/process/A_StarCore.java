@@ -10,8 +10,6 @@ import data.Character;
 import data.Form;
 import data.Hole;
 import data.Node;
-import data.QLearningPara;
-import data.Score;
 import data.AStarPara;
 
 public class A_StarCore {
@@ -34,10 +32,11 @@ public class A_StarCore {
 		int r=rand.nextInt(3);
 		form=AStarPara.Forms[r];
 		
-		current=new Node(null,character.getCoordX(),character.getCoordY(),AStarPara.g,5);
+		current=new Node(null, character.getCoordX(), character.getCoordY(), 0, 0);
 		
 		openSet= new PriorityQueue<Node>();
 		closedSet= new ArrayList<Node>();
+		path= new ArrayList<Node>();
 		openSet.add(current);	// Initialement, seul le noeud de depart est connu.
 	}
 	
@@ -47,29 +46,25 @@ public class A_StarCore {
 	 *@param hole is the target
 	 * @return (List<Node> | null) the path
 	 */
-	public List<Node> findPath(Hole hole) {
+	public List<Node> findPath(Hole target) {
 		closedSet.add(current);
-		NodeOperation.addNeigborsToOpenList(current, map, openSet, closedSet, hole);
-		while (current.getX() != hole.getCoordX() || current.getY() != hole.getCoordY()) {
+		NodeOperation.addNeigborsToOpenList(current, map, openSet, closedSet, target);
+		while (current.getX() != target.getCoordX() || current.getY() != target.getCoordY()) {
 			if (openSet.isEmpty()) { // Nothing to examine
 				return null;
 				}
 			current = openSet.remove(); // get first node (lowest f score) and remove it
 			
-			//Moov the character
-			character.setCoordX(current.getX());
-			character.setCoordY(current.getY());
-			
-			closedSet.add(this.current); // then add to the closedSet
-	        NodeOperation.addNeigborsToOpenList(current, map, openSet, closedSet, hole);
-			debug(hole);
+			closedSet.add(current); // then add to the closedSet
+	        NodeOperation.addNeigborsToOpenList(current, map, openSet, closedSet, target);
+			debug(current,target);
 		}
 		
 		//check if the form is corresponding to the hole
-		if(hole.getHoleType().equals(form.getFormType()))
-			hole.setAchieved(true);
+		if(target.getHoleType().equals(form.getFormType()))
+			target.setAchieved(true);
 		
-		path.add(0, this.current);
+		path.add(0,current);
 	        
 		while (current.getX() != AStarPara.xStart || current.getY() !=AStarPara.yStart) {
 			current = current.getParent();
@@ -79,12 +74,25 @@ public class A_StarCore {
 	}
 	
 	/**
+	 * moov the character by following the path
+	 * 
+	 * @param path
+	 */
+	public void usePath(Node node) {
+		//Moov the character
+		character.setCoordX(node.getX());
+		character.setCoordY(node.getY());
+	}
+
+	/**
 	 * permet de tester en mode console le programme
 	 * 
 	 */
-	public void debug(Hole hole) {
+	public void debug(Node current, Hole hole) {
 		System.out.println("Trous:"+hole.getHoleType()+"\tForme:"+form.getFormType());
-		System.out.println("coord:"+character.getCoordX()+","+character.getCoordY());
+		//System.out.println("coord:"+character.getCoordX()+","+character.getCoordY());
+		System.out.println("current node: g="+current.getG()+" h="+current.getH());
+		System.out.println("x="+current.getX()+" y="+current.getY());
 		map.printMapA_Star();
 	}
 }

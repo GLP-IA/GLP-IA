@@ -8,14 +8,13 @@ package data;
 public class AStarPara {
 	public static final int DIM_MAP =100;
 	
-	public static final double g =1.0;
 	
 	public static final int xStart=0;
 	public static final int yStart=0;
 
 	public static final Form[] Forms = {new Form("Triangle"),new Form("Square"),new Form("Circle")};
 
-	public static final int EMPTY_REWARD = -1; //cost of the movement
+	public static final int EMPTY_REWARD = 1; //cost of the movement
 	
 	
 	/**
