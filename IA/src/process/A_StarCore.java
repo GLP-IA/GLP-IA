@@ -1,9 +1,6 @@
 package process;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.Random;
 
 import data.Character;
@@ -17,9 +14,9 @@ public class A_StarCore {
 	private Map map;
 	private Form form;
 	
-	private Queue<Node> openSet; // L'ensemble des noeuds decouverts qui peuvent avoir besoin d'etre (re)developpe
+	private ArrayList<Node> openSet; // L'ensemble des noeuds decouverts qui peuvent avoir besoin d'etre (re)developpe
 	private ArrayList<Node> closedSet;//l'ensemble des noeud correcte
-	private List<Node> path;//chemin
+	private ArrayList<Node> path;//chemin
 	private Node current; //current position
 	
 	
@@ -34,7 +31,7 @@ public class A_StarCore {
 		
 		current=new Node(null, character.getCoordX(), character.getCoordY(), 0, 0);
 		
-		openSet= new PriorityQueue<Node>();
+		openSet= new ArrayList<Node>();
 		closedSet= new ArrayList<Node>();
 		path= new ArrayList<Node>();
 		openSet.add(current);	// Initialement, seul le noeud de depart est connu.
@@ -46,14 +43,14 @@ public class A_StarCore {
 	 *@param hole is the target
 	 * @return (List<Node> | null) the path
 	 */
-	public List<Node> findPath(Hole target) {
+	public ArrayList<Node> findPath(Hole target) {
 		closedSet.add(current);
 		NodeOperation.addNeigborsToOpenList(current, map, openSet, closedSet, target);
 		while (current.getX() != target.getCoordX() || current.getY() != target.getCoordY()) {
 			if (openSet.isEmpty()) { // Nothing to examine
 				return null;
 				}
-			current = openSet.remove(); // get first node (lowest f score) and remove it
+			current = openSet.remove(0); // get first node (lowest f score) and remove it
 			
 			closedSet.add(current); // then add to the closedSet
 	        NodeOperation.addNeigborsToOpenList(current, map, openSet, closedSet, target);

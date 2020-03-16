@@ -10,8 +10,8 @@ import data.QLearningPara;
 import data.Target;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -138,9 +138,9 @@ public class GUI extends JFrame implements Runnable{
 	public void aStar() {
 		map.initMapA_Star(triangle,square,circle);
 		coreA=new A_StarCore(map, character);
-		List<Node> pathTriangle = null, pathSquare =null , pathCircle= null;
+		ArrayList<Node> pathTriangle = null, pathSquare =null , pathCircle= null;
 				
-		while(!triangle.isAchieved() || !square.isAchieved() || !circle.isAchieved()) {
+		if(!triangle.isAchieved() || !square.isAchieved() || !circle.isAchieved()) {
 			pathTriangle = coreA.findPath(triangle);
 			pathSquare = coreA.findPath(square);
 			pathCircle = coreA.findPath(circle);

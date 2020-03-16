@@ -1,15 +1,14 @@
 package process;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
-import java.util.Queue;
 
 import data.Hole;
 import data.Node;
 
 public class NodeOperation {
 
-	   public static void addNeigborsToOpenList(Node current, Map map, Queue<Node> openSet, ArrayList<Node> closedSet, Hole target) {
+	   public static void addNeigborsToOpenList(Node current, Map map, ArrayList<Node> openSet, ArrayList<Node> closedSet, Hole target) {
 	        Node node;
 	        for (int x = -1; x <= 1; x++) {
 	            for (int y = -1; y <= 1; y++) {
@@ -25,6 +24,7 @@ public class NodeOperation {
 	                }
 	            }
 	        }
+	        Collections.sort(openSet);
 	    }
 	   
 	   /**
@@ -32,7 +32,7 @@ public class NodeOperation {
 	    *
 	    * @return (bool) NeightborInListFound
 	    */
-	    public static boolean findNeighborInList(Collection<Node> array, Node node) {
+	    public static boolean findNeighborInList(ArrayList<Node> array, Node node) {
 	    	Iterator<Node> it;
 			Node compare;
 			for(it=array.iterator();it.hasNext();) {
