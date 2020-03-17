@@ -57,9 +57,9 @@ public class A_StarCore {
 			
 			closedSet.add(current); // then add to the closedSet
 	        NodeOperation.addNeigborsToOpenList(current, map, openSet, closedSet, target);
-			debug(current,target);
+			
 		}
-		
+		debug(current,target);
 		check(target);
 		
 		path.add(0,current);
@@ -121,8 +121,8 @@ public class A_StarCore {
 	 */
 	public void debug(Node current, Hole hole) {
 		System.out.println("Trous:"+hole.getHoleType()+"\tForme:"+form.getFormType());
-		System.out.println("current node: g="+current.getG()+" h="+current.getH());
-		System.out.println("xNode="+current.getX()+" yNode="+current.getY()+"\txHole="+hole.getCoordX()+" yHole="+hole.getCoordY());
+		//System.out.println("current node: g="+current.getG()+" h="+current.getH());
+		//System.out.println("xNode="+current.getX()+" yNode="+current.getY()+"\txHole="+hole.getCoordX()+" yHole="+hole.getCoordY());
 		//map.printMapA_Star();
 	}
 }

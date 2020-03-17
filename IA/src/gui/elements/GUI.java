@@ -155,12 +155,14 @@ public class GUI extends JFrame implements Runnable{
 				else {
 					i++;
 					coreA.reset(character);
+					pathHole=null;
 				}
 			}
 		}
 		catch(InterruptedException e) {
 			System.err.println(e.getMessage());
 		}
+		coreA.reset(character);
 		AStarPara.runAStar=false;
 	}
 
