@@ -154,22 +154,14 @@ public class GUI extends JFrame implements Runnable{
 				}
 				else {
 					i++;
+					coreA.reset(character);
 				}
 			}
 		}
 		catch(InterruptedException e) {
 			System.err.println(e.getMessage());
 		}
-		resetAstar();
 		AStarPara.runAStar=false;
-	}
-	
-	private void resetAstar() {
-		for(int i=0;i<AStarPara.Target.length;i++)
-			AStarPara.Target[i].setAchieved(false);
-		
-		character.setCoordX(0);
-		character.setCoordY(0);
 	}
 
 	public void run() {
@@ -191,7 +183,6 @@ public class GUI extends JFrame implements Runnable{
 	private class StartAStarAction implements ActionListener{
 		 public void actionPerformed(ActionEvent e) {
 			AStarPara.runAStar=true;
-			resetAstar();
 			infos.setText(InfosReader.ReadInfos("src/informations/infoAstar.txt"));
 			Thread aStarThread = new Thread(instance);
 			aStarThread.start();

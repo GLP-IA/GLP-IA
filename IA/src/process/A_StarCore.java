@@ -68,19 +68,9 @@ public class A_StarCore {
 			current = current.getParent();
 			path.add(0, current);
 		}
-		reset();
 		return path;
 	}
 	
-	/**
-	 * remet à zero les elements necessaire pour redemarrer le programme
-	 */
-	private void reset() {
-		closedSet= new ArrayList<Node>();
-		openSet=new PriorityQueue<Node>();
-		openSet.add(current);
-	}
-
 	/**
 	 * moov the character by following the path
 	 * 
@@ -90,6 +80,21 @@ public class A_StarCore {
 		//Moov the character
 		character.setCoordX(node.getX());
 		character.setCoordY(node.getY());
+	}
+
+	/**
+	 * remet à zero les elements necessaire pour redemarrer le programme
+	 */
+	public void reset(Character character) {
+		closedSet= new ArrayList<Node>();
+		openSet=new PriorityQueue<Node>();
+		openSet.add(current);
+		
+		character.setCoordX(0);
+		character.setCoordY(0);
+		
+		for(int i=0;i<AStarPara.Target.length;i++)
+			AStarPara.Target[i].setAchieved(false);
 	}
 
 	/**
