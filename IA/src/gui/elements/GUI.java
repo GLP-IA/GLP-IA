@@ -1,25 +1,23 @@
 package gui.elements;
 
-import javax.swing.*;
-
 import data.AStarPara;
-import data.Character;
-import data.Hole;
+import process.A_StarCore;
 import data.Node;
+
 import data.QLearningPara;
+import process.QLearningCore;
 import data.Target;
 
+import data.Character;
+import process.Map;
+import process.InfosReader;
+
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import process.A_StarCore;
-import process.Map;
-import process.InfosReader;
-import process.QLearningCore;
-
 
 public class GUI extends JFrame implements Runnable{
 	
@@ -34,10 +32,7 @@ public class GUI extends JFrame implements Runnable{
 		
 	//ASTar spec
 	private A_StarCore coreA;
-	private Hole triangle= new Hole(3,6,"Triangle");
-	private Hole square= new Hole(4,2,"Square");
-	private Hole circle= new Hole(8,7,"Circle");
-	
+
 	//Jpanel
 	private Dashboard dashboard = new Dashboard(map);
 	JTextPane infos = new JTextPane();
@@ -136,61 +131,47 @@ public class GUI extends JFrame implements Runnable{
 	}
 	
 	public void aStar() {
-		map.initMapA_Star(triangle,square,circle);
-		coreA=new A_StarCore(map, character);
-		ArrayList<Node> pathTriangle = null, pathSquare =null , pathCircle= null;
-
+		map.initMapA_Star(AStarPara.Target[0],AStarPara.Target[1],AStarPara.Target[2]);
+		coreA=new A_StarCore(map);
+		ArrayList<Node> pathHole = null;
+		int i=0;
+		
 		try {
-			pathTriangle = coreA.findPath(triangle);
-			
-			///using the path to moov the character
-			if(triangle.isAchieved()) {
-				Iterator<Node> it;
-				Node node;
-				for(it=pathTriangle.iterator();it.hasNext();) {
-					node=it.next();
-					coreA.usePath(node);
-					this.repaint();
-					Thread.sleep(200);
-				}
-			}
-			else {
-				pathSquare = coreA.findPath(square);
+			while(i<AStarPara.Target.length) {
+				pathHole = coreA.findPath(AStarPara.Target[i]);
 				
-				if(square.isAchieved()) {
+				///using the path to moov the character
+				if(AStarPara.Target[i].isAchieved()) {
 					Iterator<Node> it;
 					Node node;
-					for(it=pathSquare.iterator();it.hasNext();) {
+					for(it=pathHole.iterator();it.hasNext();) {
 						node=it.next();
-						coreA.usePath(node);
+						coreA.usePath(character,node);
 						this.repaint();
-						Thread.sleep(200);
+						Thread.sleep(1000);
 					}
+					break;
 				}
-				
 				else {
-					pathCircle = coreA.findPath(circle);
-					
-					if(circle.isAchieved()) {
-						Iterator<Node> it;
-						Node node;
-						for(it=pathCircle.iterator();it.hasNext();) {
-							node=it.next();
-							coreA.usePath(node);
-							this.repaint();
-							Thread.sleep(200);
-						}
-					}
+					i++;
 				}
 			}
 		}
 		catch(InterruptedException e) {
 			System.err.println(e.getMessage());
 		}
-		
+		resetAstar();
 		AStarPara.runAStar=false;
 	}
 	
+	private void resetAstar() {
+		for(int i=0;i<AStarPara.Target.length;i++)
+			AStarPara.Target[i].setAchieved(false);
+		
+		character.setCoordX(0);
+		character.setCoordY(0);
+	}
+
 	public void run() {
 		if(QLearningPara.runQlearning)
 			qLearning();
@@ -210,6 +191,7 @@ public class GUI extends JFrame implements Runnable{
 	private class StartAStarAction implements ActionListener{
 		 public void actionPerformed(ActionEvent e) {
 			AStarPara.runAStar=true;
+			resetAstar();
 			infos.setText(InfosReader.ReadInfos("src/informations/infoAstar.txt"));
 			Thread aStarThread = new Thread(instance);
 			aStarThread.start();
