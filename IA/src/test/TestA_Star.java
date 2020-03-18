@@ -1,13 +1,13 @@
 package test;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
+import data.AStarPara;
 import data.Character;
-import data.EmptyCase;
 import data.Node;
 import process.A_StarCore;
 import process.Map;
-import data.Character;
 
 public class TestA_Star {
 	
@@ -15,18 +15,32 @@ public class TestA_Star {
 		Character character = new Character(0,0);
 		Map map = new Map(character); 
 		
-		map.initMapA_Star();//initalise la carte
-		A_StarCore as = new A_StarCore(map,character);
-	    java.util.List<Node> path = as.findPath(6, 5);
-	    
-	        if (path != null) {
-	           Node n;
-	          Iterator<Node> it;//= path.iterator();
-	           for(it=path.iterator();it.hasNext();) {
-	        	   n=it.next();
-	        	   map.setCase(n.getX(),n.getY(),new EmptyCase(250));
-	           }
-	        }
-		map.printMapA_Star();
+		map.initMapA_Star(AStarPara.Target[0],AStarPara.Target[1],AStarPara.Target[2]); //initialise 
+		
+		A_StarCore as = new A_StarCore(map);
+		
+		ArrayList<Node> pathHole = null;
+		int i=0;
+		
+	    while(i<AStarPara.Target.length) {
+			pathHole = as.findPath(AStarPara.Target[i]);
+			
+			///using the path to moov the character
+			if(AStarPara.Target[i].isAchieved()) {
+				Iterator<Node> it;
+				Node node;
+				for(it=pathHole.iterator();it.hasNext();) {
+					node=it.next();
+					as.usePath(character,node);
+					map.printMapA_Star();
+				}
+				break;
+			}
+			else {
+				i++;
+				as.reset(character);
+				pathHole=null;
+			}
+	    }
 	}
 }
