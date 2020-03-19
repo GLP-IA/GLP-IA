@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import data.ElementVisitor;
 import data.EmptyCase;
+import data.Form;
 import data.Hole;
 import data.Obstacle;
 import data.Target;
@@ -64,6 +65,11 @@ public class DrawVisitor implements ElementVisitor<Void> {
 	
 	public Void visit(Hole elem) {
 		imageStrategy.setImage(graphics, elem,i,j);
+		return null;
+	}
+	
+	public Void visit(Form elem) {
+		//imageStrategy.setImage(graphics, elem,i,j);
 		return null;
 	}
 	

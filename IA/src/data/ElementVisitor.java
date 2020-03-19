@@ -13,6 +13,8 @@ public interface ElementVisitor<E> {
 	E visit(Target elem);
 
 	E visit(Hole elem);
+	
+	E visit(Form elem);
 
 	E visit(Obstacle elem);
 

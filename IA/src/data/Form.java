@@ -45,4 +45,7 @@ public class Form{
 		this.formType = formType;
 	}
 
+	public <E> E accept(ElementVisitor<E> elem) {
+		return elem.visit(this);
+	}
 }
