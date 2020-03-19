@@ -46,7 +46,7 @@ public class A_StarCore {
 	public ArrayList<Node> findPath(Hole target) {
 		ArrayList<Node> path= new ArrayList<Node>();
 		closedSet.add(current);
-		NodeOperation.addNeigborsToOpenList(current, map, openSet, closedSet, target);
+		NodeOperation.addNeigbors(current, map, openSet, closedSet, target);
 		while (current.getX() != target.getCoordX() || current.getY() != target.getCoordY()) {
 			if (openSet.isEmpty()) { // Nothing to examine
 				return null;
@@ -56,7 +56,7 @@ public class A_StarCore {
 			current = openSet.remove(); 
 			
 			closedSet.add(current); // then add to the closedSet
-	        NodeOperation.addNeigborsToOpenList(current, map, openSet, closedSet, target);
+	        NodeOperation.addNeigbors(current, map, openSet, closedSet, target);
 			
 		}
 		debug(current,target);

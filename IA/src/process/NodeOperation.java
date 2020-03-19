@@ -9,7 +9,16 @@ import data.Node;
 
 public class NodeOperation {
 
-	   public static void addNeigborsToOpenList(Node current, Map map, Queue<Node> openSet, ArrayList<Node> closedSet, Hole target) {
+	/**
+	 * add the side nodes to the list 
+	 * 
+	 * @param current the current node
+	 * @param map 
+	 * @param openSet
+	 * @param closedSet
+	 * @param target
+	 */
+	   public static void addNeigbors(Node current, Map map, Queue<Node> openSet, ArrayList<Node> closedSet, Hole target) {
 	        Node node;
 	        for (int x = -1; x <= 1; x++) {
 	            for (int y = -1; y <= 1; y++) {
