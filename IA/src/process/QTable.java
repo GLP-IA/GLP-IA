@@ -18,7 +18,7 @@ public class QTable {
 
 	public QTable() {
 		qTable = new double [QLearningPara.DIM_MAP][4];
-		initQTable();
+		initQTable(); 
 	}
 
 	/**

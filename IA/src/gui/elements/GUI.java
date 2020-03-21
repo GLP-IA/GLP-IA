@@ -104,7 +104,7 @@ public class GUI extends JFrame implements Runnable{
 				while(!t.isAchieved()) {
 					coreQ.run();
 					this.repaint();
-					Thread.sleep(2);
+					Thread.sleep(1);
 				}
 				coreQ.reset();
 			}
