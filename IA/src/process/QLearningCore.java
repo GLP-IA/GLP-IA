@@ -43,8 +43,8 @@ public class QLearningCore {
 	 */
 	public void learning() {
 		int reward;	
-		int oldX=getOldX();
-		int oldY=getOldY();
+		int oldX=getX();
+		int oldY=getY();
 		
 		//generation d'un nombre aléatoirement entre 0 et 4 pour choisir le deplacement a effectue
 		int r=rand.nextInt(4);
@@ -68,17 +68,17 @@ public class QLearningCore {
 			//System.out.println("direction : RIGHT ");
 		}
 		
-		Element pos=map.getCase(character.getCoordX(),character.getCoordY());
-		reward = pos.getReward();
-		f.update(character.getCoordX(),character.getCoordY(),oldX,oldY,reward);
+		Element pos=map.getCase(getX(),getY());
+		reward=pos.getReward();
+		f.update(getX(),getY(),oldX,oldY,reward);
 	}
 	
 	/**
 	 * utilisation de la QTable pour se deplacer
 	 */
 	public void application() {
-		int oldX=getOldX();
-		int oldY=getOldY();
+		int oldX=getX();
+		int oldY=getY();
 		int reward;
 		
 		//recupère l'état qui à la plus grande espérance de récompense
@@ -101,16 +101,16 @@ public class QLearningCore {
 			//System.out.println("direction : RIGHT ");
 		}
 		
-		Element pos=map.getCase(character.getCoordX(),character.getCoordY());
+		Element pos=map.getCase(getX(),getY());
 		reward=pos.getReward();
-		f.update(character.getCoordX(),character.getCoordY(),oldX,oldY,reward);
+		f.update(getX(),getY(),oldX,oldY,reward);
 	}
 	
-	public int getOldX(){
+	public int getX(){
 		return character.getCoordX();
 	}
 	
-	public int getOldY() {
+	public int getY() {
 		return character.getCoordY();
 	}
 	
@@ -124,7 +124,7 @@ public class QLearningCore {
 	}
 	
 	/**
-	 * réduit progressivement le taux d'exploration pour ainsi favoriser l'exploitation
+	 * réduit le taux d'exploration pour ainsi favoriser l'exploitation
 	 */
 	public void dicreasedExploration() {
 		QLearningPara.GAMMA-=0.8;
