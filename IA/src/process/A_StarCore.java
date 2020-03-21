@@ -60,7 +60,6 @@ public class A_StarCore {
 			
 		}
 		debug(current,target);
-		check(target);
 		
 		path.add(0,current);
 	        
@@ -121,6 +120,7 @@ public class A_StarCore {
 	 */
 	public void debug(Node current, Hole hole) {
 		System.out.println("Trous:"+hole.getHoleType()+"\tForme:"+form.getFormType());
+		check(hole);
 		//System.out.println("current node: g="+current.getG()+" h="+current.getH());
 		//System.out.println("xNode="+current.getX()+" yNode="+current.getY()+"\txHole="+hole.getCoordX()+" yHole="+hole.getCoordY());
 		//map.printMapA_Star();

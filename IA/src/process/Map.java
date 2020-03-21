@@ -86,9 +86,9 @@ public class Map{
 		initEmptyMap(AStarPara.EMPTY_REWARD);
 		
 		//set the holes
-		map[hole1.getCoordY()][hole1.getCoordX()]=hole1;
-		map[hole2.getCoordY()][hole2.getCoordX()]=hole2;
-		map[hole3.getCoordY()][hole3.getCoordX()]=hole3;
+		map[hole1.getCoordX()][hole1.getCoordY()]=hole1;
+		map[hole2.getCoordX()][hole2.getCoordY()]=hole2;
+		map[hole3.getCoordX()][hole3.getCoordY()]=hole3;
 		
 		//we can add some obstacles
 	}
