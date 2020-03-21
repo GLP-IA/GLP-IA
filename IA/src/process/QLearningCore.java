@@ -134,7 +134,7 @@ public class QLearningCore {
 	 * affiche la qtable une fois remplis
 	 */
 	public void result() {
-		qTable.afficher();
+		qTable.print();
 	}
 	
 	/**

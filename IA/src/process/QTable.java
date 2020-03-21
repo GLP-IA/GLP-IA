@@ -8,38 +8,48 @@ import data.QLearningPara;
  *colonne 2: LEFT
  *colonne 3: RIGHT
  *
- *les lignes sont dï¿½finit de la maniï¿½re suivante:
+ *les lignes de la QTable sont definit de la maniere suivante:
  *ligne 0 <=> case 0 <=> (0,0); ligne 1 <=> case 1 <=> (0,1)...
- * 
+ *
+ *(la carte est supposé carré)
  */
 public class QTable {
 	private double qTable[][];
 
 	public QTable() {
 		qTable = new double [QLearningPara.DIM_MAP][4];
-		String test = "";
-		for(int i=0;i<QLearningPara.DIM_MAP;i++){
-			for(int j=0;j<4.;j++) {
-				test = String.valueOf(i);
-				if(i%10 == 0 || i==0)
-					qTable[i][2]=-900;//moovLeft quand on est a gauche
-				if(i<10)
-					qTable[i][0]=-900; //moovUp quand on est en haut
-				if(i>=90) 
-					qTable[i][1]=-900; //moovDown quand on est en bas	
-				if (i == 9)
-					qTable[i][3]=-900; //moovRight quand on est a droite
-				 if (i>10) { 
-					if(test.substring(2).equals("9"))
-						qTable[i][3]=-900; //moovRight quand on est a droite	
-				}
-				else
-					qTable[i][j]=0;
-			}
-		}
-		
+		initQTable();
 	}
 
+	/**
+	 * set the value of the qtable cases at 0
+	 * and define the border of the map at -900 
+	 */
+	public void initQTable() {
+		String bound = "";
+		int edge=(int) Math.sqrt(QLearningPara.DIM_MAP);
+		
+		for(int i=0;i<QLearningPara.DIM_MAP;i++){
+			for(int j=0;j<4.;j++) {
+				bound = String.valueOf(i);
+				if(i%edge == 0 || i==0)
+					qTable[i][2]=-900;//block moovLeft when we are on the left side
+				if(i<edge)
+					qTable[i][0]=-900; //block moovUp when we are on the top line
+				if(i>=90) 
+					qTable[i][1]=-900; //block moovDown when we are on the lowest line	
+				if (i == edge-1)
+					qTable[i][3]=-900; // block moovRight when we are on the right side of the first line
+				 if (i>edge) { 
+					if(bound.substring(2).equals("9"))
+						qTable[i][3]=-900; //block moovRight when we are on the right side of the other lines	
+				}
+				else
+					qTable[i][j]=0; //default value
+			}
+		}
+	}
+	
 	public double getEsp(int square,int moov) {
 		return qTable[square][moov];
 	}
@@ -80,8 +90,8 @@ public class QTable {
 			j++;
 	return j;
 	}
-	
-	public void afficher() {
+
+	public void print() {
 		 System.out.printf("%10s", "NextMoov: ");
 	            System.out.printf("%10s", "UP");
 	            System.out.printf("%8s", "DOWN");
