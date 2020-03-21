@@ -87,7 +87,7 @@ public class DrawVisitor implements ElementVisitor<Void> {
 				element = map.getCase(j,i);
 				element.accept(this);
 				
-				if(i==character.getCoordX() && j==character.getCoordY())
+				if(j==character.getCoordX() && i==character.getCoordY())
 					character.accept(this);	
 			}
 		}
