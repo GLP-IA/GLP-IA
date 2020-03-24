@@ -31,7 +31,8 @@ public class ImageStrategy {
 	
 	public void setImage(Graphics graphics, Character elem, int i, int j) {
 		try {
-			graphics.drawImage(ImageIO.read(new File("src/images/Kurios.png")), i*80+spacing, j*80+spacing, 80,80,null);	
+			graphics.drawImage(ImageIO.read(new File("src/images/Kurios.png")), i*80+spacing, j*80+spacing, 80,80,null);
+
 		} catch (IOException e) {
 			System.err.println("-- Can not read the image file ! --");
 		}
@@ -47,7 +48,7 @@ public class ImageStrategy {
 	
 	public void setImage(Graphics graphics, Obstacle elem, int i, int j) {
 		try {
-			graphics.drawImage(ImageIO.read(new File("src/images/obstacle_v2.png")), i*80+spacing, j*80+spacing, 80,80,null);
+			graphics.drawImage(ImageIO.read(new File("src/images/obstacle_bombe.png")), i*80+spacing, j*80+spacing, 80,80,null);
 		} catch (IOException e) {
 			System.err.println("-- Can not read the image file ! --");
 		}

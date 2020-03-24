@@ -12,12 +12,15 @@ import data.Character;
 import process.Map;
 import process.InfosReader;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 public class GUI extends JFrame implements Runnable{
 	
@@ -48,6 +51,7 @@ public class GUI extends JFrame implements Runnable{
 		//definition des bases de la fenetre
 		this.setTitle("KURIOS");
 		this.setSize(1500, 1000);
+		this.setExtendedState(MAXIMIZED_BOTH);	
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setResizable(false);
@@ -84,19 +88,33 @@ public class GUI extends JFrame implements Runnable{
 				panel_button.add(button_minmax);
 				
 		//////////////PANEL INFO////////////////
+				
+		/*
 		JPanel panel_info = new JPanel();
 		panel_info.setBackground(Color.WHITE);
 		panel_info.setBounds(1000, 580, 500, 175);
 		this.getContentPane().add(panel_info);
-				
+			
 		infos.setEditable(false);
 		infos.setText("Infos sur l'algorithme");
 		panel_info.add(infos);
+		*/
+				
+	
 	}
 	
 	public void qLearning() {
 		map.initMapQLearning(t);//initialise la carte
 		coreQ= new QLearningCore(map,t,character);
+		
+		//instrumentation : exploration (on) et exploitation (off)
+		JLabel label_instrumQlearning = new JLabel("");
+		label_instrumQlearning.setBounds(1000, 420, 500, 500);
+		this.getContentPane().add(label_instrumQlearning);
+		label_instrumQlearning.setIcon(new ImageIcon("src/images/instrumentation_Qlearning_1.png"));
+
+		
+	
 		
 		//exploration
 		for (int i = 0; i <= 100; i++) {
@@ -112,9 +130,19 @@ public class GUI extends JFrame implements Runnable{
 				System.err.println(e.getMessage());
 			}
 		}
+		
+		
 		System.out.println("\t\tQTABLE FINAL");
 		coreQ.result();
 		coreQ.dicreasedExploration();
+		
+		
+		//instrumentation : exploration (off) et exploitation (on)
+		label_instrumQlearning.repaint();
+		JLabel label_instrumQlearning1 = new JLabel("");
+		label_instrumQlearning1.setBounds(1000, 420, 500, 500);
+		this.getContentPane().add(label_instrumQlearning1);
+		label_instrumQlearning1.setIcon(new ImageIcon("src/images/instrumentation_Qlearning_2.png"));
 		
 		//exploitation
 		try {

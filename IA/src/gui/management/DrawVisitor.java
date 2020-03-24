@@ -44,9 +44,11 @@ public class DrawVisitor implements ElementVisitor<Void> {
 	}
 	
 	public Void visit(Character elem) {
-		imageStrategy.setImage(graphics,elem,i,j);
+		imageStrategy.setImage(graphics,elem, i,j);
 		return null;
 	}
+	
+
 	
 	public Void visit(EmptyCase elem) {
 		imageStrategy.setImage(graphics, elem,i,j);
