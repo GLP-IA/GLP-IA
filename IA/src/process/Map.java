@@ -140,7 +140,7 @@ public class Map{
 	}
 
 	/**
-	 * afficher la carte selon les parametre de l'environnement de A*
+	 * afficher la carte selon l'environnement de A*
 	 */
 	public void printMapA_Star() {
 		System.out.println();

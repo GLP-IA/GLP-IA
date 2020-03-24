@@ -31,6 +31,10 @@ public class Score {
 	public ArrayList<Integer> getEvolution() {
 		return evolution;
 	}
-	
 
+	public void saveCounter(int counter) {
+		evolution.add(counter);
+	}
+	
+	
 }
