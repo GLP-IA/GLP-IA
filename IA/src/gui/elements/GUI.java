@@ -135,6 +135,7 @@ public class GUI extends JFrame implements Runnable{
 		coreA=new A_StarCore(map);
 		ArrayList<Node> pathHole = null;
 		int i=0;
+		int counter=0;
 		
 		try {
 			while(i<AStarPara.Target.length) {
@@ -150,6 +151,7 @@ public class GUI extends JFrame implements Runnable{
 						this.repaint();
 						Thread.sleep(1000);
 					}
+					counter=coreA.count(pathHole);
 					break;
 				}
 				else {

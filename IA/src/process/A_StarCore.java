@@ -9,13 +9,14 @@ import data.Character;
 import data.Form;
 import data.Hole;
 import data.Node;
+import data.Score;
 import data.AStarPara;
 
 public class A_StarCore {
 	private Map map;
 	private Form form;
 	
-	//public int countMoov=0;
+	public Score score=new Score();
 	
 	private Queue<Node> openSet; // L'ensemble des noeuds decouverts qui peuvent avoir besoin d'etre (re)developpe
 	private ArrayList<Node> closedSet;//l'ensemble des noeud correcte
@@ -45,6 +46,7 @@ public class A_StarCore {
 	 */
 	public ArrayList<Node> findPath(Hole target) {
 		ArrayList<Node> path= new ArrayList<Node>();
+		
 		closedSet.add(current);
 		NodeOperation.addNeigbors(current, map, openSet, closedSet, target);
 		while (current.getX() != target.getCoordX() || current.getY() != target.getCoordY()) {
@@ -67,6 +69,7 @@ public class A_StarCore {
 			current = current.getParent();
 			path.add(0, current);
 		}
+
 		return path;
 	}
 	
@@ -81,6 +84,20 @@ public class A_StarCore {
 		character.setCoordY(node.getY());
 	}
 
+	/***
+	 * Count the number of moves
+	 * 
+	 * @param path
+	 */
+	public int count(ArrayList<Node> path) {
+		int i=0;
+		for(@SuppressWarnings("unused") Node node:path) {
+			i++;
+		}
+		score.saveCounter(i);
+		return i;
+	}
+	
 	/**
 	 * remet à zero les elements necessaire pour redemarrer le programme
 	 */
