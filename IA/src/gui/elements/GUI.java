@@ -26,8 +26,8 @@ public class GUI extends JFrame implements Runnable{
 	private Map map= new Map(character);
 	
 	//Qlearning spec
-		private Target t=new Target(QLearningPara.REWARD,false);
-		private QLearningCore coreQ;
+	private Target t=new Target(QLearningPara.REWARD,false);
+	private QLearningCore coreQ;
 		
 	//ASTar spec
 	private A_StarCore coreA;
