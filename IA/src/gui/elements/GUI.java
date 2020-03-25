@@ -107,7 +107,12 @@ public class GUI extends JFrame implements Runnable{
 		map.initMapQLearning(t);//initialise la carte
 		coreQ= new QLearningCore(map,t,character);
 		
+		
+		
 		//instrumentation : exploration (on) et exploitation (off)
+			
+		
+		
 		JLabel label_instrumQlearning = new JLabel("");
 		label_instrumQlearning.setBounds(1000, 420, 500, 500);
 		this.getContentPane().add(label_instrumQlearning);
