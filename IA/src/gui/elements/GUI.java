@@ -34,7 +34,8 @@ public class GUI extends JFrame implements Runnable{
 
 	//Jpanel
 	private Dashboard dashboard = new Dashboard(map);
-	private JLabel label_instrumQlearning = new JLabel("");
+	private JLabel label_instrumLabel = new JLabel("");
+	
 	
 	private Runnable instance = this;
 	
@@ -84,9 +85,9 @@ public class GUI extends JFrame implements Runnable{
 				panel_button.add(button_minmax);
 				
 		//////////////PANEL INFO////////////////	
-		label_instrumQlearning.setBounds(1000, 420, 500, 500);
-		this.getContentPane().add(label_instrumQlearning);
-				
+		label_instrumLabel.setBounds(1000, 420, 500, 500);
+		this.getContentPane().add(label_instrumLabel);
+		
 	}
 	
 	public void qLearning() {
@@ -94,7 +95,7 @@ public class GUI extends JFrame implements Runnable{
 		coreQ= new QLearningCore(map,t,character);
 		
 		//instrumentation : exploration (on) et exploitation (off)
-		label_instrumQlearning.setIcon(new ImageIcon("src/images/instrumentation_Qlearning_1.png"));
+		label_instrumLabel.setIcon(new ImageIcon("src/images/instrumentation_Qlearning_1.png"));
 
 		
 		//exploration
@@ -117,8 +118,8 @@ public class GUI extends JFrame implements Runnable{
 		
 		
 		//instrumentation : exploration (off) et exploitation (on)
-		label_instrumQlearning.setIcon(new ImageIcon("src/images/instrumentation_Qlearning_2.png"));
-		
+		label_instrumLabel.setIcon(new ImageIcon("src/images/instrumentation_Qlearning_2.png"));
+
 		//exploitation
 		try {
 			while(!t.isAchieved()) {
@@ -139,11 +140,11 @@ public class GUI extends JFrame implements Runnable{
 		ArrayList<Node> pathHole = null;
 		int i=0;
 		int counter=0;
-		
+		instrumentationAstar();
 		try {
 			while(i<AStarPara.Target.length) {
 				pathHole = coreA.findPath(AStarPara.Target[i]);
-				
+
 				///using the path to moov the character
 				if(AStarPara.Target[i].isAchieved()) {
 					Iterator<Node> it;
@@ -169,6 +170,17 @@ public class GUI extends JFrame implements Runnable{
 		}
 		coreA.reset(character);
 		AStarPara.runAStar=false;
+	}
+	
+	public void instrumentationAstar() {
+		if (coreA.getForm().getFormType().equals("Triangle"))
+			label_instrumLabel.setIcon(new ImageIcon("src/images/kurios_triangle.png"));
+	
+		if (coreA.getForm().getFormType().equals("Square"))
+			label_instrumLabel.setIcon(new ImageIcon("src/images/kurios_square.png"));
+	
+		if (coreA.getForm().getFormType().equals("Circle"))
+			label_instrumLabel.setIcon(new ImageIcon("src/images/kurios_circle.png"));
 	}
 
 	public void run() {

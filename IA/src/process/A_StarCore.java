@@ -14,7 +14,7 @@ import data.AStarPara;
 
 public class A_StarCore {
 	private Map map;
-	private Form form;
+	private  Form form;
 	
 	public Score score=new Score();
 	
@@ -141,5 +141,9 @@ public class A_StarCore {
 		//System.out.println("current node: g="+current.getG()+" h="+current.getH());
 		//System.out.println("xNode="+current.getX()+" yNode="+current.getY()+"\txHole="+hole.getCoordX()+" yHole="+hole.getCoordY());
 		//map.printMapA_Star();
+	}
+
+	public  Form getForm() {
+		return form;
 	}
 }
