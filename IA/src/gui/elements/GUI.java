@@ -139,7 +139,7 @@ public class GUI extends JFrame implements Runnable{
 		coreA=new A_StarCore(map);
 		ArrayList<Node> pathHole = null;
 		int i=0;
-		int counter=0;
+		//int counter=0;
 		
 		instrumentationAstar();
 		
@@ -156,7 +156,7 @@ public class GUI extends JFrame implements Runnable{
 					this.repaint();
 					Thread.sleep(1000);
 				}
-				counter=coreA.count(pathHole);
+				//counter=coreA.count(pathHole);
 				break;
 			}
 			else {
@@ -182,20 +182,22 @@ public class GUI extends JFrame implements Runnable{
 	}
 
 	public void run() {
-		if(QLearningPara.runQlearning)
+		if(QLearningPara.runQlearning) {
 			try {
 				qLearning();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		else if(AStarPara.runAStar)
+		}
+		else if(AStarPara.runAStar) {
 			try {
 				aStar();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
 	}
 	
 	private class StartQlearningAction implements ActionListener{
