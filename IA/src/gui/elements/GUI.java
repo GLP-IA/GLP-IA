@@ -90,7 +90,11 @@ public class GUI extends JFrame implements Runnable{
 		
 	}
 	
-	public void qLearning() {
+	public synchronized void qLearning() throws InterruptedException {
+		if(AStarPara.runAStar) {
+			wait();
+		}
+		
 		map.initMapQLearning(t);//initialise la carte
 		coreQ= new QLearningCore(map,t,character);
 		
@@ -100,18 +104,14 @@ public class GUI extends JFrame implements Runnable{
 		
 		//exploration
 		for (int i = 0; i <= 100; i++) {
-			try {
-				while(!t.isAchieved()) {
-					coreQ.run();
-					this.repaint();
-					Thread.sleep(1);
-				}
-				coreQ.reset();
+			while(!t.isAchieved()) {
+				coreQ.run();
+				this.repaint();
+				Thread.sleep(1);
 			}
-			catch(InterruptedException e) {
-				System.err.println(e.getMessage());
-			}
-		}	
+			coreQ.reset();
+		}
+		
 		System.out.println("\t\tQTABLE FINAL");
 		coreQ.result();
 		coreQ.dicreasedExploration();
@@ -121,55 +121,53 @@ public class GUI extends JFrame implements Runnable{
 		label_instrumLabel.setIcon(new ImageIcon("src/images/instrumentation_Qlearning_2.png"));
 
 		//exploitation
-		try {
-			while(!t.isAchieved()) {
-				coreQ.run();
-				this.repaint();
-				Thread.sleep(2000);
-			}
-			QLearningPara.runQlearning=false;
+		while(!t.isAchieved()) {
+			coreQ.run();
+			this.repaint();
+			Thread.sleep(2000);
 		}
-		catch(InterruptedException e) {
-			System.err.println(e.getMessage());
-		}
+		QLearningPara.runQlearning=false;
+		notify();
 	}
 	
-	public void aStar() {
+	public synchronized void aStar() throws InterruptedException{
+		if(QLearningPara.runQlearning) {
+			wait();
+		}
+		
 		map.initMapA_Star(AStarPara.Target[0],AStarPara.Target[1],AStarPara.Target[2]);
 		coreA=new A_StarCore(map);
 		ArrayList<Node> pathHole = null;
 		int i=0;
 		int counter=0;
+		
 		instrumentationAstar();
-		try {
-			while(i<AStarPara.Target.length) {
-				pathHole = coreA.findPath(AStarPara.Target[i]);
+		
+		while(i<AStarPara.Target.length) {
+			pathHole = coreA.findPath(AStarPara.Target[i]);
 
-				///using the path to moov the character
-				if(AStarPara.Target[i].isAchieved()) {
-					Iterator<Node> it;
-					Node node;
-					for(it=pathHole.iterator();it.hasNext();) {
-						node=it.next();
-						coreA.usePath(character,node);
-						this.repaint();
-						Thread.sleep(1000);
-					}
-					counter=coreA.count(pathHole);
-					break;
+			///using the path to moov the character
+			if(AStarPara.Target[i].isAchieved()) {
+				Iterator<Node> it;
+				Node node;
+				for(it=pathHole.iterator();it.hasNext();) {
+					node=it.next();
+					coreA.usePath(character,node);
+					this.repaint();
+					Thread.sleep(1000);
 				}
-				else {
-					i++;
-					coreA.reset(character);
-					pathHole=null;
-				}
+				counter=coreA.count(pathHole);
+				break;
 			}
-		}
-		catch(InterruptedException e) {
-			System.err.println(e.getMessage());
+			else {
+				i++;
+				coreA.reset(character);
+				pathHole=null;
+			}
 		}
 		coreA.reset(character);
 		AStarPara.runAStar=false;
+		notify();
 	}
 	
 	public void instrumentationAstar() {
@@ -185,9 +183,19 @@ public class GUI extends JFrame implements Runnable{
 
 	public void run() {
 		if(QLearningPara.runQlearning)
-			qLearning();
+			try {
+				qLearning();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		else if(AStarPara.runAStar)
-			aStar();
+			try {
+				aStar();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	
 	private class StartQlearningAction implements ActionListener{
