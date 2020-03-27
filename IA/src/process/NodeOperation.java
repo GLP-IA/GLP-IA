@@ -28,8 +28,8 @@ public class NodeOperation {
 	                    && current.getY() + y >= 0 && current.getY() + y < map.getHeight()
 	                    && map.getCase(current.getY() + y, current.getX() + x).getReward() != -500 // check if square is walkable
 	                    && !findNeighborInList(openSet, node) && !findNeighborInList(closedSet, node)) { // if not already done
-	                        node.g = node.parent.g + 1; 
-	                        node.g += map.getCase(current.getY() + y, current.getX() + x).getReward(); // add movement cost for this square
+	                        node.setG(node.getParent().getG() + 1); 
+	                        node.setG(node.getG()+map.getCase(current.getY() + y, current.getX() + x).getReward()); // add movement cost for this square
 	                        openSet.add(node);
 	                }
 	            }

@@ -8,10 +8,11 @@ import process.NodeOperation;
  * @author Nathan VIRAYIE
  */
 public class Node implements Comparable<Node>{
-    public Node parent;
-    public int x, y;
-    public double g;
-    public double h;
+    private Node parent;
+    private int x;
+    private int y;
+    private double g;
+    private double h;
     
     public Node(Node parent, int xpos, int ypos, double g, double h) {
         this.parent = parent;
