@@ -61,14 +61,14 @@ public class GUI extends JFrame implements Runnable{
 		
 		//ajout du logo
 		JLabel label_logo = new JLabel("");
-		label_logo.setBounds(1000, 50, 450, 170);
+		label_logo.setBounds(900, 50, 450, 170);
 		this.getContentPane().add(label_logo);
 		label_logo.setIcon(new ImageIcon("src/images/logo_v2.png"));
 		
 		//////////////PANEL BOUTON///////////////
 		JPanel panel_button = new JPanel();
 		panel_button.setBackground(Color.DARK_GRAY);
-		panel_button.setBounds(1100, 250, 300, 300);
+		panel_button.setBounds(1000, 250, 300, 200);
 		this.getContentPane().add(panel_button);
 		panel_button.setLayout(new GridLayout(0, 1, 0, 20));
 		
