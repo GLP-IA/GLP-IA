@@ -10,7 +10,7 @@ public class Player {
 	/**
 	 * The command define if the player has cheated or cooperate.
 	 * 
-	 * @see Player#isHasCheat()
+	 * @see Player#hasCheat()
 	 * @see Player#setHasCheat(boolean)
 	 */
 	private boolean hasCheat;
@@ -20,7 +20,7 @@ public class Player {
 	 * 
 	 * @see Player#getScores()
 	 */
-	private Score scores;
+	private int score;
 	
 	/**
 	 * The constructor's class
@@ -28,9 +28,9 @@ public class Player {
 	 * @param hasCheat
 	 * @param scores
 	 */
-	public Player(boolean hasCheat, Score scores) {
+	public Player(boolean hasCheat) {
 		this.hasCheat = hasCheat;
-		this.scores = scores;
+		score = 0;
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class Player {
 	 * 
 	 * @return the player's choice
 	 */
-	public boolean isHasCheat() {
+	public boolean cheat() {
 		return hasCheat;
 	}
 
@@ -47,10 +47,13 @@ public class Player {
 	 * 
 	 * @return the player's score
 	 */
-	public Score getScores() {
-		return scores;
+	public int getScores() {
+		return score;
 	}
 
+	public void setScore(int score) {
+		this.score=score;
+	}
 	/**
 	 * Update the cheat
 	 * 
