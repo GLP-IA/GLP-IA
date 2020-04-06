@@ -1,6 +1,6 @@
 package process;
 
-import data.TreeNode;
+import data.Tree;
 
 /**
  * Generic tree visitor supporting all type type.
@@ -10,6 +10,6 @@ import data.TreeNode;
  **/
 public interface TreeVisitor<T> {
 
-	T visit(TreeNode node);
+	T visit(Tree node);
 
 }

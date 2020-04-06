@@ -3,33 +3,67 @@ package data;
 import process.TreeVisitor;
 
 /**
- * General definition of a Tree node.
+ * This class represents all arithmetic operations including Addition,
+ * Subtraction and Multiplication. All these operations need two operands
+ * (sub-trees) to process the calculation.
+ * 
+ * The class uses Template Method design pattern. The common part (left operand
+ * and right operand) is defined in this class and is shared in the sub-classes.
+ * 
+ * No default toString() defined.
  * 
  * @author Nathan Virayie
  */
-public interface Tree {
+public class Tree {
+	private int value;
 	/**
-	 * Gets the left sub-tree of the node.
-	 * 
-	 * @return the left sub-tree
+	 * Left operand of the operation (sub-tree)
 	 */
-	Tree getLeftNode();
+	private Tree leftNode;
 
 	/**
-	 * Gets the right sub-tree of the node.
-	 * 
-	 * @return the right sub-tree
+	 * Right operand of the operation (sub-tree)
 	 */
-	Tree getRightNode();
+	private Tree rightNode;
 
 	/**
-	 * A tree node can accept the visit of any {@link TreeVisitor}.
 	 * 
-	 * @param visitor
-	 *            the tree visitor of generic type
-	 * @return the generic return type that depends on the concret return type
-	 *         of the tree visitor
-	 * 
+	 * @param leftOperand
+	 *            left sub-tree
+	 * @param rightOperand
+	 *            right sub-tree
 	 */
-	<T> T accept(TreeVisitor<T> visitor);
+	public Tree(int value, Tree leftNode, Tree rightNode) {
+		this.value=value;
+		this.leftNode = leftNode;
+		this.rightNode = rightNode;
+	}
+
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
+	}
+	
+	public Tree getLeftNode() {
+		return leftNode;
+	}
+
+	public Tree getRightNode() {
+		return rightNode;
+	}
+
+	public void setRightNode(Tree rightOperand) {
+		this.rightNode = rightOperand;
+	}
+
+	public void setLeftNode(Tree leftOperand) {
+		this.leftNode = leftOperand;
+	}
+
+	public <T> T accept(TreeVisitor<T> visitor) {
+		return visitor.visit(this);
+	}
 }
