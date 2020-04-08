@@ -1,22 +1,20 @@
 package gui.elements;
 
+
 import java.awt.Graphics;
 import javax.swing.JPanel;
+
+import data.AStarPara;
+import data.PathAstar;
 import gui.management.DrawVisitor;
 import process.Map;
 
-/**
- * The main panel of the GUI (the grid is created here)
- * 
- * @author Nathan VIRAYIE
- *
- */
 public class Dashboard extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
 
 	private Map map;
-	
+	private PathAstar path;
 	
 	public Dashboard(Map map) {
 		this.map=map;
@@ -29,6 +27,13 @@ public class Dashboard extends JPanel {
 	public void paintComponent(Graphics g) {
 		DrawVisitor drawVisitor= new DrawVisitor(g);
 		
-		map.accept(drawVisitor);	
+		map.accept(drawVisitor);
+		if(AStarPara.runAStar)
+			path.accept(drawVisitor);
 	}
+
+	public void setPath(PathAstar path) {
+		this.path = path;
+	}
+
  }
