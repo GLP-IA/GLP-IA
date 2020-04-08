@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 
 import data.AStarPara;
 import data.PathAstar;
+import data.QLearningPara;
 import gui.management.DrawVisitor;
 import process.Map;
 
@@ -28,7 +29,7 @@ public class Dashboard extends JPanel {
 		DrawVisitor drawVisitor= new DrawVisitor(g);
 		
 		map.accept(drawVisitor);
-		if(AStarPara.runAStar)
+		if(AStarPara.runAStar && !QLearningPara.runQlearning)
 			path.accept(drawVisitor);
 	}
 
