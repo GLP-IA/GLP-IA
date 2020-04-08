@@ -13,7 +13,7 @@ public class Player {
 	 * @see Player#hasCheat()
 	 * @see Player#setHasCheat(boolean)
 	 */
-	private boolean hasCheat;
+	private boolean isMaxPlayer;
 	
 	/**
 	 * The player's scores.
