@@ -12,6 +12,8 @@ import data.QLearningPara;
  *ligne 0 <=> case 0 <=> (0,0); ligne 1 <=> case 1 <=> (0,1)...
  *
  *(la carte est supposé carré)
+ *
+ *@author Nathan Virayie
  */
 public class QTable {
 	private double qTable[][];
@@ -91,13 +93,25 @@ public class QTable {
 	return j;
 	}
 
+	/**
+	 * 
+	 * @return a string that contains the values of the qtable
+	 */
 	public String print() {
 		String r="NextMoov:	UP	DOWN	LEFT	RIGHT\n";
-		 
+		String value;
+		int indexPoint;
 		for (int i = 0; i <QLearningPara.DIM_MAP; i++) {
 			r+="From state " + i + ":  ";
 			for (int j = 0; j <4; j++) {
-				r+=qTable[i][j]+"	";
+				value=Double.toString(qTable[i][j]);
+				indexPoint=value.indexOf(".");
+				
+				if(value.substring(indexPoint).length()<=2)
+					r+=qTable[i][j]+"	";
+				else
+					r+= value.substring(0,indexPoint) + value.substring(indexPoint,indexPoint+3) +"	";
+			
 			}
 			r+="\n";
 		}

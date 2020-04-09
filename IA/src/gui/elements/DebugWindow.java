@@ -9,7 +9,7 @@ import javax.swing.JTextArea;
 public class DebugWindow extends JFrame{
 
 	private static final long serialVersionUID = 1L;
-	private JTextArea debugArea= new JTextArea(25,70);
+	private JTextArea debugArea= new JTextArea(25,50);
 	
 	public DebugWindow() {
 		init();
@@ -20,7 +20,7 @@ public class DebugWindow extends JFrame{
 		JScrollPane scrollPane = new JScrollPane(debugArea);
 		this.getContentPane().add(scrollPane);
 		
-		this.setTitle("Debug");
+		this.setTitle("QTable");
 		this.getContentPane().setLayout(new FlowLayout());
 		this.pack();
 		this.setVisible(true);
