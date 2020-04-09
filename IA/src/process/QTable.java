@@ -91,29 +91,17 @@ public class QTable {
 	return j;
 	}
 
-	public void print() {
-		 System.out.printf("%10s", "NextMoov: ");
-	            System.out.printf("%10s", "UP");
-	            System.out.printf("%8s", "DOWN");
-	            System.out.printf("%8s", "LEFT");
-	            System.out.printf("%8s", "RIGHT");
-
-	        
-	        System.out.println();
+	public String print() {
+		String r="NextMoov:	UP	DOWN	LEFT	RIGHT\n";
+		 
 		for (int i = 0; i <QLearningPara.DIM_MAP; i++) {
-			System.out.print("From state " + i + ":  ");
+			r+="From state " + i + ":  ";
 			for (int j = 0; j <4; j++) {
-				//System.out.print(qTable[i][j]+" ");
-				System.out.printf("%6.2f ",(qTable[i][j]));
+				r+=qTable[i][j]+"	";
 			}
-			System.out.println();
+			r+="\n";
 		}
 		
-		System.out.printf("%10s", "NextMoov: ");
-        System.out.printf("%10s", "UP");
-        System.out.printf("%8s", "DOWN");
-        System.out.printf("%8s", "LEFT");
-        System.out.printf("%8s", "RIGHT");
-        System.out.println();
+		return r;
 	}
 }

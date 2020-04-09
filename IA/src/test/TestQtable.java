@@ -8,7 +8,7 @@ public class TestQtable {
 		q.print();
 		QFonction f=new QFonction(q,0.9,0.8);
 		f.update(0,0,1,0,100);
-		q.print();
+		System.out.print(q.print());
 	}
 
 }
