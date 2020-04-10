@@ -45,32 +45,31 @@ public class QLearningCore {
 		int reward;	
 		int oldX=getX();
 		int oldY=getY();
+		boolean hasMooved =false;
 		
 		//generation d'un nombre aléatoirement entre 0 et 4 pour choisir le deplacement a effectue
 		int r=rand.nextInt(4);
 		
-		if(r==0) {
+		if(r==0)
 			MoovCharacter.moovUp(character,QLearningPara.DIM_MAP);
-			//System.out.println("direction : UP ");
-		}
-		if(r==1) {
-			MoovCharacter.moovDown(character,QLearningPara.DIM_MAP);
-			//System.out.println("direction : DOWN ");
-		}
 
-		if(r==2) {
+		if(r==1)
+			MoovCharacter.moovDown(character,QLearningPara.DIM_MAP);
+
+		if(r==2)
 			MoovCharacter.moovLeft(character,QLearningPara.DIM_MAP);
-			//System.out.println("direction : LEFT ");
-		}
 	
-		if(r==3) {
+		if(r==3)
 			MoovCharacter.moovRight(character,QLearningPara.DIM_MAP);
-			//System.out.println("direction : RIGHT ");
-		}
+
+		if(oldX!=getX() || oldY!= getY())
+			hasMooved=true;
 		
-		Element pos=map.getCase(getX(),getY());
-		reward=pos.getReward();
-		f.update(getX(),getY(),oldX,oldY,reward);
+		if(hasMooved) {
+			Element pos=map.getCase(getX(),getY());
+			reward=pos.getReward();
+			f.update(getX(),getY(),oldX,oldY,reward);
+		}
 	}
 	
 	/**
@@ -80,30 +79,31 @@ public class QLearningCore {
 		int oldX=getX();
 		int oldY=getY();
 		int reward;
+		boolean hasMooved =false;
 		
 		//recupère l'état qui à la plus grande espérance de récompense
 		int nextDir=qTable.maxDirection(States.getState(oldX,oldY));
 
-		if(nextDir==0) {
+		if(nextDir==0)
 			MoovCharacter.moovUp(character,QLearningPara.DIM_MAP);
-			//System.out.println("direction : UP ");
-		}
-		if(nextDir==1) {
+
+		if(nextDir==1)
 			MoovCharacter.moovDown(character,QLearningPara.DIM_MAP);
-			//System.out.println("direction : DOWN ");
-		}
-		if(nextDir==2) { 
+
+		if(nextDir==2) 
 			MoovCharacter.moovLeft(character,QLearningPara.DIM_MAP);
-			//System.out.println("direction : LEFT ");
-		}
-		if(nextDir==3) {
+			
+		if(nextDir==3)
 			MoovCharacter.moovRight(character, QLearningPara.DIM_MAP);
-			//System.out.println("direction : RIGHT ");
-		}
 		
-		Element pos=map.getCase(getX(),getY());
-		reward=pos.getReward();
-		f.update(getX(),getY(),oldX,oldY,reward);
+		if(oldX!=getX() || oldY!= getY())
+			hasMooved=true;
+		
+		if(hasMooved) {
+			Element pos=map.getCase(getX(),getY());
+			reward=pos.getReward();
+			f.update(getX(),getY(),oldX,oldY,reward);
+		}
 	}
 	
 	public int getX(){
