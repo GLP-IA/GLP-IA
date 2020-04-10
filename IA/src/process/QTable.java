@@ -98,19 +98,19 @@ public class QTable {
 	 * @return a string that contains the values of the qtable
 	 */
 	public String print() {
-		String r="NextMoov:	UP	DOWN	LEFT	RIGHT\n";
+		String r="\tNextMoov:	UP	DOWN	LEFT	RIGHT\n";
 		String value;
 		int indexPoint;
 		for (int i = 0; i <QLearningPara.DIM_MAP; i++) {
-			r+="From state " + i + ":  ";
+			r+="\tFrom state " + i + ":\t";
 			for (int j = 0; j <4; j++) {
 				value=Double.toString(qTable[i][j]);
 				indexPoint=value.indexOf(".");
 				
 				if(value.substring(indexPoint).length()<=2)
-					r+=qTable[i][j]+"	";
+					r+=qTable[i][j]+"\t";
 				else
-					r+= value.substring(0,indexPoint) + value.substring(indexPoint,indexPoint+3) +"	";
+					r+=value.substring(0,indexPoint) + value.substring(indexPoint,indexPoint+3) +"\t";
 			
 			}
 			r+="\n";
