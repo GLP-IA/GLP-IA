@@ -40,13 +40,14 @@ public class QTable {
 					qTable[i][0]=-900; //block moovUp when we are on the top line
 				if(i>=90) 
 					qTable[i][1]=-900; //block moovDown when we are on the lowest line	
-				if (i == edge-1)
-					qTable[i][3]=-900; // block moovRight when we are on the right side of the first line
-				 if (i>edge) { 
-					if(bound.substring(2).equals("9"))
-						qTable[i][3]=-900; //block moovRight when we are on the right side of the other lines	
+				if (i>=edge-1) { 
+					if (i == edge-1)
+						qTable[i][3]=-900; // block moovRight when we are on the right side of the first line
+					
+					else if(bound.substring(1).equals("9"))
+						qTable[i][3]=-900; //block moovRight when we are on the right side of the other lines
 				}
-				else
+				else 
 					qTable[i][j]=0; //default value
 			}
 		}
