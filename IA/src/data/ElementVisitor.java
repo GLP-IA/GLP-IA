@@ -20,5 +20,8 @@ public interface ElementVisitor<E> {
 
 	E visit(WrongBox trail);
 	
+	E visit(AnalyzedBox trail);
+	
 	E visit(PathAstar path);
+	
 }

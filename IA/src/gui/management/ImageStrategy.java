@@ -10,8 +10,11 @@ import data.EmptyCase;
 import data.GoodBox;
 import data.Hole;
 import data.Obstacle;
+import data.QLearningPara;
 import data.Target;
 import data.WrongBox;
+import data.AStarPara;
+import data.AnalyzedBox;
 import data.Character;
 
 /**
@@ -49,7 +52,10 @@ public class ImageStrategy {
 	
 	public void setImage(Graphics graphics, Obstacle elem, int i, int j) {
 		try {
-			graphics.drawImage(ImageIO.read(new File("src/images/obstacle_v2.png")), i*80+spacing, j*80+spacing, 80,80,null);
+			if(QLearningPara.runQlearning)
+				graphics.drawImage(ImageIO.read(new File("src/images/obstacle_bombe.png")), i*80+spacing, j*80+spacing, 80,80,null);
+			else if(AStarPara.runAStar)
+				graphics.drawImage(ImageIO.read(new File("src/images/obstacle_v2.png")), i*80+spacing, j*80+spacing, 80,80,null);
 		} catch (IOException e) {
 			System.err.println("-- Can not read the image file ! --");
 		}
@@ -79,6 +85,14 @@ public class ImageStrategy {
 	public void setImage(Graphics graphics, GoodBox trail, int i, int j) {
 		try {
 			graphics.drawImage(ImageIO.read(new File("src/images/goodBox.png")), i*80+spacing, j*80+spacing, 80,80,null);
+		} catch (IOException e) {
+			System.err.println("-- Can not read the image file ! --");
+		}
+	}
+	
+	public void setImage(Graphics graphics, AnalyzedBox trail, int i, int j) {
+		try {
+			graphics.drawImage(ImageIO.read(new File("src/images/analyzedBox.png")), i*80+spacing, j*80+spacing, 80,80,null);
 		} catch (IOException e) {
 			System.err.println("-- Can not read the image file ! --");
 		}

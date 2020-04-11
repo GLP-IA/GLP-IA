@@ -14,6 +14,7 @@ import data.Target;
 import data.Trail;
 import data.WrongBox;
 import process.Map;
+import data.AnalyzedBox;
 import data.Character;
 import data.Element;
 
@@ -100,6 +101,11 @@ public class DrawVisitor implements ElementVisitor<Void> {
 	}
 	
 	public Void visit(WrongBox trail) {
+		imageStrategy.setImage(graphics, trail,i,j);
+		return null;
+	}
+	
+	public Void visit(AnalyzedBox trail) {
 		imageStrategy.setImage(graphics, trail,i,j);
 		return null;
 	}
