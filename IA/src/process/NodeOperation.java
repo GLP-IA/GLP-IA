@@ -4,8 +4,12 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Queue;
 
+import data.AStarPara;
+import data.AnalyzedBox;
 import data.Hole;
 import data.Node;
+import data.PathAstar;
+import data.WrongBox;
 
 public class NodeOperation {
 
@@ -18,19 +22,25 @@ public class NodeOperation {
 	 * @param closedSet
 	 * @param target
 	 */
-	   public static void addNeigbors(Node current, Map map, Queue<Node> openSet, ArrayList<Node> closedSet, Hole target) {
+	   public static void addNeigbors(Node current, Map map, Queue<Node> openSet, ArrayList<Node> closedSet, Hole target, PathAstar p) {
 	        Node node;
 	        for (int x = -1; x <= 1; x++) {
 	            for (int y = -1; y <= 1; y++) {
-	                node = new Node(current, current.getX()+ x, current.getY() + y, current.getG(), calcH(current,target));
+	                node = new Node(current, current.getX()+ x, current.getY() + y, current.getG(), 0);
 	                if ((Math.abs(x)!=Math.abs(y)) // not currrent and not the diagonal
 	                    && current.getX() + x >= 0 && current.getX() + x < map.getWidth() // check map boundaries
 	                    && current.getY() + y >= 0 && current.getY() + y < map.getHeight()
-	                    && map.getCase(current.getY() + y, current.getX() + x).getReward() != -500 // check if square is walkable
+	                    && map.getCase(current.getY() + y, current.getX() + x).getReward() != AStarPara.MALUS// check if square is walkable
 	                    && !findNeighborInList(openSet, node) && !findNeighborInList(closedSet, node)) { // if not already done
-	                        node.setG(node.getParent().getG() + 1); 
-	                        node.setG(node.getG()+map.getCase(current.getY() + y, current.getX() + x).getReward()); // add movement cost for this square
-	                        openSet.add(node);
+	                        node.setG(node.getParent().getG() + 1); //add movement cost
+	                        node.setH(calcH(node,target));	//calculate the distance to the target
+	                        if(node.getH()<current.getH()) {
+		                        openSet.add(node);
+		                        //p.addToPath(new AnalyzedBox(node.getX(),node.getY()));
+	                        }
+	                        else {
+	                        	//p.addToPath(new WrongBox(node.getX(),node.getY()));
+	                        }
 	                }
 	            }
 	        }
@@ -63,7 +73,7 @@ public class NodeOperation {
 		/**
 		 * calcul f selon g et h
 		 */
-		public static double calcF(Node a) {
-			return(a.getG()+a.getH());
+		public static Integer calcF(Node a) {
+			return (int)(a.getG()+a.getH());
 		}
 }
