@@ -16,6 +16,7 @@ public class AStarPara {
 	public static final Hole[] Target = {new Hole(3,6,"Triangle"), new Hole(4,2,"Square"), new Hole(8,7,"Circle")};
 
 	public static final int EMPTY_REWARD = 1; //cost of the movement
+	public static final int MALUS = -1;
 	
 	
 	/**

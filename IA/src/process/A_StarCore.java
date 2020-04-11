@@ -1,27 +1,30 @@
 package process;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Random;
 
 import data.Character;
 import data.Form;
+import data.GoodBox;
 import data.Hole;
 import data.Node;
+import data.PathAstar;
 import data.Score;
 import data.AStarPara;
 
 public class A_StarCore {
 	private Map map;
 	private  Form form;
+	private PathAstar historic;
 	
 	public Score score=new Score();
 	
 	private Queue<Node> openSet; // L'ensemble des noeuds decouverts qui peuvent avoir besoin d'etre (re)developpe
 	private ArrayList<Node> closedSet;//l'ensemble des noeud correcte
 	private Node current; //current position
-	
 	
 	public A_StarCore(Map map) {
 		this.map = map;
@@ -33,9 +36,13 @@ public class A_StarCore {
 		
 		current=new Node(null, AStarPara.xStart, AStarPara.yStart, 0, 0);
 		
-		openSet= new PriorityQueue<Node>();
+		openSet= new PriorityQueue<Node>(new Comparator<Node>(){
+			public int compare(Node arg0, Node arg1) {
+				return arg0.compareTo(arg1);
+			}
+		});
 		closedSet= new ArrayList<Node>();
-		openSet.add(current);	// Initialement, seul le noeud de depart est connu.
+		historic= new PathAstar();
 	}
 	
 	/**
@@ -47,8 +54,12 @@ public class A_StarCore {
 	public ArrayList<Node> findPath(Hole target) {
 		ArrayList<Node> path= new ArrayList<Node>();
 		
+		current.setH(NodeOperation.calcH(current,target));
+		openSet.add(current);	// Initialement, seul le noeud de depart est connu.
 		closedSet.add(current);
-		NodeOperation.addNeigbors(current, map, openSet, closedSet, target);
+		
+		NodeOperation.addNeigbors(current, map, openSet, closedSet, target,historic);
+		
 		while (current.getX() != target.getCoordX() || current.getY() != target.getCoordY()) {
 			if (openSet.isEmpty()) { // Nothing to examine
 				return null;
@@ -58,7 +69,7 @@ public class A_StarCore {
 			current = openSet.remove(); 
 			
 			closedSet.add(current); // then add to the closedSet
-	        NodeOperation.addNeigbors(current, map, openSet, closedSet, target);
+	        NodeOperation.addNeigbors(current, map, openSet, closedSet, target,historic);
 			
 		}
 		debug(current,target);
@@ -82,6 +93,7 @@ public class A_StarCore {
 		//Moov the character
 		character.setCoordX(node.getX());
 		character.setCoordY(node.getY());
+		historic.addToPath(new GoodBox(node.getX(),node.getY()));
 	}
 
 	/***
@@ -145,5 +157,9 @@ public class A_StarCore {
 
 	public  Form getForm() {
 		return form;
+	}
+	
+	public PathAstar getHistoric() {
+		return historic;
 	}
 }

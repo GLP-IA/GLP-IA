@@ -3,13 +3,11 @@ package gui.elements;
 import data.AStarPara;
 import process.A_StarCore;
 import data.Node;
-import data.PathAstar;
 import data.QLearningPara;
 import process.QLearningCore;
 import data.Target;
 
 import data.Character;
-import data.GoodBox;
 import process.Map;
 
 import javax.swing.*;
@@ -140,8 +138,7 @@ public class GUI extends JFrame implements Runnable{
 		map.initMapA_Star(AStarPara.Target[0],AStarPara.Target[1],AStarPara.Target[2]);
 		coreA=new A_StarCore(map);
 		ArrayList<Node> pathHole = null;
-		
-		PathAstar historic=new PathAstar();
+		dashboard.setPath(coreA.getHistoric());
 		
 		int i=0;
 		//int counter=0;
@@ -157,11 +154,7 @@ public class GUI extends JFrame implements Runnable{
 				Node node;
 				for(it=pathHole.iterator();it.hasNext();) {
 					node=it.next();
-					coreA.usePath(character,node);
-					
-					historic.addToPath(new GoodBox(node.getX(),node.getY()));
-					dashboard.setPath(historic);
-					
+					coreA.usePath(character,node);	
 					this.repaint();
 					Thread.sleep(1000);
 				}
