@@ -8,12 +8,11 @@ package data;
  */
 public class Player {
 	/**
-	 * The command define if the player has cheated or cooperate.
+	 * The command define if the player is MaxPalayer or not.
 	 * 
-	 * @see Player#hasCheat()
-	 * @see Player#setHasCheat(boolean)
+	 * 
 	 */
-	private boolean hasCheat;
+	private boolean isMaxPlayer;
 	
 	/**
 	 * The player's scores.
@@ -28,19 +27,12 @@ public class Player {
 	 * @param hasCheat
 	 * @param scores
 	 */
-	public Player(boolean hasCheat) {
-		this.hasCheat = hasCheat;
+	public Player(boolean isMaxPlayer) {
+		this.isMaxPlayer = true;
 		score = 0;
 	}
 
-	/**
-	 * Return hasCheat
-	 * 
-	 * @return the player's choice
-	 */
-	public boolean cheat() {
-		return hasCheat;
-	}
+	
 
 	/**
 	 * Get the scores
@@ -53,14 +45,6 @@ public class Player {
 
 	public void setScore(int score) {
 		this.score=score;
-	}
-	/**
-	 * Update the cheat
-	 * 
-	 * @param hasCheat
-	 */
-	public void setHasCheat(boolean hasCheat) {
-		this.hasCheat = hasCheat;
 	}
 
 

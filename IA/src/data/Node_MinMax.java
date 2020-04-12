@@ -1,21 +1,25 @@
 package data;
 
-import java.util.ArrayList;
+import java.util.Iterator;
 
+//import data.Player;
 
 
 public class Node_MinMax {
 	
     private int nbOfCoins;
-    private boolean isMaxPlayer;
+    private boolean isMaxPlayer; 
+    //private boolean secondPlayer = !isMaxPlayer;
     private int utility; // utility correspond au score des noeuds
-    private ArrayList<Node_MinMax> children;
+    private int parent;
    
 
-    public Node_MinMax(int nbOfCoins, boolean isMaxPlayer) {
+    public Node_MinMax(int nbOfCoins, boolean isMaxPlayer, int parent, int utility) {
         this.nbOfCoins = nbOfCoins;
         this.isMaxPlayer = isMaxPlayer;
-        children = new ArrayList<Node_MinMax>();
+        this.parent = parent;
+        this.utility = utility;
+
     }
 
     public int getNbOfCoins() {
@@ -25,23 +29,34 @@ public class Node_MinMax {
     public boolean isMaxPlayer() {
         return isMaxPlayer;
     }
+    public int getParent() {
+		return parent;
+	}
+
+	
     
-    int getUtility() {
+    public int getUtility() {
         return utility;
     }
+    
 
-    void setUtility(int utility) {
+   public void setUtility(int utility) {
         this.utility = utility;
     }
-
-    ArrayList<Node_MinMax> getChildren() {
+   /*
+    public ArrayList<Node_MinMax> getChildren() {
         return children;
     }
 
     public void addChild(Node_MinMax newNode) {
         children.add(newNode);
     }
-    
+    */
+
+public Iterator<Node_MinMax> iterator() {
+	// TODO Auto-generated method stub
+	return null;
+}
 }
 	
 	

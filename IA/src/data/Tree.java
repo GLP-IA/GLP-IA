@@ -1,22 +1,28 @@
 package data;
 
+import java.util.ArrayList;
+
 
 public class Tree {
 
-	private Node_MinMax root;
-
+	private ArrayList<Node_MinMax> tree ;
+	
 	    public Tree() {
+	    	tree = new ArrayList<Node_MinMax>();
 	    }
 
-	    Node_MinMax getRoot() {
-	        return root;
+	    public ArrayList<Node_MinMax> getTree() {
+	        return tree;
 	    }
 
-	    public void setRoot(Node_MinMax root) {
-	        this.root = root;
-	    }
+		public void setRoot(Node_MinMax root) {
+			this.tree.add(root);
+		}
+	   	
+		public Node_MinMax getParent(Node_MinMax node) {
+			return tree.get(node.getParent());
+		}
 	    
-	    
-	    //peut etre ajouter une methode pour estFeuille
+	 
 }
 
