@@ -16,7 +16,11 @@ public class Tree {
 	    }
 
 		public void setRoot(Node_MinMax root) {
-			this.tree.add(root);
+			this.tree.add(0,root);
+		}
+		
+		public void addNode(Node_MinMax node) {
+			this.tree.add(node);
 		}
 	   	
 		public Node_MinMax getParent(Node_MinMax node) {

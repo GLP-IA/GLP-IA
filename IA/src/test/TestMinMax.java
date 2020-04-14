@@ -14,11 +14,11 @@ public class TestMinMax {
 		 int nbOfCoins = 10;
 		Node_MinMax root = new Node_MinMax(nbOfCoins, true, 0,0);
 	    tree.setRoot(root);
-	    ArrayList<Node_MinMax> arbre = tree.getTree();
-	    TreeBuilder.constructTree(arbre);
+	    TreeBuilder.constructTree(tree);
 	    
 	    for (Iterator<Node_MinMax> it = tree.getTree().iterator(); it.hasNext();){
-	    System.out.println(it.next().getNbOfCoins());
+	    	Node_MinMax node =it.next();
+	    	System.out.println(node.getNbOfCoins()+" parent: "+ node.getParent());
 	    }
 	}
 

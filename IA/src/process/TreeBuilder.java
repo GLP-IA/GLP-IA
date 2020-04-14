@@ -1,30 +1,28 @@
 package process;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 
 import data.Node_MinMax;
+import data.Tree;
 
 public class TreeBuilder {
 	
-    public static void constructTree(ArrayList<Node_MinMax> root) {    
-        Node_MinMax newNode;
-        int cpt = 0;
-        for (Iterator<Node_MinMax> it = root.iterator(); it.hasNext();){
-        	if (it.next().getNbOfCoins() > 0) {
+    public static void constructTree(Tree tree) {    
+    	Node_MinMax newNode;
+        int cpt = 1;
+        Node_MinMax node;
+        for (int index=0; index >= 0 && index+1!= tree.getTree().size()-1; index++){
+        	node=tree.getTree().get(index);
+        	if (node.getNbOfCoins() > 0) {
         		for (int i =1; i<4; i++) {
-        			newNode = new Node_MinMax((it.next().getNbOfCoins() - i) , !it.next().isMaxPlayer(), ((cpt-1)/3), 0);// créér un noeud pr le 2eme joueur
-        			root.add(newNode);
+        			if(node.getNbOfCoins() - i <=0)
+        				newNode = new Node_MinMax(0, !node.isMaxPlayer(), ((cpt-1)/3), 0);// créér un noeud pr le 2eme joueur
+        			else
+        				newNode = new Node_MinMax((node.getNbOfCoins() - i) , !node.isMaxPlayer(), ((cpt-1)/3), 0);// créér un noeud pr le 2eme joueur
+        			tree.addNode(newNode);
         			cpt++;
-        			System.out.println("ok boomer");
         		}
-        	
-        		System.out.println("truc plus visible ");
         	}
-        	else {
-        		System.out.println("4 eme texte");
-        	}
-        }
-        
+        }  
     }
+    
 }
