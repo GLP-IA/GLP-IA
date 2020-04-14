@@ -27,7 +27,7 @@ public class GUI extends JFrame implements Runnable{
 	//Qlearning spec
 	private Target t=new Target(QLearningPara.REWARD,false);
 	private QLearningCore coreQ;
-	
+		
 	//ASTar spec
 	private A_StarCore coreA;
 
@@ -35,7 +35,6 @@ public class GUI extends JFrame implements Runnable{
 	private Dashboard dashboard = new Dashboard(map);
 	private JLabel label_instrumLabel = new JLabel("");
 	
-	private DebugWindow qtable;
 	
 	private Runnable instance = this;
 	
@@ -107,13 +106,15 @@ public class GUI extends JFrame implements Runnable{
 			while(!t.isAchieved()) {
 				coreQ.run();
 				this.repaint();
-				qtable.setText(coreQ.result());
 				Thread.sleep(1);
 			}
 			coreQ.reset();
 		}
-
+		
+		System.out.println("\t\tQTABLE FINAL");
+		coreQ.result();
 		coreQ.dicreasedExploration();
+		
 		
 		//instrumentation : exploration (off) et exploitation (on)
 		label_instrumLabel.setIcon(new ImageIcon("src/images/instrumentation_Qlearning_2.png"));
@@ -122,11 +123,9 @@ public class GUI extends JFrame implements Runnable{
 		while(!t.isAchieved()) {
 			coreQ.run();
 			this.repaint();
-			qtable.setText(coreQ.result());
 			Thread.sleep(2000);
 		}
 		QLearningPara.runQlearning=false;
-		qtable.dispose();
 		notify();
 	}
 	
@@ -146,32 +145,46 @@ public class GUI extends JFrame implements Runnable{
 		instrumentationAstar();
 		
 		while(i<AStarPara.Target.length) {
-			pathHole = coreA.findPath(AStarPara.Target[i]);
+			while ( (!coreA.check(AStarPara.Target[i])) && (!coreA.isUselessAnalyse())) {
+				coreA.findPath(AStarPara.Target[i]);
+				this.repaint();
+				Thread.sleep(300);
+			}
+			
+			pathHole = coreA.retracePath();
 
 			///using the path to moov the character
 			if(AStarPara.Target[i].isAchieved()) {
-				Iterator<Node> it;
 				Node node;
+				Iterator<Node> it;
 				for(it=pathHole.iterator();it.hasNext();) {
 					node=it.next();
-					coreA.usePath(character,node);	
+					coreA.usePath(character,node);
 					this.repaint();
 					Thread.sleep(1000);
 				}
-				//counter=coreA.count(pathHole);
 				break;
 			}
 			else {
 				i++;
-				coreA.reset(character);
+				coreA.reset();
 				pathHole=null;
+				AStarPara.firstLaunch=true;
 			}
 		}
-		coreA.reset(character);
+		reset();
 		AStarPara.runAStar=false;
 		notify();
 	}
 	
+	private void reset() {
+		AStarPara.firstLaunch=true;
+		character.setCoordX(0);
+		character.setCoordY(0);
+		for(int i=0;i<AStarPara.Target.length;i++)
+			AStarPara.Target[i].setAchieved(false);
+	}
+
 	public void instrumentationAstar() {
 		if (coreA.getForm().getFormType().equals("Triangle"))
 			label_instrumLabel.setIcon(new ImageIcon("src/images/kurios_triangle.png"));
@@ -205,7 +218,6 @@ public class GUI extends JFrame implements Runnable{
 	private class StartQlearningAction implements ActionListener{
 		 public void actionPerformed(ActionEvent e) {
 			QLearningPara.runQlearning=true;
-			qtable = new DebugWindow();
 			Thread qLearningThread = new Thread(instance);
 			qLearningThread.start();
 		 }

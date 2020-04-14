@@ -14,6 +14,7 @@ import data.Target;
 import data.Trail;
 import data.WrongBox;
 import process.Map;
+import data.AStarPara;
 import data.AnalyzedBox;
 import data.Character;
 import data.Element;
@@ -137,13 +138,26 @@ public class DrawVisitor implements ElementVisitor<Void> {
 		Iterator<Trail> it;
 		Trail trail;
 		
+		Hole target1=AStarPara.Target[0];
+		Hole target2=AStarPara.Target[1];
+		Hole target3=AStarPara.Target[2];
+		
 		for(it=p.getPath().iterator();it.hasNext();) {
 			trail=it.next();
 			setI(trail.getY());
 			setJ(trail.getX());
-				
+			
+			//don't drawImage over the character
 			if(trail.getX()==cX && trail.getY()==cY)
 				continue;
+			
+			//don't drawImage over the target
+			else if( (trail.getX()==target1.getCoordX() && trail.getY()==target1.getCoordY())
+					|| (trail.getX()==target2.getCoordX() && trail.getY()==target2.getCoordY())
+					|| (trail.getX()==target3.getCoordX() && trail.getY()==target3.getCoordY()) ){
+				continue;
+			}
+			
 			else
 				trail.accept(this);
 		}						
