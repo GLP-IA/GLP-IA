@@ -1,5 +1,8 @@
 package data;
- /**
+
+import java.util.ArrayList;
+
+/**
   * all the parameters for Astar
   * 
   * @author Nathan VIRAYIE
@@ -18,6 +21,14 @@ public class AStarPara {
 	public static final int EMPTY_REWARD = 1; //cost of the movement
 	public static final int MALUS = -1;
 	
+	/**
+	 * Contains the founded path of the IA
+	 */
+	public static ArrayList<Node> pathToTriangle =new ArrayList<Node>();;
+	public static ArrayList<Node> pathToSquare =new ArrayList<Node>();;
+	public static ArrayList<Node> pathToCircle =new ArrayList<Node>();;
+	
+	public static boolean firstLaunch=true;
 	
 	/**
 	 * define which option should be run in the run() method
