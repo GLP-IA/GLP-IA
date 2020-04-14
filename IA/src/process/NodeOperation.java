@@ -36,10 +36,10 @@ public class NodeOperation {
 	                        node.setH(calcH(node,target));	//calculate the distance to the target
 	                        if(node.getH()<current.getH()) {
 		                        openSet.add(node);
-		                        //p.addToPath(new AnalyzedBox(node.getX(),node.getY()));
+		                        p.addToPath(new AnalyzedBox(node.getX(),node.getY()));
 	                        }
 	                        else {
-	                        	//p.addToPath(new WrongBox(node.getX(),node.getY()));
+	                        	p.addToPath(new WrongBox(node.getX(),node.getY()));
 	                        }
 	                }
 	            }
