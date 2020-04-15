@@ -91,6 +91,13 @@ public class Map{
 		map[hole3.getCoordX()][hole3.getCoordY()]=hole3;
 		
 		//we can add some obstacles
+		map[1][0]= new Obstacle (AStarPara.MALUS);
+		map[0][2]= new Obstacle (AStarPara.MALUS);
+		map[3][5]= new Obstacle (AStarPara.MALUS);
+		map[5][6]= new Obstacle (AStarPara.MALUS);
+		map[9][7]= new Obstacle (AStarPara.MALUS);
+		map[2][4]= new Obstacle (AStarPara.MALUS);
+
 	}
 	
 	public int getX() {

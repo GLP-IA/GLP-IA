@@ -82,7 +82,10 @@ public class DrawVisitor implements ElementVisitor<Void> {
 	}
 	
 	public Void visit(Hole elem) {
-		imageStrategy.setImage(graphics, elem,i,j);
+		if(elem.isAchieved())
+			imageStrategy.setImage(graphics, elem,i,j,true);
+		else
+			imageStrategy.setImage(graphics, elem,i,j);
 		return null;
 	}
 	

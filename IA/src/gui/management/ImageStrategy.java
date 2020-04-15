@@ -64,6 +64,19 @@ public class ImageStrategy {
 	public void setImage(Graphics graphics, Hole elem, int i, int j) {
 		try {
 			if(elem.getHoleType().equals("Triangle"))
+				graphics.drawImage(ImageIO.read(new File("src/images/unAchievedTriangle.png")), i*80+spacing, j*80+spacing, 80,80,null);
+			if(elem.getHoleType().equals("Square")) 
+				graphics.drawImage(ImageIO.read(new File("src/images/unAchievedSquare.png")), i*80+spacing, j*80+spacing, 80,80,null);
+			if(elem.getHoleType().equals("Circle")) 
+				graphics.drawImage(ImageIO.read(new File("src/images/unAchievedCircle.png")), i*80+spacing, j*80+spacing, 80,80,null);
+		}catch (IOException e) {
+			System.err.println("-- Can not read the image file ! --");
+		}
+	}
+	
+	public void setImage(Graphics graphics, Hole elem, int i, int j, boolean isAchieved) {
+		try {
+			if(elem.getHoleType().equals("Triangle"))
 				graphics.drawImage(ImageIO.read(new File("src/images/triangle.png")), i*80+spacing, j*80+spacing, 80,80,null);
 			if(elem.getHoleType().equals("Square")) 
 				graphics.drawImage(ImageIO.read(new File("src/images/square.png")), i*80+spacing, j*80+spacing, 80,80,null);

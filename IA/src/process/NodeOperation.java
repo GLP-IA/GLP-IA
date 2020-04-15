@@ -30,7 +30,7 @@ public class NodeOperation {
 	                if ((Math.abs(x)!=Math.abs(y)) // not currrent and not the diagonal
 	                    && current.getX() + x >= 0 && current.getX() + x < map.getWidth() // check map boundaries
 	                    && current.getY() + y >= 0 && current.getY() + y < map.getHeight()
-	                    && map.getCase(current.getY() + y, current.getX() + x).getReward() != AStarPara.MALUS// check if square is walkable
+	                    && (map.getCase(current.getX() + x, current.getY() + y).getReward() != AStarPara.MALUS)// check if square is walkable
 	                    && !findNeighborInList(openSet, node) && !findNeighborInList(closedSet, node)) { // if not already done
 	                        node.setG(node.getParent().getG() + 1); //add movement cost
 	                        node.setH(calcH(node,target));	//calculate the distance to the target
