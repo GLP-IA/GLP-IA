@@ -8,6 +8,7 @@ import process.QLearningCore;
 import data.Target;
 
 import data.Character;
+import data.MinMaxPara;
 import process.Map;
 
 import javax.swing.*;
@@ -81,6 +82,7 @@ public class GUI extends JFrame implements Runnable{
 				panel_button.add(button_astar);
 				
 				JButton button_minmax = new JButton("MinMax");
+				button_minmax.addActionListener(new StartMinMaxAction());
 				panel_button.add(button_minmax);
 				
 		//////////////PANEL INFO////////////////	
@@ -177,6 +179,22 @@ public class GUI extends JFrame implements Runnable{
 		notify();
 	}
 	
+	public synchronized void MinMax() throws InterruptedException{
+		if(MinMaxPara.runMinMax) {
+			wait();
+		}
+		this.repaint();
+		Thread.sleep(2000);
+		
+		MinMaxPara.runMinMax=false;
+		notify();
+	}
+	
+	
+	
+	
+	
+	
 	private void reset() {
 		AStarPara.firstLaunch=true;
 		character.setCoordX(0);
@@ -213,6 +231,13 @@ public class GUI extends JFrame implements Runnable{
 				e.printStackTrace();
 			}
 		}
+		else if(MinMaxPara.runMinMax) {
+			try {
+				MinMax();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	private class StartQlearningAction implements ActionListener{
@@ -228,6 +253,15 @@ public class GUI extends JFrame implements Runnable{
 			AStarPara.runAStar=true;
 			Thread aStarThread = new Thread(instance);
 			aStarThread.start();
+		 }
+	}
+	
+	
+	private class StartMinMaxAction implements ActionListener{
+		 public void actionPerformed(ActionEvent e) {
+			MinMaxPara.runMinMax=true;
+			Thread minMaxThread = new Thread(instance);
+			minMaxThread.start();
 		 }
 	}
 }
