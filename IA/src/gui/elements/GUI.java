@@ -28,9 +28,13 @@ public class GUI extends JFrame implements Runnable{
 	//Qlearning spec
 	private Target t=new Target(QLearningPara.REWARD,false);
 	private QLearningCore coreQ;
+	private DebugWindow qtable;
 		
 	//ASTar spec
 	private A_StarCore coreA;
+	
+	//MinMax spec
+	private MinMaxWindow minmaxWindow;
 
 	//Jpanel
 	private Dashboard dashboard = new Dashboard(map);
@@ -107,8 +111,10 @@ public class GUI extends JFrame implements Runnable{
 		for (int i = 0; i <= 100; i++) {
 			while(!t.isAchieved()) {
 				coreQ.run();
+				qtable.setText(coreQ.result());
 				this.repaint();
 				Thread.sleep(1);
+				
 			}
 			coreQ.reset();
 		}
@@ -179,22 +185,7 @@ public class GUI extends JFrame implements Runnable{
 		notify();
 	}
 	
-	public synchronized void MinMax() throws InterruptedException{
-		if(MinMaxPara.runMinMax) {
-			wait();
-		}
-		this.repaint();
-		Thread.sleep(2000);
-		
-		MinMaxPara.runMinMax=false;
-		notify();
-	}
-	
-	
-	
-	
-	
-	
+
 	private void reset() {
 		AStarPara.firstLaunch=true;
 		character.setCoordX(0);
@@ -231,13 +222,7 @@ public class GUI extends JFrame implements Runnable{
 				e.printStackTrace();
 			}
 		}
-		else if(MinMaxPara.runMinMax) {
-			try {
-				MinMax();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
+	
 	}
 	
 	private class StartQlearningAction implements ActionListener{
@@ -245,6 +230,7 @@ public class GUI extends JFrame implements Runnable{
 			QLearningPara.runQlearning=true;
 			Thread qLearningThread = new Thread(instance);
 			qLearningThread.start();
+			qtable = new DebugWindow();
 		 }
 	}
 	
@@ -260,6 +246,7 @@ public class GUI extends JFrame implements Runnable{
 	private class StartMinMaxAction implements ActionListener{
 		 public void actionPerformed(ActionEvent e) {
 			MinMaxPara.runMinMax=true;
+			minmaxWindow = new MinMaxWindow();
 			Thread minMaxThread = new Thread(instance);
 			minMaxThread.start();
 		 }

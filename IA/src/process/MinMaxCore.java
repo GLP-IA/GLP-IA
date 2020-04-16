@@ -1,10 +1,15 @@
 package process;
 
+
+
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import data.MinMaxPara;
 import data.Node_MinMax;
 import data.Tree;
+
 
 public class MinMaxCore {
 	
@@ -12,67 +17,132 @@ public class MinMaxCore {
 	private int nbOfCoins;
 	
 	public MinMaxCore() {
-		nbOfCoins = 10;
 		tree = new Tree();
-		Node_MinMax root = new Node_MinMax(nbOfCoins, true, 0, 0);
+		nbOfCoins = MinMaxPara.nbOfCoins;
+		Node_MinMax root = new Node_MinMax(nbOfCoins, false, 0, 0, 0);
 	    tree.setRoot(root);
-	    TreeBuilder.constructTree(tree.getTree());
+	    TreeBuilder.constructTree(tree);    
 	     
 	}
 	
 	
-	public boolean checkWin( Node_MinMax root) {
-        return root.getUtility() == 1;
+	public boolean checkWin(Node_MinMax root) {
+        return root.getUtility() == 1 && root.isLeaf();
     }
 
-    public void setWinner(Tree tree) {
-        ArrayList<Node_MinMax> children = tree.getTree();
-        
-        for (Iterator<Node_MinMax> child = children.iterator() ; child.hasNext() ; ){
-            if (child.next().getNbOfCoins() == 0) {
-            	if (child.next().isMaxPlayer()) 
-            		child.next().setUtility(-1);
-            	else  
-            		child.next().setUtility(1);
+   	
+	public void setWinner() {
+        Node_MinMax node;
+      	for (Iterator<Node_MinMax> it = tree.getTree().iterator(); it.hasNext();){
+      		node= it.next();
+            if (node.getNbOfCoins() == 0) {
+            	
+            	if (node.isMaxPlayer()) { 
+            		node.setUtility(1);
+            		
+            	}else { 
+            		node.setUtility(-1);
+            		
+            	}
             }
             
         }
         propagation();
     }
-    
-    public void propagation() {
+	
+	public void propagation() {
     	Node_MinMax parent;
     	int indexParent;
-    	for (int i=tree.getTree().size(); i >= 0; i--) {
-    		indexParent = tree.getTree().get(i).getParent();
+    	 for (int index=tree.getTree().size()-1; index >= 0; index--){
+    		indexParent = tree.getTree().get(index).getParent();
     		parent = tree.getTree().get(indexParent);
-    		parent.setUtility(tree.getTree().get(i).getUtility() + parent.getUtility());
+    		parent.setUtility(tree.getTree().get(index).getUtility() + parent.getUtility());
     	}
     }
-    
-    
-    public Node_MinMax findBestChild(ArrayList<Node_MinMax> children, boolean isMaxPlayer) {
-    	int max = children.get(0).getUtility();
-    	int min = children.get(0).getUtility();
-    	Node_MinMax bestChild = children.get(0);
-    	for (Iterator<Node_MinMax> child = children.iterator() ; child.hasNext() ; ){
-    	  if (child.next().getUtility() > max && isMaxPlayer) {
-    		  max = child.next().getUtility();
-    		  bestChild = child.next();
-    	  } else if (child.next().getUtility() < min && !isMaxPlayer) {
-    		  min = child.next().getUtility();
-    		  bestChild = child.next();
-    	  }
-      }
+    	
+	  public ArrayList<Node_MinMax> getTreeCore() {
+			return tree.getTree();
+		}
+
+
+		public int getNbOfCoinsCore() {
+			return nbOfCoins;
+		}
+		
+
+	    
+	 
+	    /*
+	public Node_MinMax secondPlayerTurn (int choice, Node_MinMax node) {
+		if(choice == 3) {
+			return tree.getTree().get(node.rightChild());
+		}
+		
+		if(choice == 2) {
+			return tree.getTree().get(node.middleChild());
+		}
+		if(choice == 1) {
+			return tree.getTree().get(node.leftChild());
+		}
+		return null;
+	}
+	    
+	    
+    public Node_MinMax findBestChild( Node_MinMax node) {
+    	int max = tree.getTree().get(node.leftChild()).getUtility();
+    	Node_MinMax bestChild = tree.getTree().get(node.leftChild());
+    	 for (int index= node.leftChild(); index <= node.rightChild(); index++){
+    		 if (tree.getTree().get(index).getUtility() > max) {
+    			 max = tree.getTree().get(index).getUtility();
+	    		  bestChild = tree.getTree().get(index);
+	    	  } 
+    	 }
         
         return bestChild;
     }
+    */
+	    
+	    
+		public Node_MinMax secondPlayerTurn (int choice, Node_MinMax nodeMinMax) {
+			
+			int result = nodeMinMax.getNbOfCoins() - choice;
+			Node_MinMax node;
+			// parcourir et chercher dans l 'ArrayList un noeud = result et qui a pour parent l'index du noeud  passer en parametre
+			if(result < 0)
+				result = 0;
+			for (Iterator<Node_MinMax> it = tree.getTree().iterator(); it.hasNext();){
+				node = it.next();
+	        	if (node.getNbOfCoins() == result && node.getParent() == nodeMinMax.getIndex() ) 
+	        		nodeMinMax = node;	
+			}
+		
+			return  nodeMinMax;//ici
+			
+		}
+    
+		public Node_MinMax findBestChild( Node_MinMax nodeMinMax) {
+			Node_MinMax node;
+	    	int valueleftChild= nodeMinMax.getNbOfCoins() - 1;//valeur du filsG
+	    	Node_MinMax nodeleft = null;
+	    	// parcourir et chercher dans l 'ArrayList un noeud = result et qui a pour parent l'index du noeud  passer en parametre 
+	    	
+	    	for (Iterator<Node_MinMax> it = tree.getTree().iterator(); it.hasNext();){
+	        	node = it.next();
+	        	if (node.getNbOfCoins() == valueleftChild && node.getParent() == nodeMinMax.getIndex() ) {
+	        		nodeleft = node;
+	        		break;
+	        	}
+	    	}	    	
+	    	Node_MinMax bestChild = nodeleft;   
+	    	int max = bestChild.getUtility();
+	    	 for (int i= nodeleft.getIndex(); i <= nodeleft.getIndex()+2; i++){ //
+	    		 if (tree.getTree().get(i).getUtility() > max) {
+	    			 max = tree.getTree().get(i).getUtility();
+		    		  bestChild = tree.getTree().get(i);
+		    	  } 
+	    	 }
+	        
+	        return bestChild;
+	    }
+	}
 
-  //mettre condition de fin : lorqu'un des joueurs ne peut plus prendre de coins
-    boolean isLeaf() {
-        return nbOfCoins == 0;
-    }
-     
-    
-    
-}

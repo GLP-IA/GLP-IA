@@ -1,7 +1,7 @@
 package data;
 
 public class MinMaxPara {
-	public static final int nbOfCoins = 5;
+	public static final int nbOfCoins = 10;
 	
 	/**
 	 * define which option should be run in the run() method

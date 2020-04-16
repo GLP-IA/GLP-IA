@@ -15,9 +15,9 @@ public class TreeBuilder {
         	if (node.getNbOfCoins() > 0) {
         		for (int i =1; i<4; i++) {
         			if(node.getNbOfCoins() - i <=0)
-        				newNode = new Node_MinMax(0, !node.isMaxPlayer(), ((cpt-1)/3), 0);// créér un noeud pr le 2eme joueur
+        				newNode = new Node_MinMax(0, !node.isMaxPlayer(), node.getIndex(), cpt,0);// créér un noeud pr le 2eme joueur
         			else
-        				newNode = new Node_MinMax((node.getNbOfCoins() - i) , !node.isMaxPlayer(), ((cpt-1)/3), 0);// créér un noeud pr le 2eme joueur
+        				newNode = new Node_MinMax((node.getNbOfCoins() - i) , !node.isMaxPlayer(), node.getIndex(), cpt, 0);// créér un noeud pr le 2eme joueur
         			tree.addNode(newNode);
         			cpt++;
         		}
