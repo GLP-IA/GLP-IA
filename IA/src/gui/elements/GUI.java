@@ -31,9 +31,6 @@ public class GUI extends JFrame implements Runnable{
 		
 	//ASTar spec
 	private A_StarCore coreA;
-	
-	//MinMax spec
-	private MinMaxWindow minmaxWindow;
 
 	//Jpanel
 	private Dashboard dashboard = new Dashboard(map);
@@ -248,9 +245,7 @@ public class GUI extends JFrame implements Runnable{
 	private class StartMinMaxAction implements ActionListener{
 		 public void actionPerformed(ActionEvent e) {
 			MinMaxPara.runMinMax=true;
-			minmaxWindow = new MinMaxWindow();
-			Thread minMaxThread = new Thread(instance);
-			minMaxThread.start();
+			MinMaxWindow minmaxWindow = new MinMaxWindow();
 		 }
 	}
 }
