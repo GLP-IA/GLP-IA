@@ -35,8 +35,9 @@ public class NodeOperation {
 	                    && !findNeighborInList(openSet, node) && !findNeighborInList(closedSet, node)) { // if not already done
 	                        node.setG(node.getParent().getG() + 1); //add movement cost
 	                        node.setH(calcH(node,target));	//calculate the distance to the target
-	                        if(node.getH()<current.getH()) {
-		                        openSet.add(node);
+	                        
+		                    openSet.add(node);
+		                    if(node.getH()<current.getH()) {
 		                        if(!alreadyExist(p, new AnalyzedBox(node.getX(),node.getY())))
 		                        	p.addToPath(new AnalyzedBox(node.getX(),node.getY()));
 	                        }
