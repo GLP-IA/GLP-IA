@@ -1,16 +1,10 @@
 package data;
 
-
-
-//import data.Player;
-
-
 public class Node_MinMax {
 	
     private int nbOfCoins;
     private boolean isMaxPlayer; 
-    //private boolean secondPlayer = !isMaxPlayer;
-    private int utility; // utility correspond au score des noeuds
+    private int utility; // utility correspond a l'evaluation du noeud
     private int parent;
     private int index;
    
@@ -48,37 +42,9 @@ public class Node_MinMax {
    public boolean isLeaf() {
        return nbOfCoins == 0;
    }
-   /*
-    public ArrayList<Node_MinMax> getChildren() {
-        return children;
-    }
 
-    public void addChild(Node_MinMax newNode) {
-        children.add(newNode);
-    }
-    */
-   
-   /*
-   public int rightChild () {
-	  return middleChild()+1;
-   }
-   
-   public int middleChild () {
-		  return leftChild()+1;
-   }
-   
-   public int leftChild () {
-	   if (nbOfCoins == 0)
-		  return index+1;
-	   else 
-		   return (3*index)+1;
-   }
-   */
    public int getIndex () {
 		return index;
    }
 	
 }
-	
-	
-

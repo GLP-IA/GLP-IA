@@ -60,89 +60,54 @@ public class MinMaxCore {
     	}
     }
     	
-	  public ArrayList<Node_MinMax> getTreeCore() {
-			return tree.getTree();
-		}
-
-
-		public int getNbOfCoinsCore() {
-			return nbOfCoins;
-		}
-		
-
-	    
-	 
-	    /*
-	public Node_MinMax secondPlayerTurn (int choice, Node_MinMax node) {
-		if(choice == 3) {
-			return tree.getTree().get(node.rightChild());
-		}
-		
-		if(choice == 2) {
-			return tree.getTree().get(node.middleChild());
-		}
-		if(choice == 1) {
-			return tree.getTree().get(node.leftChild());
-		}
-		return null;
+  public ArrayList<Node_MinMax> getTreeCore() {
+		return tree.getTree();
 	}
-	    
-	    
-    public Node_MinMax findBestChild( Node_MinMax node) {
-    	int max = tree.getTree().get(node.leftChild()).getUtility();
-    	Node_MinMax bestChild = tree.getTree().get(node.leftChild());
-    	 for (int index= node.leftChild(); index <= node.rightChild(); index++){
-    		 if (tree.getTree().get(index).getUtility() > max) {
-    			 max = tree.getTree().get(index).getUtility();
-	    		  bestChild = tree.getTree().get(index);
+
+
+	public int getNbOfCoinsCore() {
+		return nbOfCoins;
+	}
+	
+	public Node_MinMax secondPlayerTurn (int choice, Node_MinMax nodeMinMax) {
+		
+		int result = nodeMinMax.getNbOfCoins() - choice;
+		Node_MinMax node;
+		// parcourir et chercher dans l 'ArrayList un noeud = result et qui a pour parent l'index du noeud  passer en parametre
+		if(result < 0)
+			result = 0;
+		for (Iterator<Node_MinMax> it = tree.getTree().iterator(); it.hasNext();){
+			node = it.next();
+        	if (node.getNbOfCoins() == result && node.getParent() == nodeMinMax.getIndex() ) 
+        		nodeMinMax = node;	
+		}
+	
+		return  nodeMinMax;//ici
+		
+	}
+
+	public Node_MinMax findBestChild( Node_MinMax nodeMinMax) {
+		Node_MinMax node;
+    	int valueleftChild= nodeMinMax.getNbOfCoins() - 1;//valeur du filsG
+    	Node_MinMax nodeleft = null;
+    	// parcourir et chercher dans l 'ArrayList un noeud = result et qui a pour parent l'index du noeud  passer en parametre 
+    	
+    	for (Iterator<Node_MinMax> it = tree.getTree().iterator(); it.hasNext();){
+        	node = it.next();
+        	if (node.getNbOfCoins() == valueleftChild && node.getParent() == nodeMinMax.getIndex() ) {
+        		nodeleft = node;
+        		break;
+        	}
+    	}	    	
+    	Node_MinMax bestChild = nodeleft;   
+    	int max = bestChild.getUtility();
+    	 for (int i= nodeleft.getIndex(); i <= nodeleft.getIndex()+2; i++){ //
+    		 if (tree.getTree().get(i).getUtility() > max) {
+    			 max = tree.getTree().get(i).getUtility();
+	    		  bestChild = tree.getTree().get(i);
 	    	  } 
     	 }
         
         return bestChild;
     }
-    */
-	    
-	    
-		public Node_MinMax secondPlayerTurn (int choice, Node_MinMax nodeMinMax) {
-			
-			int result = nodeMinMax.getNbOfCoins() - choice;
-			Node_MinMax node;
-			// parcourir et chercher dans l 'ArrayList un noeud = result et qui a pour parent l'index du noeud  passer en parametre
-			if(result < 0)
-				result = 0;
-			for (Iterator<Node_MinMax> it = tree.getTree().iterator(); it.hasNext();){
-				node = it.next();
-	        	if (node.getNbOfCoins() == result && node.getParent() == nodeMinMax.getIndex() ) 
-	        		nodeMinMax = node;	
-			}
-		
-			return  nodeMinMax;//ici
-			
-		}
-    
-		public Node_MinMax findBestChild( Node_MinMax nodeMinMax) {
-			Node_MinMax node;
-	    	int valueleftChild= nodeMinMax.getNbOfCoins() - 1;//valeur du filsG
-	    	Node_MinMax nodeleft = null;
-	    	// parcourir et chercher dans l 'ArrayList un noeud = result et qui a pour parent l'index du noeud  passer en parametre 
-	    	
-	    	for (Iterator<Node_MinMax> it = tree.getTree().iterator(); it.hasNext();){
-	        	node = it.next();
-	        	if (node.getNbOfCoins() == valueleftChild && node.getParent() == nodeMinMax.getIndex() ) {
-	        		nodeleft = node;
-	        		break;
-	        	}
-	    	}	    	
-	    	Node_MinMax bestChild = nodeleft;   
-	    	int max = bestChild.getUtility();
-	    	 for (int i= nodeleft.getIndex(); i <= nodeleft.getIndex()+2; i++){ //
-	    		 if (tree.getTree().get(i).getUtility() > max) {
-	    			 max = tree.getTree().get(i).getUtility();
-		    		  bestChild = tree.getTree().get(i);
-		    	  } 
-	    	 }
-	        
-	        return bestChild;
-	    }
-	}
-
+}

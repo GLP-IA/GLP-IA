@@ -12,7 +12,6 @@ import data.GoodBox;
 import data.Hole;
 import data.Node;
 import data.PathAstar;
-import data.Score;
 import data.AStarPara;
 
 public class A_StarCore {
@@ -21,7 +20,6 @@ public class A_StarCore {
 	private PathAstar historic;
 	private boolean uselessAnalyse;
 	
-	public Score score=new Score();
 	
 	private Queue<Node> openSet; // L'ensemble des noeuds decouverts qui peuvent avoir besoin d'etre (re)developpe
 	private ArrayList<Node> closedSet;//l'ensemble des noeud correcte
