@@ -30,43 +30,26 @@ public class GameMachine {
 		return minmaxCore;
 	}
 
-	/**
-	 * 
-	 */
 	public void KuriosTurn() {
 		Node_MinMax bestChild = null;
-			System.out.print("COINS = " + nbOfCoins+ "");
-			//tour de Kurios
-			bestChild = minmaxCore.findBestChild(currentNode);
-			nbOfCoins = bestChild.getNbOfCoins();
-			currentNode = bestChild;
-		
-			System.out.println(" after Kurios Turn COINS = " + nbOfCoins);
-			if (minmaxCore.checkWin(currentNode))
-				System.out.println("Kurios Win !");
+		System.out.print(" KURIOS TURN SCORE = " + nbOfCoins+ "");
+		bestChild = minmaxCore.findBestChild(currentNode);
+		nbOfCoins = bestChild.getNbOfCoins();
+		currentNode = bestChild;
+	
+		System.out.println(" after Kurios Turn COINS = " + nbOfCoins);
 	}
-			// Tour de l'adversaire
 			
 	public void OpponentTurn(int choice) {
-		System.out.print("COINS = " + nbOfCoins+ "");
+		System.out.println("YOUR TURN SCORE = " + nbOfCoins+ "");
 		Node_MinMax secondPlayer = null;
 		secondPlayer =minmaxCore.secondPlayerTurn(choice,currentNode);
 		nbOfCoins = secondPlayer.getNbOfCoins();
 		currentNode = secondPlayer;
-		System.out.println(" after Opponent Turn COINS = " + nbOfCoins);
-		
-		if (minmaxCore.checkWin(currentNode))
-			System.out.println("Kurios Win !");
-	}		
-				
-		
+		System.out.println("You have choise" + choice);
+	}	
 	
-		
-	
+	public boolean whoHasWin() {
+		return minmaxCore.checkWin(currentNode);
+	}
 }
-
-	
-
-
-
-
