@@ -28,7 +28,6 @@ public class GUI extends JFrame implements Runnable{
 	//Qlearning spec
 	private Target t=new Target(QLearningPara.REWARD,false);
 	private QLearningCore coreQ;
-	private DebugWindow qtable;
 		
 	//ASTar spec
 	private A_StarCore coreA;
@@ -40,6 +39,8 @@ public class GUI extends JFrame implements Runnable{
 	private Dashboard dashboard = new Dashboard(map);
 	private JLabel label_instrumLabel = new JLabel("");
 	
+	private DebugWindow qtable;
+
 	
 	private Runnable instance = this;
 	
@@ -114,7 +115,6 @@ public class GUI extends JFrame implements Runnable{
 				qtable.setText(coreQ.result());
 				this.repaint();
 				Thread.sleep(1);
-				
 			}
 			coreQ.reset();
 		}
@@ -130,10 +130,12 @@ public class GUI extends JFrame implements Runnable{
 		//exploitation
 		while(!t.isAchieved()) {
 			coreQ.run();
+			qtable.setText(coreQ.result());
 			this.repaint();
 			Thread.sleep(2000);
 		}
 		QLearningPara.runQlearning=false;
+		qtable.dispose();
 		notify();
 	}
 	
@@ -228,9 +230,9 @@ public class GUI extends JFrame implements Runnable{
 	private class StartQlearningAction implements ActionListener{
 		 public void actionPerformed(ActionEvent e) {
 			QLearningPara.runQlearning=true;
+			qtable = new DebugWindow();
 			Thread qLearningThread = new Thread(instance);
 			qLearningThread.start();
-			qtable = new DebugWindow();
 		 }
 	}
 	
