@@ -127,7 +127,9 @@ public class A_StarCore {
 	public void usePath(Character character, Node node) {
 		character.setCoordX(node.getX());
 		character.setCoordY(node.getY());
-		historic.addToPath(new GoodBox(node.getX(),node.getY()));
+		
+		if(!NodeOperation.alreadyExist(historic, new GoodBox(node.getX(),node.getY())))
+				historic.addToPath(new GoodBox(node.getX(),node.getY()));
 		
 		//Save the path
 		if(form.getFormType().equals("Triangle"))
@@ -184,7 +186,7 @@ public class A_StarCore {
 	public void debug(Node current, Hole hole) {
 		System.out.println("H:"+current.getH()+" G:"+current.getG()+" F:"+NodeOperation.calcF(current));
 		System.out.println("Trous:"+hole.getHoleType()+"\tForme:"+form.getFormType());
-		//System.out.println("xNode="+current.getX()+" yNode="+current.getY()+"\txHole="+hole.getCoordX()+" yHole="+hole.getCoordY());
+		System.out.println("xNode="+current.getX()+" yNode="+current.getY()+"\txHole="+hole.getCoordX()+" yHole="+hole.getCoordY());
 		//map.printMapA_Star();
 	}
 

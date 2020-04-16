@@ -9,6 +9,7 @@ import data.AnalyzedBox;
 import data.Hole;
 import data.Node;
 import data.PathAstar;
+import data.Trail;
 import data.WrongBox;
 
 public class NodeOperation {
@@ -36,10 +37,12 @@ public class NodeOperation {
 	                        node.setH(calcH(node,target));	//calculate the distance to the target
 	                        if(node.getH()<current.getH()) {
 		                        openSet.add(node);
-		                        p.addToPath(new AnalyzedBox(node.getX(),node.getY()));
+		                        if(!alreadyExist(p, new AnalyzedBox(node.getX(),node.getY())))
+		                        	p.addToPath(new AnalyzedBox(node.getX(),node.getY()));
 	                        }
 	                        else {
-	                        	p.addToPath(new WrongBox(node.getX(),node.getY()));
+	                        	if(!alreadyExist(p, new WrongBox(node.getX(),node.getY())))
+	                        		p.addToPath(new WrongBox(node.getX(),node.getY()));
 	                        }
 	                }
 	            }
@@ -60,6 +63,30 @@ public class NodeOperation {
 		    		return true;
 			}
 			return false;
+	    }
+	    
+	    /**
+	     * Verify if the trail is not already in the historic (replace the old one if it exist)
+	     * 
+	     * @param p
+	     * @param t
+	     * @return the existence of the trail in the historic
+	     */
+	    public static boolean alreadyExist(PathAstar p, Trail t) {
+	    	boolean exist=false;
+	    	int cpt=0;
+	    	Iterator<Trail> it;
+			Trail compare;
+			for(it=p.getPath().iterator();it.hasNext();) {
+				compare=it.next();
+		    	if(t.getX()==compare.getX() && t.getY()==compare.getY()) {
+		    		exist=true;
+		    		p.getPath().set(cpt, t);
+		    		return exist;
+		    	}
+		    	cpt++;
+			}
+			return exist;
 	    }
 	    
 		/**
