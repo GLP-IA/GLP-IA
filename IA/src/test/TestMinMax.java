@@ -19,13 +19,13 @@ public class TestMinMax {
 		    	Node_MinMax node = it.next();
 		    	System.out.println(" n°" +node.getIndex() + " nbOfCoins: " +node.getNbOfCoins() + " parent : " + node.getParent() +" isMaxPlayer : "
 		    	+ node.isMaxPlayer() + " utility : " + node.getUtility() 
-		    	+ " isLeaf : " + minmaxCore.isLeaf(node) + " checkWin : " + minmaxCore.checkWin(node));
+		    	+ " isLeaf : " + node.isLeaf() + " checkWin : " + minmaxCore.checkWin(node));
 		 }
 		 int i = 0;
 		Node_MinMax bestChild = minmaxCore.findBestChild(minmaxCore.getTreeCore().get(i));
 		 System.out.println("node : " + i +" his bestChild index : " + bestChild.getIndex() + " nbOfCoins: " + bestChild.getNbOfCoins());
 		
-			game.Round(2);
+		//	game.Round(2);
 		
 	}
 	
