@@ -1,8 +1,5 @@
 package process;
 
-
-
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -21,13 +18,12 @@ public class MinMaxCore {
 		nbOfCoins = MinMaxPara.nbOfCoins;
 		Node_MinMax root = new Node_MinMax(nbOfCoins, false, 0, 0, 0);
 	    tree.setRoot(root);
-	    TreeBuilder.constructTree(tree);    
-	     
+	    TreeBuilder.constructTree(tree);  
 	}
 	
 	
 	public boolean checkWin(Node_MinMax root) {
-        return root.getUtility() == 1 && root.isLeaf();
+        return (root.getUtility() == 1 && root.isLeaf());
     }
 
    	
@@ -36,16 +32,12 @@ public class MinMaxCore {
       	for (Iterator<Node_MinMax> it = tree.getTree().iterator(); it.hasNext();){
       		node= it.next();
             if (node.getNbOfCoins() == 0) {
-            	
-            	if (node.isMaxPlayer()) { 
+            	if (node.isMaxPlayer())
             		node.setUtility(1);
-            		
-            	}else { 
+
+            	else
             		node.setUtility(-1);
-            		
-            	}
-            }
-            
+            }   
         }
         propagation();
     }
@@ -70,27 +62,25 @@ public class MinMaxCore {
 	}
 	
 	public Node_MinMax secondPlayerTurn (int choice, Node_MinMax nodeMinMax) {
-		
 		int result = nodeMinMax.getNbOfCoins() - choice;
 		Node_MinMax node;
-		// parcourir et chercher dans l 'ArrayList un noeud = result et qui a pour parent l'index du noeud  passer en parametre
+		
 		if(result < 0)
 			result = 0;
+		
 		for (Iterator<Node_MinMax> it = tree.getTree().iterator(); it.hasNext();){
 			node = it.next();
         	if (node.getNbOfCoins() == result && node.getParent() == nodeMinMax.getIndex() ) 
         		nodeMinMax = node;	
 		}
-	
-		return  nodeMinMax;//ici
-		
+		return  nodeMinMax;
 	}
 
 	public Node_MinMax findBestChild( Node_MinMax nodeMinMax) {
 		Node_MinMax node;
-    	int valueleftChild= nodeMinMax.getNbOfCoins() - 1;//valeur du filsG
+    	int valueleftChild= nodeMinMax.getNbOfCoins() - 1;
     	Node_MinMax nodeleft = null;
-    	// parcourir et chercher dans l 'ArrayList un noeud = result et qui a pour parent l'index du noeud  passer en parametre 
+    	Node_MinMax bestChild;
     	
     	for (Iterator<Node_MinMax> it = tree.getTree().iterator(); it.hasNext();){
         	node = it.next();
@@ -98,16 +88,17 @@ public class MinMaxCore {
         		nodeleft = node;
         		break;
         	}
-    	}	    	
-    	Node_MinMax bestChild = nodeleft;   
+    	}
+    	
+    	bestChild = nodeleft;   
     	int max = bestChild.getUtility();
-    	 for (int i= nodeleft.getIndex(); i <= nodeleft.getIndex()+2; i++){ //
-    		 if (tree.getTree().get(i).getUtility() > max) {
-    			 max = tree.getTree().get(i).getUtility();
-	    		  bestChild = tree.getTree().get(i);
-	    	  } 
-    	 }
-        
+    	
+    	for (int i= nodeleft.getIndex(); i <= nodeleft.getIndex()+2; i++){ //
+    		if (tree.getTree().get(i).getUtility() > max) {
+    			max = tree.getTree().get(i).getUtility();
+    			bestChild = tree.getTree().get(i);
+    		} 
+    	}
         return bestChild;
     }
 }
