@@ -52,7 +52,7 @@ public class MinMaxWindow extends JFrame implements Runnable {
 		//////////////PANEL BOUTON///////////////
 		JPanel panel_button = new JPanel();
 		panel_button.setBackground(Color.GRAY);
-		panel_button.setBounds(400, 475, 200, 200);
+		panel_button.setBounds(395, 485, 200, 200);
 		this.getContentPane().add(panel_button);
 		panel_button.setLayout(new GridLayout(0, 1, 0, 20));
 		
@@ -80,7 +80,7 @@ public class MinMaxWindow extends JFrame implements Runnable {
 		
 		scorePanel.setEditable(false);
 		scorePanel.setFont(new Font("Arial",Font.BOLD,30));
-		scorePanel.setBounds(500, 0, 320, 150);
+		scorePanel.setBounds(330, 365, 320, 100);
 		this.getContentPane().add(scorePanel);
 	}
 
