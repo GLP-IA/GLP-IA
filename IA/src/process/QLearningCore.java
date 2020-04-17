@@ -127,7 +127,7 @@ public class QLearningCore {
 	 * réduit le taux d'exploration pour ainsi favoriser l'exploitation
 	 */
 	public void dicreasedExploration() {
-		QLearningPara.GAMMA-=0.8;
+		QLearningPara.GAMMA=0;
 	}
 	
 	/**

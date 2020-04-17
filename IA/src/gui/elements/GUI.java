@@ -132,6 +132,7 @@ public class GUI extends JFrame implements Runnable{
 			Thread.sleep(2000);
 		}
 		QLearningPara.runQlearning=false;
+		QLearningPara.GAMMA=0.9;
 		qtable.dispose();
 		notify();
 	}
