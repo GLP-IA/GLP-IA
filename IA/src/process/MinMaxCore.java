@@ -6,7 +6,11 @@ import java.util.Iterator;
 import data.MinMaxPara;
 import data.Node_MinMax;
 import data.Tree;
-
+/**
+ * Contains all the specifics of the minmax core
+ * 
+ * @author Nathan Virayie
+ */
 
 public class MinMaxCore {
 	
@@ -21,13 +25,21 @@ public class MinMaxCore {
 	    TreeBuilder.constructTree(tree);  
 	}
 	
-	
-	public boolean checkWin(Node_MinMax root) {
-        return (root.getUtility() == 1 && root.isLeaf());
+	/**
+	 * Verify if the node is a winning option for minmax
+	 * 
+	 * @param node to verify
+	 * @return true if minmax win / false if it's not a leaf or the opponent win
+	 */
+	public boolean checkWin(Node_MinMax node) {
+        return (node.getUtility() == 1 && node.isLeaf());
     }
 
-   	
-	public void setWinner() {
+   	/**
+   	 * Distributes positive utility on the winning nodes and a negative one on the others
+   	 * 
+   	 */
+	public void evaluate() {
         Node_MinMax node;
       	for (Iterator<Node_MinMax> it = tree.getTree().iterator(); it.hasNext();){
       		node= it.next();
@@ -42,6 +54,9 @@ public class MinMaxCore {
         propagation();
     }
 	
+	/**
+	 * Spreads the utilities from the leaf to the roots of the tree
+	 */
 	public void propagation() {
     	Node_MinMax parent;
     	int indexParent;
@@ -65,7 +80,7 @@ public class MinMaxCore {
 		int result = nodeMinMax.getNbOfCoins() - choice;
 		Node_MinMax node;
 		
-		if(result < 0)
+		if(result <= 0)
 			result = 0;
 		
 		for (Iterator<Node_MinMax> it = tree.getTree().iterator(); it.hasNext();){
@@ -76,6 +91,12 @@ public class MinMaxCore {
 		return  nodeMinMax;
 	}
 
+	/**
+	 * Look for the best option from the current node
+	 * 
+	 * @param nodeMinMax the current node
+	 * @return the child node with the best utility
+	 */
 	public Node_MinMax findBestChild( Node_MinMax nodeMinMax) {
 		Node_MinMax node;
     	int valueleftChild= nodeMinMax.getNbOfCoins() - 1;
