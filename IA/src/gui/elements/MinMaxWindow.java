@@ -80,14 +80,14 @@ public class MinMaxWindow extends JFrame implements Runnable {
 		
 		scorePanel.setEditable(false);
 		scorePanel.setFont(new Font("Arial",Font.BOLD,30));
-		scorePanel.setBounds(330, 365, 320, 100);
+		scorePanel.setBounds(310, 340, 370, 170);
 		this.getContentPane().add(scorePanel);
 	}
 
 	public synchronized void play() throws InterruptedException{		
 		while (game.getNbOfCoins() > 0 ){	
 			if(!game.getCurrentNode().isMaxPlayer() && hasPlay) {
-				scorePanel.setText("COINS: "+Integer.toString(game.getNbOfCoins())+"\nMINMAX TURN TURN");
+				scorePanel.setText("               COINS: "+Integer.toString(game.getNbOfCoins())+"\n\n   MINMAX TURN TURN");
 				image.setIcon(kuriosImage);
 				this.repaint();
 				Thread.sleep(1000);
@@ -99,7 +99,7 @@ public class MinMaxWindow extends JFrame implements Runnable {
 			else{
 				image.setIcon(opponentImage);
 				this.repaint();
-				scorePanel.setText("COINS: "+Integer.toString(game.getNbOfCoins())+"\nYOUR TURN");
+				scorePanel.setText("               COINS: "+Integer.toString(game.getNbOfCoins())+"\n\n            YOUR TURN");
 				
 				if(!hasPlay) {
 					wait();
@@ -113,9 +113,9 @@ public class MinMaxWindow extends JFrame implements Runnable {
 		}
 		
 		if (game.whoHasWin())
-			scorePanel.setText("Kurios Win !");
+			scorePanel.setText("             Kurios Win !");
 		else
-			scorePanel.setText("YOU Win !");
+			scorePanel.setText("             YOU Win !");
 	}
 	public void reset() {
 		game = new GameMachine();
