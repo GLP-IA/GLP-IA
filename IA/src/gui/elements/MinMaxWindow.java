@@ -117,6 +117,9 @@ public class MinMaxWindow extends JFrame implements Runnable {
 		else
 			scorePanel.setText("YOU Win !");
 	}
+	public void reset() {
+		game = new GameMachine();
+	}
 	
 	public void run() {
 		try {
@@ -129,6 +132,7 @@ public class MinMaxWindow extends JFrame implements Runnable {
 	
 	private class StartGameAction implements ActionListener{
 		 public void actionPerformed(ActionEvent e) {
+			reset();
 			MinMaxPara.runMinMax=true;
 			minMaxThread = new Thread(instance);
 			minMaxThread.start();

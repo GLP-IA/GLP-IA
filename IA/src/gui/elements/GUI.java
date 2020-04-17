@@ -8,7 +8,6 @@ import process.QLearningCore;
 import data.Target;
 
 import data.Character;
-import data.MinMaxPara;
 import process.Map;
 
 import javax.swing.*;
@@ -45,9 +44,10 @@ public class GUI extends JFrame implements Runnable{
 	public GUI() {
 		init();
 	}
-	
+	/**
+	 *Definition des bases de la fenetre
+	 */
 	public void init() {
-		//definition des bases de la fenetre
 		this.setTitle("KURIOS");
 		this.setSize(1500, 1000);
 		this.setExtendedState(MAXIMIZED_BOTH);	
@@ -57,7 +57,7 @@ public class GUI extends JFrame implements Runnable{
 		this.getContentPane().setLayout(null);
 		this.getContentPane().setBackground(Color.DARK_GRAY);
 		
-		//ajout de la Map
+		//ajout de la grille
 		dashboard.setBounds(50, 50, 850, 850);
 		this.getContentPane().add(dashboard);
 		
@@ -74,18 +74,18 @@ public class GUI extends JFrame implements Runnable{
 		this.getContentPane().add(panel_button);
 		panel_button.setLayout(new GridLayout(0, 1, 0, 20));
 		
-				//Ajout des boutons
-				JButton button_qlearning= new JButton("QLEARNING");
-				button_qlearning.addActionListener(new StartQlearningAction());
-				panel_button.add(button_qlearning);
-				
-				JButton button_astar = new JButton("A*");
-				button_astar.addActionListener(new StartAStarAction());
-				panel_button.add(button_astar);
-				
-				JButton button_minmax = new JButton("MinMax");
-				button_minmax.addActionListener(new StartMinMaxAction());
-				panel_button.add(button_minmax);
+		//Ajout des boutons
+		JButton button_qlearning= new JButton("QLEARNING");
+		button_qlearning.addActionListener(new StartQlearningAction());
+		panel_button.add(button_qlearning);
+		
+		JButton button_astar = new JButton("A*");
+		button_astar.addActionListener(new StartAStarAction());
+		panel_button.add(button_astar);
+		
+		JButton button_minmax = new JButton("MinMax");
+		button_minmax.addActionListener(new StartMinMaxAction());
+		panel_button.add(button_minmax);
 				
 		//////////////PANEL INFO////////////////	
 		label_instrumLabel.setBounds(1000, 420, 500, 500);
@@ -221,7 +221,6 @@ public class GUI extends JFrame implements Runnable{
 				e.printStackTrace();
 			}
 		}
-	
 	}
 	
 	private class StartQlearningAction implements ActionListener{
@@ -241,10 +240,8 @@ public class GUI extends JFrame implements Runnable{
 		 }
 	}
 	
-	
 	private class StartMinMaxAction implements ActionListener{
 		 public void actionPerformed(ActionEvent e) {
-			MinMaxPara.runMinMax=true;
 			MinMaxWindow minmaxWindow = new MinMaxWindow();
 		 }
 	}
